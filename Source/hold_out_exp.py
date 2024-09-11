@@ -1,5 +1,5 @@
 import argparse
-import utils_hold_out as utils_hold_out
+import Source.hold_out_utils as hold_out_utils
 
 # to run: rm -r ./0-167184; python main_hold_out.py -split 0.5 -scheme tournament -task_id 167184 -n_jobs 10 -savepath ./ -seed 0 -task_type 1
 
@@ -7,7 +7,7 @@ def main():
     # read in arguements
     parser = argparse.ArgumentParser()
     # split proportion we are using
-    parser.add_argument("-split", required=True, nargs='?')
+    parser.add_argument("-split_select", required=True, nargs='?')
     # what selection scheme are we using
     parser.add_argument("-scheme", required=True, nargs='?')
     # what openml task are we using
@@ -22,8 +22,8 @@ def main():
     parser.add_argument("-task_type", required=True, nargs='?')
 
     args = parser.parse_args()
-    split = float(args.split)
-    print('Split:', split)
+    split_select = float(args.split_select)
+    print('Split:', split_select)
     scheme = str(args.scheme)
     print('Scheme:', scheme)
     task_id = int(args.task_id)
@@ -51,7 +51,7 @@ def main():
     assert task_id in task_id_lists, 'Task ID not in list of tasks'
 
     # execute task
-    utils_hold_out.execute_experiment(split, scheme, task_id, n_jobs, save_path, seed, task_type)
+    hold_out_utils.execute_experiment(split_select, scheme, task_id, n_jobs, save_path, seed, task_type)
 
 
 
