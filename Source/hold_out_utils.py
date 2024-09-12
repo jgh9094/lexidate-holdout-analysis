@@ -11,6 +11,7 @@ import numpy as np
 import sklearn.model_selection
 from functools import partial
 
+# lexicase selection with ignoring the complexity column
 def lexicase_selection_no_comp(scores, k, rng=None, n_parents=1,):
     """Select the best individual according to Lexicase Selection, *k* times.
     The returned list contains the indices of the chosen *individuals*.
@@ -41,7 +42,7 @@ def lexicase_selection_no_comp(scores, k, rng=None, n_parents=1,):
 
     return np.reshape(chosen, (k, n_parents))
 
-# generate scores for selection schemes to use
+# generate scores for lexicase selection to use
 def lex_selection_objectives(est,X,y,X_select,y_select,classification):
     # fit model
     est.fit(X,y)
@@ -54,7 +55,7 @@ def lex_selection_objectives(est,X,y,X_select,y_select,classification):
         # regression: wanna minimize the distance between them
         return list(np.absolute(y_select - est.predict(X_select)))
 
-# generate scores for selection schemes to use
+# generate scores for tournament selection to use
 def selection_objectives_accuracy(est,X,y,X_select,y_select,classification):
     # fit model
     est.fit(X,y)
@@ -67,12 +68,7 @@ def selection_objectives_accuracy(est,X,y,X_select,y_select,classification):
         # regression: wanna minimize the distance between them
         return list(np.absolute(y_select - est.predict(X_select)))
 
-# calculate complexity for tpot to track in evaluated individuals
-def sampling_complexity(est,X,y):
-    # fit model
-    est.fit(X,y)
-    return [float(tpot2.objectives.complexity_scorer(est,0,0))]
-
+# get selection scheme
 def get_selection_scheme(scheme, classification):
     if scheme == 'random':
         return tpot2.selectors.random_selector
@@ -86,11 +82,8 @@ def get_selection_scheme(scheme, classification):
     else:
         raise ValueError(f"Unknown selection scheme: {scheme}")
 
-# generate pipeline search space: selector -> transformer -> selector -> regressor/classifier
+# pipeline search space: selector(optional) -> transformer(optional) -> selector(optional) -> regressor/classifier(mandatory)
 def get_pipeline_space(classification, seed):
-    # selector -> transformer -> selector -> regressor/classifier
-
-    # if classification problem
     if classification:
         return tpot2.search_spaces.pipelines.SequentialPipeline([
             tpot2.config.get_search_space(["selectors_classification","Passthrough"], random_state=seed),
@@ -104,32 +97,50 @@ def get_pipeline_space(classification, seed):
             tpot2.config.get_search_space(["selectors_regression","Passthrough"], random_state=seed),
             tpot2.config.get_search_space("regressors", random_state=seed)])
 
-# get estimator parameters lexicase specific
-def get_estimator_params_lex(n_jobs,
+# get estimator parameters depending on the selection scheme
+def get_estimator_params(n_jobs,
                          classification,
                          scheme,
                          split_select,
                          X_train,
                          y_train,
                          seed):
-    # split data
+    # split the training data
     print('(train)', 1.0-split_select, '/ (select)', split_select)
     if classification:
-            X_learn, X_select, y_learn, y_select = sklearn.model_selection.train_test_split(X_train, y_train, train_size=1.0-split_select, test_size=split_select, stratify=y_train, random_state=seed)
+            X_learn, X_select, y_learn, y_select = sklearn.model_selection.train_test_split(X_train,
+                                                                                            y_train,
+                                                                                            train_size=1.0-split_select,
+                                                                                            test_size=split_select,
+                                                                                            stratify=y_train,
+                                                                                            random_state=seed)
     else:
-        X_learn, X_select, y_learn, y_select = sklearn.model_selection.train_test_split(X_train, y_train, train_size=1.0-split_select, test_size=split_select, random_state=seed)
+        X_learn, X_select, y_learn, y_select = sklearn.model_selection.train_test_split(X_train,
+                                                                                        y_train,
+                                                                                        train_size=1.0-split_select,
+                                                                                        test_size=split_select,
+                                                                                        random_state=seed)
     print('X_learn:',X_learn.shape,'|','y_learn:',y_learn.shape)
     print('X_select:',X_select.shape,'|','y_select:',y_select.shape)
 
-    # create selection objective functions
-    objective_scorer = partial(lex_selection_objectives,X=X_learn,y=y_learn,X_select=X_select,y_select=y_select,classification=classification)
-    objective_scorer.__name__ = 'selection-objectives'
+    # get selection objective functions
+    if scheme == 'lexicase':
+        # create selection objective functions
+        objective_scorer = partial(lex_selection_objectives,X=X_learn,y=y_learn,X_select=X_select,y_select=y_select,classification=classification)
+        objective_scorer.__name__ = 'selection-objectives'
+        # create list of objective names per sample in y_select + complexity
+        objective_names = ['obj_'+str(i) for i in range(y_select.shape[0])] + ['complexity']
+        objective_weights = [1.0 for i in range(y_select.shape[0])] + [-1.0]
+    elif scheme == 'tournament' or scheme == 'random':
+        # create selection objective functions
+        objective_scorer = partial(selection_objectives_accuracy,X=X_learn,y=y_learn,X_select=X_select,y_select=y_select,classification=classification)
+        objective_scorer.__name__ = 'accuracy-complexity'
+        # accuracy + complexity
+        objective_names = ['performance', 'complexity']
+        objective_weights = [1.0, -1.0]
+    else:
+        raise ValueError(f"Unknown selection scheme: {scheme}")
 
-    # create list of objective names per sample in y_select
-    objective_names = ['obj_'+str(i) for i in range(y_select.shape[0])] + ['complexity']
-    objective_weights = [1.0 for i in range(y_select.shape[0])] + [-1.0]
-
-    # return dictionary based on selection scheme we are using
     return objective_names, {
         # evaluation criteria
         'scorers': [],
@@ -140,7 +151,7 @@ def get_estimator_params_lex(n_jobs,
         'objective_function_names': objective_names,
 
         # evolutionary algorithm params
-        'population_size' : 100,
+        'population_size' : 10,
         'generations' : 3,
         'n_jobs':n_jobs,
         'survival_selector' :None,
@@ -165,66 +176,12 @@ def get_estimator_params_lex(n_jobs,
         'search_space': get_pipeline_space(classification, seed),
         }
 
-# get estimator parameters
-def get_estimator_params(n_jobs,
-                         classification,
-                         scheme,
-                         split_select,
-                         X_train,
-                         y_train,
-                         seed):
-    # split data
-    print('(train)', 1.0-split_select, '/ (select)', split_select)
-    if classification:
-            X_learn, X_select, y_learn, y_select = sklearn.model_selection.train_test_split(X_train, y_train, train_size=1.0-split_select, test_size=split_select, stratify=y_train, random_state=seed)
-    else:
-        X_learn, X_select, y_learn, y_select = sklearn.model_selection.train_test_split(X_train, y_train, train_size=1.0-split_select, test_size=split_select, random_state=seed)
-    print('X_learn:',X_learn.shape,'|','y_learn:',y_learn.shape)
-    print('X_select:',X_select.shape,'|','y_select:',y_select.shape)
-
-    # create selection objective functions
-    select_objective = partial(selection_objectives_accuracy,X=X_learn,y=y_learn,X_select=X_select,y_select=y_select,classification=classification)
-    select_objective.__name__ = 'accuracy-complexity'
-
-    # return dictionary based on selection scheme we are using
-    return ['performance', 'complexity'], {
-        # evaluation criteria
-        'scorers': [],
-        'scorers_weights':[],
-        'cv': sklearn.model_selection.StratifiedKFold(n_splits=10, shuffle=True, random_state=seed), # not used
-        'other_objective_functions': [select_objective],
-        'other_objective_functions_weights': [1.0, -1.0],
-        'objective_function_names': ['performance', 'complexity'],
-
-        # evolutionary algorithm params
-        'population_size' : 10,
-        'generations' : 3,
-        'n_jobs':n_jobs,
-        'survival_selector' :None,
-        'parent_selector': get_selection_scheme(scheme, classification),
-        'random_state': seed,
-
-        # offspring variation params
-        'mutate_probability': 0.7,
-        'crossover_probability': 0.0,
-        'crossover_then_mutate_probability': 0.3,
-        'mutate_then_crossover_probability': 0.0,
-
-        # estimator params
-        'memory_limit':0,
-        'preprocessing':False,
-        'classification' : True,
-        'verbose':2,
-        'max_eval_time_seconds':60*5,
-        'max_time_seconds': float("inf"),
-
-        # pipeline search space
-        'search_space': get_pipeline_space(classification, seed),
-        }
-
 # get test scores
-def score(est, X, y, classification):
+def score(est, X, y, X_train, y_train, classification):
+    # train evovled pipeline on the training data
+    est.fit(X_train, y_train)
 
+    # calculate testing performance
     if classification:
         # get classification testing score
         performance = np.float32(sklearn.metrics.get_scorer("accuracy")(est, X, y))
@@ -326,10 +283,7 @@ def execute_experiment(split_select, scheme, task_id, n_jobs, save_path, seed, c
         est_params = None
         names = None
 
-        if scheme == 'lexicase':
-            names, est_params = get_estimator_params_lex(n_jobs=n_jobs,classification=classification,scheme=scheme,split_select=split_select,X_train=X_train,y_train=y_train,seed=seed)
-        else:
-            names, est_params = get_estimator_params(n_jobs=n_jobs,classification=classification,scheme=scheme,split_select=split_select,X_train=X_train,y_train=y_train,seed=seed)
+        names, est_params = get_estimator_params(n_jobs=n_jobs,classification=classification,scheme=scheme,split_select=split_select,X_train=X_train,y_train=y_train,seed=seed)
 
         est = tpot2.TPOTEstimator(**est_params)
 
@@ -337,17 +291,18 @@ def execute_experiment(split_select, scheme, task_id, n_jobs, save_path, seed, c
         print("ESTIMATOR FITTING")
         est.fit(X_train, y_train)
         duration = time.time() - start
-        print("ESTIMATOR FITTING COMPLETE:", duration, 'seconds')
-
+        print("ESTIMATOR FITTING COMPLETE:", duration / 60 / 60, 'hours')
 
         # get best performer performance and cast to numpy float32d
         train_performance, complexity = get_best_pipeline_results(est, names, scheme, seed)
-        results = score(est, X_test, y_test, classification)
+        results = score(est, X_test, y_test, X_train=X_train, y_train=y_train, classification=classification)
         results['training_performance'] = train_performance
         results['complexity'] = complexity
         results["task_id"] = task_id
         results["selection"] = scheme
         results["seed"] = seed
+
+        print('RESULTS:', results)
 
         print('SAVING:SCORES.PKL')
         with open(f"{save_folder}/results.pkl", "wb") as f:

@@ -1,5 +1,5 @@
 import argparse
-import Source.hold_out_utils as hold_out_utils
+import hold_out_utils as hold_out_utils
 
 # to run: rm -r ./0-167184; python main_hold_out.py -split 0.5 -scheme tournament -task_id 167184 -n_jobs 10 -savepath ./ -seed 0 -task_type 1
 
@@ -51,9 +51,13 @@ def main():
     assert task_id in task_id_lists, 'Task ID not in list of tasks'
 
     # execute task
-    hold_out_utils.execute_experiment(split_select, scheme, task_id, n_jobs, save_path, seed, task_type)
-
-
+    hold_out_utils.execute_experiment(split_select,
+                                      scheme,
+                                      task_id,
+                                      n_jobs,
+                                      save_path,
+                                      seed,
+                                      task_type)
 
 if __name__ == '__main__':
     main()
