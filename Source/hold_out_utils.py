@@ -151,8 +151,8 @@ def get_estimator_params(n_jobs,
         'objective_function_names': objective_names,
 
         # evolutionary algorithm params
-        'population_size' : 10,
-        'generations' : 3,
+        'population_size' : 100,
+        'generations' : 300,
         'n_jobs':n_jobs,
         'survival_selector' :None,
         'parent_selector': get_selection_scheme(scheme, classification),
@@ -169,8 +169,8 @@ def get_estimator_params(n_jobs,
         'preprocessing':False,
         'classification' : True,
         'verbose':1,
-        'max_eval_time_seconds':60*5,
-        'max_time_seconds': float("inf"),
+        'max_eval_time_seconds':60*5, # 5 min time limit
+        'max_time_seconds': float("inf"), # run until generations are done
 
         # pipeline search space
         'search_space': get_pipeline_space(classification, seed),
@@ -261,7 +261,8 @@ def get_best_pipeline_results(est, obj_names, scheme, seed):
         best_performers = best_performers[best_performers['complexity'] == best_performers['complexity'].min()]
         # randomly select one of the best performers with seed set for reproducibility
         best_performer =  best_performers.sample(1, random_state=seed)
-        # get best performer performance and cast to numpy float32
+
+        # return performance, complexity, and individual
         return np.float32(best_performer['performance'].values[0]), np.int64(best_performer['complexity'].values[0]), best_performer['Individual'].values[0].export_pipeline()
 
 # execute task with tpot2

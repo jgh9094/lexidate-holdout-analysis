@@ -237,8 +237,8 @@ def get_estimator_params(n_jobs,
         'objective_function_names': objective_names,
 
         # evolutionary algorithm params
-        'population_size' : 10,
-        'generations' : 3,
+        'population_size' : 100,
+        'generations' : 300,
         'n_jobs':n_jobs,
         'survival_selector' :None,
         'parent_selector': get_selection_scheme(validation, classification),
@@ -255,8 +255,8 @@ def get_estimator_params(n_jobs,
         'preprocessing':False,
         'classification' : True,
         'verbose':1,
-        'max_eval_time_seconds':60*5,
-        'max_time_seconds': float("inf"),
+        'max_eval_time_seconds':60*5, # 5 min time limit
+        'max_time_seconds': float("inf"), # run until generations are done
 
         # pipeline search space
         'search_space': get_pipeline_space(classification, seed),
