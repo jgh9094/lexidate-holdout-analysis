@@ -250,8 +250,9 @@ def get_best_pipeline_results(est, obj_names, scheme, seed):
         best_performers = best_performers[best_performers['complexity'] == best_performers['complexity'].min()]
         # get best performer performance and cast to numpy float32
         best_performer =  best_performers.sample(1, random_state=seed)
-        # return the results
-        return np.float32(best_performer['performance'].values[0]), np.int64(best_performer['complexity'].values[0])
+
+        # return performance, complexity, and individual
+        return np.float32(best_performer['performance'].values[0]), np.int64(best_performer['complexity'].values[0]), best_performer['Individual'].values[0].export_pipeline()
     # anything else
     else:
         #filter evaluated_individuals pandas dataframe with individuals best performance
@@ -261,7 +262,7 @@ def get_best_pipeline_results(est, obj_names, scheme, seed):
         # randomly select one of the best performers with seed set for reproducibility
         best_performer =  best_performers.sample(1, random_state=seed)
         # get best performer performance and cast to numpy float32
-        return np.float32(best_performer['performance'].values[0]), np.int64(best_performer['complexity'].values[0])
+        return np.float32(best_performer['performance'].values[0]), np.int64(best_performer['complexity'].values[0]), best_performer['Individual'].values[0].export_pipeline()
 
 # execute task with tpot2
 def execute_experiment(split_select, scheme, task_id, n_jobs, save_path, seed, classification):
@@ -294,8 +295,8 @@ def execute_experiment(split_select, scheme, task_id, n_jobs, save_path, seed, c
         print("ESTIMATOR FITTING COMPLETE:", duration / 60 / 60, 'hours')
 
         # get best performer performance and cast to numpy float32d
-        train_performance, complexity = get_best_pipeline_results(est, names, scheme, seed)
-        results = score(est, X_test, y_test, X_train=X_train, y_train=y_train, classification=classification)
+        train_performance, complexity, pipeline = get_best_pipeline_results(est, names, scheme, seed)
+        results = score(pipeline, X_test, y_test, X_train=X_train, y_train=y_train, classification=classification)
         results['training_performance'] = train_performance
         results['complexity'] = complexity
         results["task_id"] = task_id
