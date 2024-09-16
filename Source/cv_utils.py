@@ -63,7 +63,7 @@ def unaggregated_selection_objectives(est,X,y,cv,classification):
 
         # grade predictions on test set
         if classification:
-            scores += list(np.bool_(this_fold_pipeline.predict(X_test) == y_test))
+            scores += list(np.float32(this_fold_pipeline.predict(X_test) == y_test))
         else:
             scores += list(np.absolute(y_test - this_fold_pipeline.predict(X_test), dtype=np.float32))
 
@@ -81,27 +81,36 @@ def unaggregated_selection_objectives(est,X,y,cv,classification):
     return scores
 
 # generate set of aggregated selection objectives
-def aggregated_selection_objectives(est,X,y,cv_splits,classification):
+def aggregated_selection_objectives(est,X,y,cv,classification):
     # hold all the scores
     scores = []
     complexity = []
 
-    for train_index, test_index in cv_splits:
+    for train_index, test_index in cv.split(X, y):
+        # make a copy of the estimator
+        this_fold_pipeline = sklearn.base.clone(est)
+
         # get data split
         X_train, X_test = X[train_index], X[test_index]
         y_train, y_test = y[train_index], y[test_index]
 
         # fit model
-        est.fit(X_train, y_train)
+        this_fold_pipeline.fit(X_train, y_train)
 
         # get complexity score
-        complexity += [tpot2.objectives.complexity_scorer(est,0,0)]
+        complexity += [tpot2.objectives.complexity_scorer(this_fold_pipeline,0,0)]
 
         # grade predictions on test set
         if classification:
-            scores += [np.sum(list(np.bool_(est.predict(X_test) == y_test)), dtype=np.uint32)]
+            scores += [np.mean(list(np.float32(this_fold_pipeline.predict(X_test) == y_test)), dtype=np.float32)]
         else:
-            scores += [np.sum(list(np.absolute(y_test - est.predict(X_test), dtype=np.float32)), dtype=np.float32)]
+            scores += [np.mean(list(np.absolute(y_test - this_fold_pipeline.predict(X_test), dtype=np.float32)), dtype=np.float32)]
+
+        del this_fold_pipeline
+        del X_train
+        del X_test
+        del y_train
+        del y_test
 
     # append complexity to scores
     scores.append(np.mean(complexity, dtype=np.float32))
@@ -111,29 +120,36 @@ def aggregated_selection_objectives(est,X,y,cv_splits,classification):
     return scores
 
 # generate set of compressed selection objectives
-def compressed_selection_objectives(est,X,y,cv_splits,classification):
+def compressed_selection_objectives(est,X,y,cv,classification):
     # hold all the scores
     scores = []
     complexity = []
 
-    for train_index, test_index in cv_splits:
+    for train_index, test_index in cv.split(X, y):
+        # make a copy of the estimator
+        this_fold_pipeline = sklearn.base.clone(est)
+
         # get data split
         X_train, X_test = X[train_index], X[test_index]
         y_train, y_test = y[train_index], y[test_index]
 
         # fit model
-        est.fit(X_train, y_train)
+        this_fold_pipeline.fit(X_train, y_train)
 
         # get complexity score
-        complexity += [tpot2.objectives.complexity_scorer(est,0,0)]
+        complexity += [tpot2.objectives.complexity_scorer(this_fold_pipeline,0,0)]
 
         # grade predictions on test set
         if classification:
-            scores += [np.mean(np.bool_(est.predict(X_test) == y_test))]
-
-
+            scores += [np.mean(np.float32(this_fold_pipeline.predict(X_test) == y_test), dtype=np.float32)]
         else:
-            scores += [np.mean(list(np.absolute(y_test - est.predict(X_test), dtype=np.float32)), dtype=np.float32)]
+            scores += [np.mean(list(np.absolute(y_test - this_fold_pipeline.predict(X_test), dtype=np.float32)), dtype=np.float32)]
+
+        del this_fold_pipeline
+        del X_train
+        del X_test
+        del y_train
+        del y_test
 
     # make sure we have the right number of scores
     assert len(scores) == 10
@@ -238,7 +254,7 @@ def get_estimator_params(n_jobs,
 
         # evolutionary algorithm params
         'population_size' : 100,
-        'generations' : 300,
+        'generations' : 200,
         'n_jobs':n_jobs,
         'survival_selector' :None,
         'parent_selector': get_selection_scheme(validation, classification),
@@ -323,11 +339,13 @@ def load_task(task_id, preprocess=True):
 
 # get the best pipeline from tpot2 depending on the selection scheme
 def get_best_pipeline_results(est, cv_splits, validation, seed):
-    sub = None
+    # remove rows with missing values
+    sub = est.evaluated_individuals
+
     # produce the 10 fold cross validation scores from aggregated selection objectives
     if validation == 'unaggregated':
-        # remove rows with NaN values
-        sub = est.evaluated_individuals.dropna(subset=['obj_0'])
+        # remove rows with missing values
+        sub = sub.dropna(subset=['obj_0'])
 
         # get scores for each fold
         for f, (_, test_index) in enumerate(cv_splits):
@@ -340,14 +358,22 @@ def get_best_pipeline_results(est, cv_splits, validation, seed):
             # average all scores for a fold and add it as a new column
             sub['fold_'+str(f)] = sub[fold_names].mean(axis=1)
 
+    # remove rows with missing values
+    sub = sub.dropna(subset=['fold_0'])
+
     # subset sub to only include the columns we are interested in
     # columns being the 'Inividual' and the 'fold' columns
     sub = sub[['Individual'] + [f'fold_{i}' for i in range(10)] + ['complexity']]
 
+
     # produce a single cross validation score from aggregated selection objectives
     if validation == 'aggregated' or validation == 'unaggregated':
+        print(sub[[f'fold_{i}' for i in range(10)]].mean(axis=1))
         # calculate the mean of all the fold scores
         sub['cv'] = sub[[f'fold_{i}' for i in range(10)]].mean(axis=1)
+
+    # remove rows with missing values
+    sub = sub.dropna(subset=['cv'])
 
     # get pipelines with the best cv score
     best_cv_pipelines = sub[sub['cv'] == sub['cv'].max()]

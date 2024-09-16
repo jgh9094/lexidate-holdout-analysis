@@ -295,7 +295,7 @@ def execute_experiment(split_select, scheme, task_id, n_jobs, save_path, seed, c
         duration = time.time() - start
         print("ESTIMATOR FITTING COMPLETE:", duration / 60 / 60, 'hours')
 
-        # get best performer performance and cast to numpy float32d
+        # get best performer performance and cast to numpy float32
         train_performance, complexity, pipeline = get_best_pipeline_results(est, names, scheme, seed)
         results = score(pipeline, X_test, y_test, X_train=X_train, y_train=y_train, classification=classification)
         results['training_performance'] = train_performance
