@@ -11,6 +11,36 @@ import numpy as np
 import sklearn.model_selection
 from functools import partial
 
+# median absolute deviation for epsillon lexicase selection
+def auto_epsilon_lexicase_selection(scores, k, rng_=None, n_parents=1,):
+    """Select the best individual according to Auto Epsilon Lexicase Selection, *k* times.
+    The returned list contains the indices of the chosen *individuals*.
+    :param scores: The score matrix, where rows the individulas and the columns correspond to scores on different objectives.
+    :returns: A list of indices of selected individuals.
+    This function uses the :func:`~random.choice` function from the python base
+    :mod:`random` module.
+    """
+    rng = np.random.default_rng(rng_)
+    chosen =[]
+    for i in range(k*n_parents):
+        candidates = list(range(len(scores)))
+        cases = list(range(len(scores[0]) - 1)) # ignore the last column which is complexity
+        rng.shuffle(cases)
+
+
+        while len(cases) > 0 and len(candidates) > 1:
+            errors_for_this_case = scores[candidates,cases[0]]
+            median_val = np.median(errors_for_this_case)
+            median_absolute_deviation = np.median([abs(x - median_val) for x in errors_for_this_case])
+            best_val_for_case = max(errors_for_this_case )
+            min_val_to_survive = best_val_for_case - median_absolute_deviation
+            candidates = [x for x in candidates if scores[x, cases[0]] >= min_val_to_survive]
+            cases.pop(0)
+        chosen.append(rng.choice(candidates))
+
+
+    return np.reshape(chosen, (k, n_parents))
+
 # lexicase selection with ignoring the complexity column
 def lexicase_selection_no_comp(scores, k, rng=None, n_parents=1,):
     """Select the best individual according to Lexicase Selection, *k* times.
@@ -75,8 +105,7 @@ def get_selection_scheme(scheme, classification):
     elif scheme == 'lexicase' and classification:
         return lexicase_selection_no_comp
     elif scheme == 'lexicase' and not classification:
-        # todo: add lexicase selection for regression (ask Anil for his implementation)
-        return tpot2.selectors.lexicase_selection_regression
+        return auto_epsilon_lexicase_selection
     elif scheme == 'tournament':
         return tpot2.selectors.tournament_selection
     else:
@@ -152,7 +181,7 @@ def get_estimator_params(n_jobs,
 
         # evolutionary algorithm params
         'population_size' : 100,
-        'generations' : 300,
+        'generations' : 200,
         'n_jobs':n_jobs,
         'survival_selector' :None,
         'parent_selector': get_selection_scheme(scheme, classification),

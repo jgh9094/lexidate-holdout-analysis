@@ -1,7 +1,7 @@
 import argparse
 import cv_utils
 
-# to run: rm -r ./0-167184; python cv_exp.py -validation unaggregated -task_id 167184 -n_jobs 10 -savepath ./ -seed 0 -task_type 1
+# to run: rm -r ./0-146818; python cv_exp.py -validation unaggregated -task_id 146818 -n_jobs 10 -savepath ./ -seed 0 -task_type 1
 
 def main():
     # read in arguements
@@ -38,12 +38,12 @@ def main():
         print('Task Type: Regression')
 
     # the test tasks used by autosklearn2 paper
-    # task_id_lists = [ 189865,167200,126026,189860,75127,189862,75105,168798,126029,168796,
-    #                  167190,167104,167083,167184,126025,75097,167181,168797,189861,167161,167149
+    # task_id_lists = [ 189865,167200,359969,189860,75127,189862,75105,168798,126029,168796,
+    #                  167190,167104,167083,146818,126025,75097,168784,168797,189861,190137,167149
     #                 ]
 
     # subset of tasks used for preliminary experiments
-    task_id_lists = [167184,167181,167161,126026]
+    task_id_lists = [146818,168784,190137,359969]
     assert task_id in task_id_lists, 'Task ID not in list of tasks'
 
     # execute task
