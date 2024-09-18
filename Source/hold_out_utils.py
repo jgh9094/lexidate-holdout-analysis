@@ -10,6 +10,7 @@ import time
 import numpy as np
 import sklearn.model_selection
 from functools import partial
+from estimator_node_gradual import EstimatorNodeGradual
 
 # median absolute deviation for epsillon lexicase selection
 def auto_epsilon_lexicase_selection(scores, k, rng=None, n_parents=1,):
@@ -22,7 +23,7 @@ def auto_epsilon_lexicase_selection(scores, k, rng=None, n_parents=1,):
     """
     rng = np.random.default_rng(rng)
     chosen =[]
-    for i in range(k*n_parents):
+    for _ in range(k*n_parents):
         candidates = list(range(len(scores)))
         cases = list(range(len(scores[0]) - 1)) # ignore the last column which is complexity
         rng.shuffle(cases)
@@ -59,7 +60,7 @@ def lexicase_selection_no_comp(scores, k, rng=None, n_parents=1,):
     # make sure the last column is greater than 1
     # assert np.all(score[-1] > 1 for score in scores)
 
-    for i in range(k*n_parents):
+    for _ in range(k*n_parents):
         candidates = list(range(len(scores)))
         cases = list(range(len(scores[0]) - 1)) # ignore the last column which is complexity
         rng.shuffle(cases)
@@ -78,10 +79,11 @@ def lex_selection_objectives(est,X,y,X_select,y_select,classification):
     est.fit(X,y)
 
     if classification:
+        # classification: wanna maximize the number of correct predictions
         return [list(np.float32(est.predict(X_select) == y_select))+
                 [np.int64(tpot2.objectives.complexity_scorer(est,0,0))]]
     else:
-        # regression: wanna minimize the distance between them
+        # regression: wanna minimize the distance between predicted and true values
         return [list(np.absolute(y_select - est.predict(X_select), dtype=np.float32))+
                 [np.int64(tpot2.objectives.complexity_scorer(est,0,0))]]
 
@@ -91,11 +93,11 @@ def aggregated_selection_objectives(est,X,y,X_select,y_select,classification):
     est.fit(X,y)
 
     if classification:
-        return [[np.float32(sum(list(est.predict(X_select) == y_select))) / np.float32(len(y_select))],
-                [np.uint32(tpot2.objectives.complexity_scorer(est,0,0))]]
+        return [np.mean(est.predict(X_select) == y_select, dtype=np.float32),
+                np.uint32(tpot2.objectives.complexity_scorer(est,0,0))]
     else:
         # regression: wanna minimize the distance between them
-        return [ np.float64(np.mean(np.absolute(y_select - est.predict(X_select)))),
+        return [np.mean(np.absolute(y_select - est.predict(X_select), dtype=np.float32)),
                 np.int64(tpot2.objectives.complexity_scorer(est,0,0))]
 
 # get selection scheme
@@ -115,16 +117,16 @@ def get_selection_scheme(scheme, classification):
 def get_pipeline_space(classification, seed):
     if classification:
         return tpot2.search_spaces.pipelines.SequentialPipeline([
-            tpot2.config.get_search_space(["selectors_classification","Passthrough"], random_state=seed),
-            tpot2.config.get_search_space(["transformers","Passthrough"], random_state=seed),
-            tpot2.config.get_search_space(["selectors_classification","Passthrough"], random_state=seed),
-            tpot2.config.get_search_space("classifiers", random_state=seed)])
+            tpot2.config.get_search_space(["selectors_classification","Passthrough"], random_state=seed, base_node=EstimatorNodeGradual),
+            tpot2.config.get_search_space(["transformers","Passthrough"], random_state=seed, base_node=EstimatorNodeGradual),
+            tpot2.config.get_search_space(["selectors_classification","Passthrough"], random_state=seed, base_node=EstimatorNodeGradual),
+            tpot2.config.get_search_space("classifiers", random_state=seed, base_node=EstimatorNodeGradual)])
     else:
         return tpot2.search_spaces.pipelines.SequentialPipeline([
-            tpot2.config.get_search_space(["selectors_regression","Passthrough"], random_state=seed),
-            tpot2.config.get_search_space(["transformers","Passthrough"], random_state=seed),
-            tpot2.config.get_search_space(["selectors_regression","Passthrough"], random_state=seed),
-            tpot2.config.get_search_space("regressors", random_state=seed)])
+            tpot2.config.get_search_space(["selectors_regression","Passthrough"], random_state=seed, base_node=EstimatorNodeGradual),
+            tpot2.config.get_search_space(["transformers","Passthrough"], random_state=seed, base_node=EstimatorNodeGradual),
+            tpot2.config.get_search_space(["selectors_regression","Passthrough"], random_state=seed, base_node=EstimatorNodeGradual),
+            tpot2.config.get_search_space("regressors", random_state=seed, base_node=EstimatorNodeGradual)])
 
 # get estimator parameters depending on the selection scheme
 def get_estimator_params(n_jobs,
@@ -202,7 +204,7 @@ def get_estimator_params(n_jobs,
         'memory_limit':0,
         'preprocessing':False,
         'classification' : classification,
-        'verbose':3,
+        'verbose':5,
         'max_eval_time_seconds':60*5, # 5 min time limit
         'max_time_seconds': float("inf"), # run until generations are done
 
@@ -285,6 +287,9 @@ def get_best_pipeline_results(est, obj_names, scheme, seed, classification):
 
         # filter by the smallest complexity
         best_performers = best_performers[best_performers['complexity'] == best_performers['complexity'].min()]
+        print('best_performers:')
+        print(best_performers)
+
         # get best performer performance and cast to numpy float32
         best_performer =  best_performers.sample(1, random_state=seed)
 
@@ -300,6 +305,9 @@ def get_best_pipeline_results(est, obj_names, scheme, seed, classification):
 
         # filter by the smallest complexity
         best_performers = best_performers[best_performers['complexity'] == best_performers['complexity'].min()]
+        print('best_performers:')
+        print(best_performers)
+        
         # randomly select one of the best performers with seed set for reproducibility
         best_performer =  best_performers.sample(1, random_state=seed)
 

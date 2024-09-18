@@ -1,7 +1,8 @@
 import argparse
 import hold_out_utils as hold_out_utils
 
-# to run: rm -r ./0-146818; python main_hold_out.py -split 0.5 -scheme tournament -task_id 146818 -n_jobs 10 -savepath ./ -seed 0 -task_type 1
+# classification: clear; rm -r ./0-146818; python hold_out_exp.py -split_select 0.5 -scheme tournament -task_id 146818 -n_jobs 10 -savepath ./ -seed 0 -task_type 1
+#     regression: clear; rm -r ./1-359934; python hold_out_exp.py -split_select 0.25 -scheme tournament  -task_id 359934 -n_jobs 10 -savepath ./ -seed 1 -task_type 0
 
 def main():
     # read in arguements
