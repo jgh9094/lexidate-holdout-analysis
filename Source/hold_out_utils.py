@@ -307,7 +307,7 @@ def get_best_pipeline_results(est, obj_names, scheme, seed, classification):
         best_performers = best_performers[best_performers['complexity'] == best_performers['complexity'].min()]
         print('best_performers:')
         print(best_performers)
-        
+
         # randomly select one of the best performers with seed set for reproducibility
         best_performer =  best_performers.sample(1, random_state=seed)
 
@@ -344,7 +344,7 @@ def execute_experiment(split_select, scheme, task_id, n_jobs, save_path, seed, c
         train_performance, complexity, pipeline = get_best_pipeline_results(est, names, scheme, seed, classification)
         results = score(pipeline, X_test, y_test, X_train=X_train, y_train=y_train, classification=classification)
         results['training_performance'] = train_performance
-        results['complexity'] = complexity
+        results['training_complexity'] = complexity
         results["task_id"] = task_id
         results["selection"] = scheme
         results["seed"] = seed
