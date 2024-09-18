@@ -12,7 +12,7 @@ import sklearn.model_selection
 from functools import partial
 
 # median absolute deviation for epsillon lexicase selection
-def auto_epsilon_lexicase_selection(scores, k, rng_=None, n_parents=1,):
+def auto_epsilon_lexicase_selection(scores, k, rng=None, n_parents=1,):
     """Select the best individual according to Auto Epsilon Lexicase Selection, *k* times.
     The returned list contains the indices of the chosen *individuals*.
     :param scores: The score matrix, where rows the individulas and the columns correspond to scores on different objectives.
@@ -20,7 +20,7 @@ def auto_epsilon_lexicase_selection(scores, k, rng_=None, n_parents=1,):
     This function uses the :func:`~random.choice` function from the python base
     :mod:`random` module.
     """
-    rng = np.random.default_rng(rng_)
+    rng = np.random.default_rng(rng)
     chosen =[]
     for i in range(k*n_parents):
         candidates = list(range(len(scores)))
@@ -78,33 +78,33 @@ def lex_selection_objectives(est,X,y,X_select,y_select,classification):
     est.fit(X,y)
 
     if classification:
-        return [list(np.bool_(est.predict(X_select) == y_select))+
+        return [list(np.float32(est.predict(X_select) == y_select))+
                 [np.int64(tpot2.objectives.complexity_scorer(est,0,0))]]
-
     else:
         # regression: wanna minimize the distance between them
-        return list(np.absolute(y_select - est.predict(X_select)))
+        return [list(np.absolute(y_select - est.predict(X_select), dtype=np.float32))+
+                [np.int64(tpot2.objectives.complexity_scorer(est,0,0))]]
 
 # generate scores for tournament selection to use
-def selection_objectives_accuracy(est,X,y,X_select,y_select,classification):
+def aggregated_selection_objectives(est,X,y,X_select,y_select,classification):
     # fit model
     est.fit(X,y)
 
     if classification:
         return [[np.float32(sum(list(est.predict(X_select) == y_select))) / np.float32(len(y_select))],
                 [np.uint32(tpot2.objectives.complexity_scorer(est,0,0))]]
-
     else:
         # regression: wanna minimize the distance between them
-        return list(np.absolute(y_select - est.predict(X_select)))
+        return [ np.float64(np.mean(np.absolute(y_select - est.predict(X_select)))),
+                np.int64(tpot2.objectives.complexity_scorer(est,0,0))]
 
 # get selection scheme
 def get_selection_scheme(scheme, classification):
     if scheme == 'random':
         return tpot2.selectors.random_selector
-    elif scheme == 'lexicase' and classification:
+    elif scheme == 'lexicase' and classification == True:
         return lexicase_selection_no_comp
-    elif scheme == 'lexicase' and not classification:
+    elif scheme == 'lexicase' and classification == False:
         return auto_epsilon_lexicase_selection
     elif scheme == 'tournament':
         return tpot2.selectors.tournament_selection
@@ -137,12 +137,12 @@ def get_estimator_params(n_jobs,
     # split the training data
     print('(train)', 1.0-split_select, '/ (select)', split_select)
     if classification:
-            X_learn, X_select, y_learn, y_select = sklearn.model_selection.train_test_split(X_train,
-                                                                                            y_train,
-                                                                                            train_size=1.0-split_select,
-                                                                                            test_size=split_select,
-                                                                                            stratify=y_train,
-                                                                                            random_state=seed)
+        X_learn, X_select, y_learn, y_select = sklearn.model_selection.train_test_split(X_train,
+                                                                                        y_train,
+                                                                                        train_size=1.0-split_select,
+                                                                                        test_size=split_select,
+                                                                                        stratify=y_train,
+                                                                                        random_state=seed)
     else:
         X_learn, X_select, y_learn, y_select = sklearn.model_selection.train_test_split(X_train,
                                                                                         y_train,
@@ -152,6 +152,9 @@ def get_estimator_params(n_jobs,
     print('X_learn:',X_learn.shape,'|','y_learn:',y_learn.shape)
     print('X_select:',X_select.shape,'|','y_select:',y_select.shape)
 
+    # negative weights for regression tasks and positive weights for classification tasks
+    objective_weight = -1.0 if not classification else 1.0
+
     # get selection objective functions
     if scheme == 'lexicase':
         # create selection objective functions
@@ -159,14 +162,16 @@ def get_estimator_params(n_jobs,
         objective_scorer.__name__ = 'selection-objectives'
         # create list of objective names per sample in y_select + complexity
         objective_names = ['obj_'+str(i) for i in range(y_select.shape[0])] + ['complexity']
-        objective_weights = [1.0 for i in range(y_select.shape[0])] + [-1.0]
+        objective_weights = [objective_weight for _ in range(y_select.shape[0])] + [-1.0]
+
     elif scheme == 'tournament' or scheme == 'random':
         # create selection objective functions
-        objective_scorer = partial(selection_objectives_accuracy,X=X_learn,y=y_learn,X_select=X_select,y_select=y_select,classification=classification)
+        objective_scorer = partial(aggregated_selection_objectives,X=X_learn,y=y_learn,X_select=X_select,y_select=y_select,classification=classification)
         objective_scorer.__name__ = 'accuracy-complexity'
         # accuracy + complexity
         objective_names = ['performance', 'complexity']
-        objective_weights = [1.0, -1.0]
+        objective_weights = [objective_weight, -1.0]
+
     else:
         raise ValueError(f"Unknown selection scheme: {scheme}")
 
@@ -181,7 +186,7 @@ def get_estimator_params(n_jobs,
 
         # evolutionary algorithm params
         'population_size' : 100,
-        'generations' : 200,
+        'generations' : 2,
         'n_jobs':n_jobs,
         'survival_selector' :None,
         'parent_selector': get_selection_scheme(scheme, classification),
@@ -196,8 +201,8 @@ def get_estimator_params(n_jobs,
         # estimator params
         'memory_limit':0,
         'preprocessing':False,
-        'classification' : True,
-        'verbose':1,
+        'classification' : classification,
+        'verbose':3,
         'max_eval_time_seconds':60*5, # 5 min time limit
         'max_time_seconds': float("inf"), # run until generations are done
 
@@ -215,21 +220,19 @@ def score(est, X, y, X_train, y_train, classification):
         # get classification testing score
         performance = np.float32(sklearn.metrics.get_scorer("accuracy")(est, X, y))
     else:
-        # regression testing score
-        performance = 0
-    return {'testing_performance': performance}
+        # get regression mean absolute error score
+        performance = np.float32(sklearn.metrics.get_scorer("neg_mean_absolute_error")(est, X, y))
+    return {'testing_performance': np.absolute(performance), 'testing_complexity': np.int64(tpot2.objectives.complexity_scorer(est,0,0))}
 
 #https://github.com/automl/ASKL2.0_experiments/blob/84a9c0b3af8f7ac6e2a003d4dea5e6dce97d4315/experiment_scripts/utils.py
-def load_task(task_id, preprocess=True):
+def load_task(task_id, preprocess=True, classification=True):
 
     cached_data_path = f"data/{task_id}_{preprocess}.pkl"
-    print(cached_data_path)
     if os.path.exists(cached_data_path):
         d = pickle.load(open(cached_data_path, "rb"))
         X_train, y_train, X_test, y_test = d['X_train'], d['y_train'], d['X_test'], d['y_test']
     else:
         task = openml.tasks.get_task(task_id)
-
 
         X, y = task.get_X_and_y(dataset_format="dataframe")
         train_indices, test_indices = task.get_train_test_split_indices()
@@ -243,10 +246,11 @@ def load_task(task_id, preprocess=True):
             X_train = preprocessing_pipeline.fit_transform(X_train)
             X_test = preprocessing_pipeline.transform(X_test)
 
-
-            le = sklearn.preprocessing.LabelEncoder()
-            y_train = le.fit_transform(y_train)
-            y_test = le.transform(y_test)
+            # needed this to LabelEncode the target variable if it is a classification task only
+            if classification:
+                le = sklearn.preprocessing.LabelEncoder()
+                y_train = le.fit_transform(y_train)
+                y_test = le.transform(y_test)
 
             X_train = X_train.to_numpy()
             X_test = X_test.to_numpy()
@@ -265,7 +269,7 @@ def load_task(task_id, preprocess=True):
     return X_train, y_train, X_test, y_test
 
 # get the best pipeline from tpot2 depending on the selection scheme
-def get_best_pipeline_results(est, obj_names, scheme, seed):
+def get_best_pipeline_results(est, obj_names, scheme, seed, classification):
     # lexicase selection
     if scheme == 'lexicase':
         # remove rows with NaN values
@@ -274,7 +278,11 @@ def get_best_pipeline_results(est, obj_names, scheme, seed):
         sub['performance'] = est.evaluated_individuals[obj_names[:-1]].mean(axis=1)
 
         # get best performers
-        best_performers = sub[sub['performance'] == sub['performance'].max()]
+        if classification:
+            best_performers = sub[sub['performance'] == sub['performance'].max()]
+        else:
+            best_performers = sub[sub['performance'] == sub['performance'].min()]
+
         # filter by the smallest complexity
         best_performers = best_performers[best_performers['complexity'] == best_performers['complexity'].min()]
         # get best performer performance and cast to numpy float32
@@ -282,17 +290,21 @@ def get_best_pipeline_results(est, obj_names, scheme, seed):
 
         # return performance, complexity, and individual
         return np.float32(best_performer['performance'].values[0]), np.int64(best_performer['complexity'].values[0]), best_performer['Individual'].values[0].export_pipeline()
-    # anything else
+
     else:
         #filter evaluated_individuals pandas dataframe with individuals best performance
-        best_performers = est.evaluated_individuals[est.evaluated_individuals['performance'] == est.evaluated_individuals['performance'].max()]
+        if classification:
+            best_performers = est.evaluated_individuals[est.evaluated_individuals['performance'] == est.evaluated_individuals['performance'].max()]
+        else:
+            best_performers = est.evaluated_individuals[est.evaluated_individuals['performance'] == est.evaluated_individuals['performance'].min()]
+
         # filter by the smallest complexity
         best_performers = best_performers[best_performers['complexity'] == best_performers['complexity'].min()]
         # randomly select one of the best performers with seed set for reproducibility
         best_performer =  best_performers.sample(1, random_state=seed)
 
         # return performance, complexity, and individual
-        return np.float32(best_performer['performance'].values[0]), np.int64(best_performer['complexity'].values[0]), best_performer['Individual'].values[0].export_pipeline()
+        return np.float32(np.absolute(best_performer['performance'].values[0])), np.int64(best_performer['complexity'].values[0]), best_performer['Individual'].values[0].export_pipeline()
 
 # execute task with tpot2
 def execute_experiment(split_select, scheme, task_id, n_jobs, save_path, seed, classification):
@@ -308,14 +320,10 @@ def execute_experiment(split_select, scheme, task_id, n_jobs, save_path, seed, c
     # run experiment
     try:
         print("LOADING DATA")
-        X_train, y_train, X_test, y_test = load_task(task_id, preprocess=True)
+        X_train, y_train, X_test, y_test = load_task(task_id, preprocess=True, classification=classification)
 
         # get estimator parameters
-        est_params = None
-        names = None
-
         names, est_params = get_estimator_params(n_jobs=n_jobs,classification=classification,scheme=scheme,split_select=split_select,X_train=X_train,y_train=y_train,seed=seed)
-
         est = tpot2.TPOTEstimator(**est_params)
 
         start = time.time()
@@ -325,7 +333,7 @@ def execute_experiment(split_select, scheme, task_id, n_jobs, save_path, seed, c
         print("ESTIMATOR FITTING COMPLETE:", duration / 60 / 60, 'hours')
 
         # get best performer performance and cast to numpy float32
-        train_performance, complexity, pipeline = get_best_pipeline_results(est, names, scheme, seed)
+        train_performance, complexity, pipeline = get_best_pipeline_results(est, names, scheme, seed, classification)
         results = score(pipeline, X_test, y_test, X_train=X_train, y_train=y_train, classification=classification)
         results['training_performance'] = train_performance
         results['complexity'] = complexity
