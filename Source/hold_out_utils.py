@@ -80,12 +80,10 @@ def lex_selection_objectives(est,X,y,X_select,y_select,classification):
 
     if classification:
         # classification: wanna maximize the number of correct predictions
-        return [list(np.float32(est.predict(X_select) == y_select))+
-                [np.int64(tpot2.objectives.complexity_scorer(est,0,0))]]
+        return list(np.float32(est.predict(X_select) == y_select)) + [np.int64(tpot2.objectives.complexity_scorer(est,0,0))]
     else:
         # regression: wanna minimize the distance between predicted and true values
-        return [list(np.absolute(y_select - est.predict(X_select), dtype=np.float32))+
-                [np.int64(tpot2.objectives.complexity_scorer(est,0,0))]]
+        return list(np.absolute(y_select - est.predict(X_select), dtype=np.float32)) + [np.int64(tpot2.objectives.complexity_scorer(est,0,0))]
 
 # generate scores for tournament selection to use
 def aggregated_selection_objectives(est,X,y,X_select,y_select,classification):
@@ -93,12 +91,11 @@ def aggregated_selection_objectives(est,X,y,X_select,y_select,classification):
     est.fit(X,y)
 
     if classification:
-        return [np.mean(est.predict(X_select) == y_select, dtype=np.float32),
-                np.uint32(tpot2.objectives.complexity_scorer(est,0,0))]
+        # classification: wanna maximize the number of correct predictions
+        return [np.mean(est.predict(X_select) == y_select, dtype=np.float32), np.int64(tpot2.objectives.complexity_scorer(est,0,0))]
     else:
         # regression: wanna minimize the distance between them
-        return [np.mean(np.absolute(y_select - est.predict(X_select), dtype=np.float32)),
-                np.int64(tpot2.objectives.complexity_scorer(est,0,0))]
+        return [np.mean(np.absolute(y_select - est.predict(X_select), dtype=np.float32)), np.int64(tpot2.objectives.complexity_scorer(est,0,0))]
 
 # get selection scheme
 def get_selection_scheme(scheme, classification):
