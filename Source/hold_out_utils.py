@@ -192,18 +192,18 @@ def get_estimator_params(n_jobs,
         'random_state': seed,
 
         # offspring variation params
-        'mutate_probability': 0.7,
+        'mutate_probability': 1.0,
         'crossover_probability': 0.0,
-        'crossover_then_mutate_probability': 0.3,
+        'crossover_then_mutate_probability': 0.0,
         'mutate_then_crossover_probability': 0.0,
 
         # estimator params
         'memory_limit':0,
         'preprocessing':False,
         'classification' : classification,
-        'verbose':5,
-        'max_eval_time_seconds':60*5, # 5 min time limit
-        'max_time_seconds': float("inf"), # run until generations are done
+        'verbose':2,
+        'max_eval_time_mins':5, # 5 min time limit
+        'max_time_mins': float("inf"), # run until generations are done
 
         # pipeline search space
         'search_space': get_pipeline_space(classification, seed),
@@ -284,8 +284,8 @@ def get_best_pipeline_results(est, obj_names, scheme, seed, classification):
 
         # filter by the smallest complexity
         best_performers = best_performers[best_performers['complexity'] == best_performers['complexity'].min()]
-        print('best_performers:')
-        print(best_performers)
+        # print('best_performers:')
+        # print(best_performers)
 
         # get best performer performance and cast to numpy float32
         best_performer =  best_performers.sample(1, random_state=seed)
@@ -302,8 +302,8 @@ def get_best_pipeline_results(est, obj_names, scheme, seed, classification):
 
         # filter by the smallest complexity
         best_performers = best_performers[best_performers['complexity'] == best_performers['complexity'].min()]
-        print('best_performers:')
-        print(best_performers)
+        # print('best_performers:')
+        # print(best_performers)
 
         # randomly select one of the best performers with seed set for reproducibility
         best_performer =  best_performers.sample(1, random_state=seed)
