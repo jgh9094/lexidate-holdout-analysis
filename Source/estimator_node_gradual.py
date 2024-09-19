@@ -56,11 +56,17 @@ class EstimatorNodeIndividualGradual(SklearnIndividual):
         if isinstance(self.space, dict):
             return False
 
-        # mutate the hyperparameters one of two ways
         rng = np.random.default_rng(rng)
+
+        # coin flip to determine if we skip mutation mutation
+        if rng.choice([True, False]):
+            return False
+
+        # mutate the hyperparameters one of two ways
 
         # 1. randomly sample a new set of parameters with a 10% chance
         if rng.choice([True, False], p=[0.1, 0.9]):
+            self.space.seed(rng.integers(0, 2**32))
             self.hyperparameters = dict(self.space.sample_configuration())
             return True
 
@@ -112,29 +118,36 @@ class EstimatorNodeIndividualGradual(SklearnIndividual):
 
         return id_str
 
+# function to gradually update numerical hyperparameters to explore the hyperparameter space more effectively
+# will not update categorical hyperparameters, as we want to keep the same categories and tune the values paired them
 def gradual_hyperparameter_update(params:dict, configspace:ConfigurationSpace, rng=None):
+    # use the same rng for reproducibility
     rng = np.random.default_rng(rng)
-    configspace.seed(rng.integers(0, 2**32))
-    new_params = dict(configspace.sample_configuration())
-    for param in list(new_params.keys()):
-        #if parameter is float, multiply by normal distribution
-        if param not in params:
-            continue
+
+    # will be used to store the new hyperparameters
+    new_params = {}
+
+    for param in list(params.keys()):
         try:
+            # if parameter is float
             if issubclass(type(configspace[param]), ConfigSpace.hyperparameters.hyperparameter.FloatHyperparameter):
 
+                # log scale or not?
                 if configspace[param].log:
-                    new_params[param] = params[param] * rng.lognormal(0.0, 1.0)
+                    new_params[param] = params[param] * rng.lognormal(0, 1)
                 else:
-                    new_params[param] = params[param] + rng.normal(0.0, 0.1)* (configspace[param].upper-configspace[param].lower)
-                    # if check if above or below min and cap
+                    new_params[param] = params[param] * rng.normal(1.0, 0.1)
+
+                # if check if above or below min and cap
                 if new_params[param] < configspace[param].lower:
                     new_params[param] = configspace[param].lower
                 elif new_params[param] > configspace[param].upper:
                     new_params[param] = configspace[param].upper
+
             #if parameter is integer, add normal distribution
             elif issubclass(type(configspace[param]), ConfigSpace.hyperparameters.hyperparameter.IntegerHyperparameter):
-                new_params[param] = params[param] + rng.integers(low=-5, high=5, endpoint=True)
+                new_params[param] = params[param] * rng.normal(1.0, 0.1)
+
                 # if check if above or below min and cap
                 if new_params[param] < configspace[param].lower:
                     new_params[param] = configspace[param].lower
