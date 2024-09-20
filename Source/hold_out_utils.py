@@ -39,7 +39,7 @@ def auto_epsilon_lexicase_selection(scores, k, rng=None, n_parents=1,):
             cases.pop(0)
         chosen.append(rng.choice(candidates))
 
-
+    print('chosen:', chosen)
     return np.reshape(chosen, (k, n_parents))
 
 # lexicase selection with ignoring the complexity column
@@ -71,6 +71,7 @@ def lexicase_selection_no_comp(scores, k, rng=None, n_parents=1,):
             cases.pop(0)
         chosen.append(rng.choice(candidates))
 
+    print('chosen:', chosen)
     return np.reshape(chosen, (k, n_parents))
 
 # generate scores for lexicase selection to use
@@ -80,9 +81,11 @@ def lex_selection_objectives(est,X,y,X_select,y_select,classification):
 
     if classification:
         # classification: wanna maximize the number of correct predictions
+        # print('score:', list(np.float32(est.predict(X_select) == y_select)) + [np.int64(tpot2.objectives.complexity_scorer(est,0,0))])
         return list(np.float32(est.predict(X_select) == y_select)) + [np.int64(tpot2.objectives.complexity_scorer(est,0,0))]
     else:
         # regression: wanna minimize the distance between predicted and true values
+        # print('score:', list(np.absolute(y_select - est.predict(X_select), dtype=np.float32)) + [np.int64(tpot2.objectives.complexity_scorer(est,0,0))])
         return list(np.absolute(y_select - est.predict(X_select), dtype=np.float32)) + [np.int64(tpot2.objectives.complexity_scorer(est,0,0))]
 
 # generate scores for tournament selection to use
@@ -92,9 +95,11 @@ def aggregated_selection_objectives(est,X,y,X_select,y_select,classification):
 
     if classification:
         # classification: wanna maximize the number of correct predictions
+        # print('score:', [np.mean(est.predict(X_select) == y_select, dtype=np.float32), np.int64(tpot2.objectives.complexity_scorer(est,0,0))])
         return [np.mean(est.predict(X_select) == y_select, dtype=np.float32), np.int64(tpot2.objectives.complexity_scorer(est,0,0))]
     else:
         # regression: wanna minimize the distance between them
+        # print('score:', [np.mean(np.absolute(y_select - est.predict(X_select), dtype=np.float32)), np.int64(tpot2.objectives.complexity_scorer(est,0,0))])
         return [np.mean(np.absolute(y_select - est.predict(X_select), dtype=np.float32)), np.int64(tpot2.objectives.complexity_scorer(est,0,0))]
 
 # get selection scheme
@@ -111,19 +116,37 @@ def get_selection_scheme(scheme, classification):
         raise ValueError(f"Unknown selection scheme: {scheme}")
 
 # pipeline search space: selector(optional) -> transformer(optional) -> selector(optional) -> regressor/classifier(mandatory)
-def get_pipeline_space(classification, seed):
+def get_pipeline_space_new(classification, seed):
     if classification:
         return tpot2.search_spaces.pipelines.SequentialPipeline([
             tpot2.config.get_search_space(["selectors_classification","Passthrough"], random_state=seed, base_node=EstimatorNodeGradual),
             tpot2.config.get_search_space(["transformers","Passthrough"], random_state=seed, base_node=EstimatorNodeGradual),
             tpot2.config.get_search_space(["selectors_classification","Passthrough"], random_state=seed, base_node=EstimatorNodeGradual),
-            tpot2.config.get_search_space("classifiers", random_state=seed, base_node=EstimatorNodeGradual)])
+            tpot2.config.get_search_space("classifiers", random_state=seed, base_node=EstimatorNodeGradual)]
+                                                                )
     else:
         return tpot2.search_spaces.pipelines.SequentialPipeline([
             tpot2.config.get_search_space(["selectors_regression","Passthrough"], random_state=seed, base_node=EstimatorNodeGradual),
             tpot2.config.get_search_space(["transformers","Passthrough"], random_state=seed, base_node=EstimatorNodeGradual),
             tpot2.config.get_search_space(["selectors_regression","Passthrough"], random_state=seed, base_node=EstimatorNodeGradual),
-            tpot2.config.get_search_space("regressors", random_state=seed, base_node=EstimatorNodeGradual)])
+            tpot2.config.get_search_space("regressors", random_state=seed, base_node=EstimatorNodeGradual)]
+                                                                )
+        
+def get_pipeline_space_old(classification, seed):
+    if classification:
+        return tpot2.search_spaces.pipelines.SequentialPipeline([
+            tpot2.config.get_search_space(["selectors_classification","Passthrough"], random_state=seed),
+            tpot2.config.get_search_space(["transformers","Passthrough"], random_state=seed),
+            tpot2.config.get_search_space(["selectors_classification","Passthrough"], random_state=seed),
+            tpot2.config.get_search_space("classifiers", random_state=seed)]
+                                                                )
+    else:
+        return tpot2.search_spaces.pipelines.SequentialPipeline([
+            tpot2.config.get_search_space(["selectors_regression","Passthrough"], random_state=seed),
+            tpot2.config.get_search_space(["transformers","Passthrough"], random_state=seed),
+            tpot2.config.get_search_space(["selectors_regression","Passthrough"], random_state=seed),
+            tpot2.config.get_search_space("regressors", random_state=seed)]
+                                                                )
 
 # get estimator parameters depending on the selection scheme
 def get_estimator_params(n_jobs,
@@ -132,7 +155,8 @@ def get_estimator_params(n_jobs,
                          split_select,
                          X_train,
                          y_train,
-                         seed):
+                         seed,
+                         space):
     # split the training data
     print('(train)', 1.0-split_select, '/ (select)', split_select)
     if classification:
@@ -192,9 +216,9 @@ def get_estimator_params(n_jobs,
         'random_state': seed,
 
         # offspring variation params
-        'mutate_probability': 1.0,
+        'mutate_probability': 0.7,
         'crossover_probability': 0.0,
-        'crossover_then_mutate_probability': 0.0,
+        'crossover_then_mutate_probability': 0.3,
         'mutate_then_crossover_probability': 0.0,
 
         # estimator params
@@ -206,7 +230,7 @@ def get_estimator_params(n_jobs,
         'max_time_mins': float("inf"), # run until generations are done
 
         # pipeline search space
-        'search_space': get_pipeline_space(classification, seed),
+        'search_space': get_pipeline_space_new(classification, seed) if space == 'new' else get_pipeline_space_old(classification, seed)
         }
 
 # get test scores
@@ -224,7 +248,7 @@ def score(est, X, y, X_train, y_train, classification):
     return {'testing_performance': np.absolute(performance), 'testing_complexity': np.int64(tpot2.objectives.complexity_scorer(est,0,0))}
 
 #https://github.com/automl/ASKL2.0_experiments/blob/84a9c0b3af8f7ac6e2a003d4dea5e6dce97d4315/experiment_scripts/utils.py
-def load_task(task_id, preprocess=True, classification=True):
+def load_task(task_id, classification, preprocess=True):
 
     cached_data_path = f"data/{task_id}_{preprocess}.pkl"
     if os.path.exists(cached_data_path):
@@ -312,15 +336,15 @@ def get_best_pipeline_results(est, obj_names, scheme, seed, classification):
         return np.float32(np.absolute(best_performer['performance'].values[0])), np.int64(best_performer['complexity'].values[0]), best_performer['Individual'].values[0].export_pipeline()
 
 # execute task with tpot2
-def execute_experiment(split_select, scheme, task_id, n_jobs, save_path, seed, classification):
+def execute_experiment(split_select, scheme, task_id, n_jobs, save_path, seed, classification, space='new'):
     # generate directory to save results
-    save_folder = f"{save_path}/{seed}-{task_id}"
-    if not os.path.exists(save_folder):
-        print('CREATING FOLDER:', save_folder)
-        os.makedirs(save_folder)
-    else:
-        print('FOLDER ALREADY EXISTS:', save_folder)
-        return
+    # save_folder = f"{save_path}/{seed}-{task_id}"
+    # if not os.path.exists(save_folder):
+    #     print('CREATING FOLDER:', save_folder)
+    #     os.makedirs(save_folder)
+    # else:
+    #     print('FOLDER ALREADY EXISTS:', save_folder)
+    #     return
 
     # run experiment
     try:
@@ -328,7 +352,7 @@ def execute_experiment(split_select, scheme, task_id, n_jobs, save_path, seed, c
         X_train, y_train, X_test, y_test = load_task(task_id, preprocess=True, classification=classification)
 
         # get estimator parameters
-        names, est_params = get_estimator_params(n_jobs=n_jobs,classification=classification,scheme=scheme,split_select=split_select,X_train=X_train,y_train=y_train,seed=seed)
+        names, est_params = get_estimator_params(n_jobs=n_jobs,classification=classification,scheme=scheme,split_select=split_select,X_train=X_train,y_train=y_train,seed=seed, space=space)
         est = tpot2.TPOTEstimator(**est_params)
 
         start = time.time()
@@ -345,6 +369,8 @@ def execute_experiment(split_select, scheme, task_id, n_jobs, save_path, seed, c
         results["task_id"] = task_id
         results["selection"] = scheme
         results["seed"] = seed
+
+        return est, results
 
         print('RESULTS:', results)
 
