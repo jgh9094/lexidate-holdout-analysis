@@ -6,15 +6,12 @@ from ConfigSpace import ConfigurationSpace
 from typing import final
 import ConfigSpace
 
-
 NONE_SPECIAL_STRING = "<NONE>"
 TRUE_SPECIAL_STRING = "<TRUE>"
 FALSE_SPECIAL_STRING = "<FALSE>"
 
-
 def default_hyperparameter_parser(params:dict) -> dict:
     return params
-
 
 # NOTE: This is not the default, currently experimental
 class EstimatorNodeIndividualGradual(SklearnIndividual):
