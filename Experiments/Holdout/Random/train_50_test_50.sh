@@ -96,6 +96,6 @@ python /home/hernandezj45/Repos/lexidate-variation-analysis/Source/hold_out_exp.
 -scheme ${SCHEME} \
 -task_id ${TASK_ID} \
 -n_jobs 9 \
--savepath ${DATA_DIR}\
--seed ${SEED}\
--task_type ${TASK_ID} \
+-savepath ${DATA_DIR} \
+-seed ${SEED} \
+-task_type ${TASK_TYPE} \
