@@ -14,12 +14,11 @@ from estimator_node_gradual import EstimatorNodeGradual
 
 # median absolute deviation for epsillon lexicase selection
 def auto_epsilon_lexicase_selection(scores, k, rng=None, n_parents=1,):
-    """Select the best individual according to Auto Epsilon Lexicase Selection, *k* times.
+    """
+    Select the best individual according to Auto Epsilon Lexicase Selection, *k* times.
     The returned list contains the indices of the chosen *individuals*.
     :param scores: The score matrix, where rows the individulas and the columns correspond to scores on different objectives.
     :returns: A list of indices of selected individuals.
-    This function uses the :func:`~random.choice` function from the python base
-    :mod:`random` module.
     """
     rng = np.random.default_rng(rng)
     chosen =[]
@@ -27,7 +26,6 @@ def auto_epsilon_lexicase_selection(scores, k, rng=None, n_parents=1,):
         candidates = list(range(len(scores)))
         cases = list(range(len(scores[0]) - 1)) # ignore the last column which is complexity
         rng.shuffle(cases)
-
 
         while len(cases) > 0 and len(candidates) > 1:
             errors_for_this_case = scores[candidates,cases[0]]
@@ -39,26 +37,18 @@ def auto_epsilon_lexicase_selection(scores, k, rng=None, n_parents=1,):
             cases.pop(0)
         chosen.append(rng.choice(candidates))
 
-    print('chosen:', chosen)
     return np.reshape(chosen, (k, n_parents))
 
 # lexicase selection with ignoring the complexity column
 def lexicase_selection_no_comp(scores, k, rng=None, n_parents=1,):
-    """Select the best individual according to Lexicase Selection, *k* times.
+    """
+    Select the best individual according to Lexicase Selection, *k* times.
     The returned list contains the indices of the chosen *individuals*.
     :param scores: The score matrix, where rows the individulas and the columns are the corresponds to scores on different objectives.
     :returns: A list of indices of selected individuals.
-    This function uses the :func:`~random.choice` function from the python base
-    :mod:`random` module.
     """
     rng = np.random.default_rng(rng)
     chosen =[]
-
-    # for debugging
-    # make sure the first column to the second to last one is either True or False
-    # assert np.all(np.isin(score[:-2], [np.float32(True), np.float32(False)]) for score in scores)
-    # make sure the last column is greater than 1
-    # assert np.all(score[-1] > 1 for score in scores)
 
     for _ in range(k*n_parents):
         candidates = list(range(len(scores)))
@@ -71,7 +61,6 @@ def lexicase_selection_no_comp(scores, k, rng=None, n_parents=1,):
             cases.pop(0)
         chosen.append(rng.choice(candidates))
 
-    print('chosen:', chosen)
     return np.reshape(chosen, (k, n_parents))
 
 # generate scores for lexicase selection to use
@@ -81,11 +70,9 @@ def lex_selection_objectives(est,X,y,X_select,y_select,classification):
 
     if classification:
         # classification: wanna maximize the number of correct predictions
-        # print('score:', list(np.float32(est.predict(X_select) == y_select)) + [np.int64(tpot2.objectives.complexity_scorer(est,0,0))])
         return list(np.float32(est.predict(X_select) == y_select)) + [np.int64(tpot2.objectives.complexity_scorer(est,0,0))]
     else:
         # regression: wanna minimize the distance between predicted and true values
-        # print('score:', list(np.absolute(y_select - est.predict(X_select), dtype=np.float32)) + [np.int64(tpot2.objectives.complexity_scorer(est,0,0))])
         return list(np.absolute(y_select - est.predict(X_select), dtype=np.float32)) + [np.int64(tpot2.objectives.complexity_scorer(est,0,0))]
 
 # generate scores for tournament selection to use
@@ -95,11 +82,9 @@ def aggregated_selection_objectives(est,X,y,X_select,y_select,classification):
 
     if classification:
         # classification: wanna maximize the number of correct predictions
-        # print('score:', [np.mean(est.predict(X_select) == y_select, dtype=np.float32), np.int64(tpot2.objectives.complexity_scorer(est,0,0))])
         return [np.mean(est.predict(X_select) == y_select, dtype=np.float32), np.int64(tpot2.objectives.complexity_scorer(est,0,0))]
     else:
         # regression: wanna minimize the distance between them
-        # print('score:', [np.mean(np.absolute(y_select - est.predict(X_select), dtype=np.float32)), np.int64(tpot2.objectives.complexity_scorer(est,0,0))])
         return [np.mean(np.absolute(y_select - est.predict(X_select), dtype=np.float32)), np.int64(tpot2.objectives.complexity_scorer(est,0,0))]
 
 # get selection scheme
@@ -116,37 +101,19 @@ def get_selection_scheme(scheme, classification):
         raise ValueError(f"Unknown selection scheme: {scheme}")
 
 # pipeline search space: selector(optional) -> transformer(optional) -> selector(optional) -> regressor/classifier(mandatory)
-def get_pipeline_space_new(classification, seed):
+def get_pipeline_space(classification, seed):
     if classification:
         return tpot2.search_spaces.pipelines.SequentialPipeline([
             tpot2.config.get_search_space(["selectors_classification","Passthrough"], random_state=seed, base_node=EstimatorNodeGradual),
             tpot2.config.get_search_space(["transformers","Passthrough"], random_state=seed, base_node=EstimatorNodeGradual),
             tpot2.config.get_search_space(["selectors_classification","Passthrough"], random_state=seed, base_node=EstimatorNodeGradual),
-            tpot2.config.get_search_space("classifiers", random_state=seed, base_node=EstimatorNodeGradual)]
-                                                                )
+            tpot2.config.get_search_space("classifiers", random_state=seed, base_node=EstimatorNodeGradual)])
     else:
         return tpot2.search_spaces.pipelines.SequentialPipeline([
             tpot2.config.get_search_space(["selectors_regression","Passthrough"], random_state=seed, base_node=EstimatorNodeGradual),
             tpot2.config.get_search_space(["transformers","Passthrough"], random_state=seed, base_node=EstimatorNodeGradual),
             tpot2.config.get_search_space(["selectors_regression","Passthrough"], random_state=seed, base_node=EstimatorNodeGradual),
-            tpot2.config.get_search_space("regressors", random_state=seed, base_node=EstimatorNodeGradual)]
-                                                                )
-        
-def get_pipeline_space_old(classification, seed):
-    if classification:
-        return tpot2.search_spaces.pipelines.SequentialPipeline([
-            tpot2.config.get_search_space(["selectors_classification","Passthrough"], random_state=seed),
-            tpot2.config.get_search_space(["transformers","Passthrough"], random_state=seed),
-            tpot2.config.get_search_space(["selectors_classification","Passthrough"], random_state=seed),
-            tpot2.config.get_search_space("classifiers", random_state=seed)]
-                                                                )
-    else:
-        return tpot2.search_spaces.pipelines.SequentialPipeline([
-            tpot2.config.get_search_space(["selectors_regression","Passthrough"], random_state=seed),
-            tpot2.config.get_search_space(["transformers","Passthrough"], random_state=seed),
-            tpot2.config.get_search_space(["selectors_regression","Passthrough"], random_state=seed),
-            tpot2.config.get_search_space("regressors", random_state=seed)]
-                                                                )
+            tpot2.config.get_search_space("regressors", random_state=seed, base_node=EstimatorNodeGradual)])
 
 # get estimator parameters depending on the selection scheme
 def get_estimator_params(n_jobs,
@@ -155,8 +122,7 @@ def get_estimator_params(n_jobs,
                          split_select,
                          X_train,
                          y_train,
-                         seed,
-                         space):
+                         seed):
     # split the training data
     print('(train)', 1.0-split_select, '/ (select)', split_select)
     if classification:
@@ -209,7 +175,7 @@ def get_estimator_params(n_jobs,
 
         # evolutionary algorithm params
         'population_size' : 100,
-        'generations' : 2,
+        'generations' : 200,
         'n_jobs':n_jobs,
         'survival_selector' :None,
         'parent_selector': get_selection_scheme(scheme, classification),
@@ -225,12 +191,12 @@ def get_estimator_params(n_jobs,
         'memory_limit':0,
         'preprocessing':False,
         'classification' : classification,
-        'verbose':2,
+        'verbose':1,
         'max_eval_time_mins':5, # 5 min time limit
         'max_time_mins': float("inf"), # run until generations are done
 
         # pipeline search space
-        'search_space': get_pipeline_space_new(classification, seed) if space == 'new' else get_pipeline_space_old(classification, seed)
+        'search_space': get_pipeline_space(classification, seed)
         }
 
 # get test scores
@@ -245,7 +211,7 @@ def score(est, X, y, X_train, y_train, classification):
     else:
         # get regression mean absolute error score
         performance = np.float32(sklearn.metrics.get_scorer("neg_mean_absolute_error")(est, X, y))
-    return {'testing_performance': np.absolute(performance), 'testing_complexity': np.int64(tpot2.objectives.complexity_scorer(est,0,0))}
+    return {'testing_performance': np.absolute(performance, dtype=np.float32), 'testing_complexity': np.int64(tpot2.objectives.complexity_scorer(est,0,0))}
 
 #https://github.com/automl/ASKL2.0_experiments/blob/84a9c0b3af8f7ac6e2a003d4dea5e6dce97d4315/experiment_scripts/utils.py
 def load_task(task_id, classification, preprocess=True):
@@ -293,58 +259,41 @@ def load_task(task_id, classification, preprocess=True):
 
 # get the best pipeline from tpot2 depending on the selection scheme
 def get_best_pipeline_results(est, obj_names, scheme, seed, classification):
-    # lexicase selection
+    # get correct subset of evaluated individuals and drop NaN values
     if scheme == 'lexicase':
-        # remove rows with NaN values
         sub = est.evaluated_individuals.dropna(subset=['obj_0'])
-        # avg performance across all objectives
         sub['performance'] = est.evaluated_individuals[obj_names[:-1]].mean(axis=1)
-
-        # get best performers
-        if classification:
-            best_performers = sub[sub['performance'] == sub['performance'].max()]
-        else:
-            best_performers = sub[sub['performance'] == sub['performance'].min()]
-
-        # filter by the smallest complexity
-        best_performers = best_performers[best_performers['complexity'] == best_performers['complexity'].min()]
-        # print('best_performers:')
-        # print(best_performers)
-
-        # get best performer performance and cast to numpy float32
-        best_performer =  best_performers.sample(1, random_state=seed)
-
-        # return performance, complexity, and individual
-        return np.float32(best_performer['performance'].values[0]), np.int64(best_performer['complexity'].values[0]), best_performer['Individual'].values[0].export_pipeline()
-
     else:
-        #filter evaluated_individuals pandas dataframe with individuals best performance
-        if classification:
-            best_performers = est.evaluated_individuals[est.evaluated_individuals['performance'] == est.evaluated_individuals['performance'].max()]
-        else:
-            best_performers = est.evaluated_individuals[est.evaluated_individuals['performance'] == est.evaluated_individuals['performance'].min()]
+        sub = est.evaluated_individuals.dropna(subset=['performance'])
 
-        # filter by the smallest complexity
-        best_performers = best_performers[best_performers['complexity'] == best_performers['complexity'].min()]
-        # print('best_performers:')
-        # print(best_performers)
+    # get best performers based on classification or regression
+    if classification:
+        best_performers = sub[sub['performance'] == sub['performance'].max()]
+    else:
+        best_performers = sub[sub['performance'] == sub['performance'].min()]
 
-        # randomly select one of the best performers with seed set for reproducibility
-        best_performer =  best_performers.sample(1, random_state=seed)
+    # filter by the smallest complexity
+    best_performers = best_performers[best_performers['complexity'] == best_performers['complexity'].min()]
 
-        # return performance, complexity, and individual
-        return np.float32(np.absolute(best_performer['performance'].values[0])), np.int64(best_performer['complexity'].values[0]), best_performer['Individual'].values[0].export_pipeline()
+    # get best performer performance and cast to numpy float32
+    best_performer =  best_performers.sample(1, random_state=seed)
+
+    # return performance, complexity, and individual
+    return np.float32(best_performer['performance'].values[0]), \
+                np.int64(best_performer['complexity'].values[0]), \
+                best_performer['Individual'].values[0].export_pipeline(), \
+                    # sub # for debugging
 
 # execute task with tpot2
-def execute_experiment(split_select, scheme, task_id, n_jobs, save_path, seed, classification, space='new'):
+def execute_experiment(split_select, scheme, task_id, n_jobs, save_path, seed, classification):
     # generate directory to save results
-    # save_folder = f"{save_path}/{seed}-{task_id}"
-    # if not os.path.exists(save_folder):
-    #     print('CREATING FOLDER:', save_folder)
-    #     os.makedirs(save_folder)
-    # else:
-    #     print('FOLDER ALREADY EXISTS:', save_folder)
-    #     return
+    save_folder = f"{save_path}/{seed}-{task_id}"
+    if not os.path.exists(save_folder):
+        print('CREATING FOLDER:', save_folder)
+        os.makedirs(save_folder)
+    else:
+        print('FOLDER ALREADY EXISTS:', save_folder)
+        return
 
     # run experiment
     try:
@@ -352,25 +301,26 @@ def execute_experiment(split_select, scheme, task_id, n_jobs, save_path, seed, c
         X_train, y_train, X_test, y_test = load_task(task_id, preprocess=True, classification=classification)
 
         # get estimator parameters
-        names, est_params = get_estimator_params(n_jobs=n_jobs,classification=classification,scheme=scheme,split_select=split_select,X_train=X_train,y_train=y_train,seed=seed, space=space)
+        names, est_params = get_estimator_params(n_jobs=n_jobs,classification=classification,scheme=scheme,split_select=split_select,X_train=X_train,y_train=y_train,seed=seed)
         est = tpot2.TPOTEstimator(**est_params)
 
         start = time.time()
         print("ESTIMATOR FITTING")
-        est.fit(X_train, y_train)
+        est.fit(X_train, y_train) # x_train, y_train are not used at all by the estimator
         duration = time.time() - start
         print("ESTIMATOR FITTING COMPLETE:", duration / 60 / 60, 'hours')
 
         # get best performer performance and cast to numpy float32
         train_performance, complexity, pipeline = get_best_pipeline_results(est, names, scheme, seed, classification)
+        # train_performance, complexity, pipeline, sub = get_best_pipeline_results(est, names, scheme, seed, classification) # for debugging
+
+        # get test scores and save results
         results = score(pipeline, X_test, y_test, X_train=X_train, y_train=y_train, classification=classification)
         results['training_performance'] = train_performance
         results['training_complexity'] = complexity
         results["task_id"] = task_id
         results["selection"] = scheme
         results["seed"] = seed
-
-        return est, results
 
         print('RESULTS:', results)
 
@@ -382,11 +332,9 @@ def execute_experiment(split_select, scheme, task_id, n_jobs, save_path, seed, c
         trace =  traceback.format_exc()
         pipeline_failure_dict = {"task_id": task_id, "selection": scheme, "seed": seed, "error": str(e), "trace": trace}
         print("failed on ")
-        print(save_folder)
-        print(e)
-        print(trace)
+        for k,v in pipeline_failure_dict.items():
+            print(k,':',v)
 
         with open(f"{save_folder}/failed.pkl", "wb") as f:
             pickle.dump(pipeline_failure_dict, f)
-
     return
