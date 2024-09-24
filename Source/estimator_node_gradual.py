@@ -1,3 +1,4 @@
+# custom class for nodes
 # try https://automl.github.io/ConfigSpace/main/api/hyperparameters.html
 
 import numpy as np
@@ -65,10 +66,9 @@ class EstimatorNodeIndividualGradual(SklearnIndividual):
         if rng.choice([True, False], p=[0.1, 0.9]):
             self.space.seed(rng.integers(0, 2**32))
             self.hyperparameters = dict(self.space.sample_configuration())
-            return True
-
-        # 2. gradually update the hyperparameters with a 90% chance
-        self.hyperparameters = gradual_hyperparameter_update(params=self.hyperparameters, configspace=self.space, rng=rng)
+        else:
+            # 2. gradually update the hyperparameters with a 90% chance
+            self.hyperparameters = gradual_hyperparameter_update(params=self.hyperparameters, configspace=self.space, rng=rng)
         self.check_hyperparameters_for_None()
         return True
 
@@ -151,6 +151,9 @@ def gradual_hyperparameter_update(params:dict, configspace:ConfigurationSpace, r
                 elif new_params[param] > configspace[param].upper:
                     new_params[param] = configspace[param].upper
                 new_params[param] = int(new_params[param])
+            # TODO : add support for categorical hyperparameters
+            else:
+                new_params[param] = params[param]
         except:
             pass
 
