@@ -4,8 +4,8 @@
 #SBATCH --ntasks=1
 #SBATCH --array=1-160%16
 #SBATCH --cpus-per-task=9
-#SBATCH -t 48:00:00
-#SBATCH --mem=7GB
+#SBATCH -t 36:00:00
+#SBATCH --mem=8GB
 #SBATCH --job-name=lex-50-50
 #SBATCH -p defq,moore
 #SBATCH --exclude=esplhpc-cp040
@@ -16,7 +16,7 @@ source /home/hernandezj45/anaconda3/etc/profile.d/conda.sh
 # conda activate tpot2-env-3.10
 conda activate tpot2-env-3.10
 # load the correct version of tpot2
-pip install -e /home/hernandezj45/Repos/lexidate-variation-analysis/tpot2-3-step-ea/
+pip install -e /home/hernandezj45/Repos/lexidate-variation-analysis/3-step-ea/
 
 # Define the output directory
 DATA_DIR=/home/hernandezj45/Repos/lexidate-variation-analysis/Results/Holdout/Lexicase/train_50_test_50/
