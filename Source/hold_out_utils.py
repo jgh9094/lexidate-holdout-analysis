@@ -288,10 +288,7 @@ def get_best_pipeline_results(est, obj_names, scheme, seed, classification):
 def execute_experiment(split_select, scheme, task_id, n_jobs, save_path, seed, classification):
     # generate directory to save results
     save_folder = f"{save_path}/{seed}-{task_id}"
-    if not os.path.exists(save_folder):
-        print('CREATING FOLDER:', save_folder)
-        os.makedirs(save_folder)
-    else:
+    if os.path.exists(save_folder):
         print('FOLDER ALREADY EXISTS:', save_folder)
         return
 
@@ -323,6 +320,9 @@ def execute_experiment(split_select, scheme, task_id, n_jobs, save_path, seed, c
         results["seed"] = seed
 
         print('RESULTS:', results)
+
+        print('CREATING FOLDER:', save_folder)
+        os.makedirs(save_folder)
 
         print('SAVING:SCORES.PKL')
         with open(f"{save_folder}/results.pkl", "wb") as f:
