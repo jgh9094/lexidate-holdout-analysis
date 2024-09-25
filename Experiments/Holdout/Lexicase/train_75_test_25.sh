@@ -5,7 +5,7 @@
 #SBATCH --array=1-160%16
 #SBATCH --cpus-per-task=9
 #SBATCH -t 36:00:00
-#SBATCH --mem=7GB
+#SBATCH --mem=20GB
 #SBATCH --job-name=lex-75-25
 #SBATCH -p defq,moore
 #SBATCH --exclude=esplhpc-cp040
