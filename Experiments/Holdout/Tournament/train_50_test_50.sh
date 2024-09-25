@@ -13,10 +13,7 @@
 
 # load conda environment
 source /home/hernandezj45/anaconda3/etc/profile.d/conda.sh
-# conda activate tpot2-env-3.10
 conda activate tpot2-env-3.10
-# load the correct version of tpot2
-pip install -e /home/hernandezj45/Repos/lexidate-variation-analysis/3-step-ea/
 
 # Define the output directory
 DATA_DIR=/home/hernandezj45/Repos/lexidate-variation-analysis/Results/Holdout/Tournament/train_50_test_50/
