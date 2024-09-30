@@ -32,9 +32,9 @@ def get_data():
             exp_dir = f'{data_dir}/{scheme}/{dir}/'
             print('exp_dir:', exp_dir)
             # go though all subdirectories in the experiment directory
-            for sub_dir in os.listdir(exp_dir):
-                # skip './' directory
-                if sub_dir == '.':
+            for sub_dir, dirs, files in os.walk(dir):
+                # skip root dir
+                if sub_dir == exp_dir:
                     continue
 
                 print('sub_dir:', sub_dir)
