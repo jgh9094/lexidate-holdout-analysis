@@ -53,6 +53,8 @@ def check_data_dir(dirs):
                 incomplete_dirs.append(dir)
                 break
 
+    return incomplete_dirs
+
 # generate a list of directories to pull data from
 def generate_dirs():
     check_dirs = []
