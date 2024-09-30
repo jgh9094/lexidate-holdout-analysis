@@ -2,7 +2,6 @@ import os
 import pickle
 import pandas
 import numpy as np
-import ray
 
 selection_scheme = ['Lexicase', 'Tournament', 'Random']
 seed_offsets = {'75':0, '50':1000, '25':2000}
