@@ -31,13 +31,14 @@ def get_data():
         for split, dir in split_dirs.items():
             exp_dir = f'{data_dir}/{scheme}/{dir}/'
             print('exp_dir:', exp_dir)
+
             # go though all subdirectories in the experiment directory
             for sub_dir, dirs, files in os.walk(exp_dir):
                 # skip root dir
+                print('sub_dir:', f'{exp_dir}/{sub_dir}/')
                 if sub_dir == exp_dir:
                     continue
 
-                print('sub_dir:', f'{exp_dir}/{sub_dir}/results.pkl')
                 # open the pkl file
                 results = pkl.load(open(f'{exp_dir}/{sub_dir}/results.pkl', 'rb'))
 
