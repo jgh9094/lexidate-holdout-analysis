@@ -11,7 +11,7 @@ split_dirs = {'75%':'train_25_test_75', '50%':'train_50_test_50', '25%':'train_7
 regression_prelim_tasks = [359934, 359945, 359948, 359933]
 classification_prelim_tasks = [146818, 168784, 190137, 359969]
 
-data_dir = '/home/hernandezj45/Repos/lexidate-variation-analysis/Results/Holdout'
+data_dir = '~/Repos/lexidate-variation-analysis/Results/Holdout'
 collector = {'testing_performance':[],
              'testing_complexity': [],
              'training_performance': [],
