@@ -40,10 +40,10 @@ def get_data():
                 if sub_dir == exp_dir:
                     continue
 
-                print('sub_dir:', f'{exp_dir}/{sub_dir}/')
+                print('sub_dir:', f'{sub_dir}/')
 
                 # open the pkl file
-                results = pkl.load(open(f'{exp_dir}/{sub_dir}/results.pkl', 'rb'))
+                results = pkl.load(open(f'{sub_dir}/results.pkl', 'rb'))
 
                 # add data to collector
                 collector['testing_performance'].append(results['testing_performance'])
