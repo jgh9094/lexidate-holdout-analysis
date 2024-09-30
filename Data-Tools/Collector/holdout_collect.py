@@ -37,7 +37,7 @@ def get_data():
                 if sub_dir == exp_dir:
                     continue
 
-                print('sub_dir:', sub_dir)
+                print('sub_dir:', f'{exp_dir}/{sub_dir}/results.pkl')
                 # open the pkl file
                 results = pkl.load(open(f'{exp_dir}/{sub_dir}/results.pkl', 'rb'))
 
@@ -56,7 +56,8 @@ def get_data():
                     collector['task_type'].append('regression')
 
     # create a dataframe from the collector and make a csv file
-    pd.DataFrame(collector).to_csv('holdout_data.csv', index=False)
+    df = pd.DataFrame(collector)
+    df.to_csv('holdout_data.csv', index=False)
 
 
 def main():
