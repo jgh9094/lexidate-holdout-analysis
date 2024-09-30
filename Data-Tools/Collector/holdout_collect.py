@@ -32,7 +32,7 @@ def get_data():
             exp_dir = f'{data_dir}/{scheme}/{dir}/'
             print('exp_dir:', exp_dir)
             # go though all subdirectories in the experiment directory
-            for sub_dir, dirs, files in os.walk(dir):
+            for sub_dir, dirs, files in os.walk(exp_dir):
                 # skip root dir
                 if sub_dir == exp_dir:
                     continue
@@ -55,7 +55,7 @@ def get_data():
                 else:
                     collector['task_type'].append('regression')
 
-    # create a dataframe from the collector and make a csv file
+    # create a dataframe from the collector dictionary and make a csv file
     df = pd.DataFrame(collector)
     df.to_csv('holdout_data.csv', index=False)
 
