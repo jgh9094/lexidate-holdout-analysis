@@ -1,7 +1,7 @@
+# outputs a list of directories that are incomplete
+
 import os
 import pickle
-import pandas
-import numpy as np
 
 selection_scheme = ['Lexicase', 'Tournament'] #, 'Random']
 seed_offsets = {'75':0, '50':1000, '25':2000}
@@ -14,13 +14,6 @@ classification_prelim_tasks = [146818, 168784, 190137, 359969]
 
 reps = 20
 data_dir = '/home/hernandezj45/Repos/lexidate-variation-analysis/Results/Holdout/'
-collector = {'testing_performance':[],
-             'testing_complexity': [],
-             'training_performance': [],
-             'training_complexity': [],
-             'task_id': [],
-             'selection': [],
-             'seed': []}
 
 # check if data was successfully collected
 def check_data_dir(dirs):
