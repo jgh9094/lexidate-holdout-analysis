@@ -43,7 +43,7 @@ def main():
         print('Task Type: Regression')
 
     # keep this in mind for the preliminary tasks
-    regression_prelim_tasks = [359934, 359945, 359948, 359939]
+    regression_prelim_tasks = [359934, 359945, 359948, 359933]
 
     # keep this in mind for the preliminary tasks
     classification_prelim_tasks = [146818, 168784, 190137, 359969]
