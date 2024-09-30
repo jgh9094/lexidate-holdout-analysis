@@ -4,6 +4,7 @@ import os
 import sys
 import pickle as pkl
 import pandas as pd
+from pathlib import Path
 
 selection_scheme = ['Lexicase', 'Tournament'] #, 'Random']
 split_dirs = {'75%':'train_25_test_75', '50%':'train_50_test_50', '25%':'train_75_test_25'}
@@ -11,7 +12,8 @@ split_dirs = {'75%':'train_25_test_75', '50%':'train_50_test_50', '25%':'train_7
 regression_prelim_tasks = [359934, 359945, 359948, 359933]
 classification_prelim_tasks = [146818, 168784, 190137, 359969]
 
-data_dir = '~/Repos/lexidate-variation-analysis/Results/Holdout'
+# assuming data is in the home directory
+data_dir = str(Path.home()) + '/Repos/lexidate-variation-analysis/Results/Holdout'
 collector = {'testing_performance':[],
              'testing_complexity': [],
              'training_performance': [],
@@ -35,9 +37,10 @@ def get_data():
             # go though all subdirectories in the experiment directory
             for sub_dir, dirs, files in os.walk(exp_dir):
                 # skip root dir
-                print('sub_dir:', f'{exp_dir}/{sub_dir}/')
                 if sub_dir == exp_dir:
                     continue
+
+                print('sub_dir:', f'{exp_dir}/{sub_dir}/')
 
                 # open the pkl file
                 results = pkl.load(open(f'{exp_dir}/{sub_dir}/results.pkl', 'rb'))
