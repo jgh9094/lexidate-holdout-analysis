@@ -3,7 +3,7 @@ import pickle
 import pandas
 import numpy as np
 
-selection_scheme = ['Lexicase', 'Tournament', 'Random']
+selection_scheme = ['Lexicase', 'Tournament'] #, 'Random']
 seed_offsets = {'75':0, '50':1000, '25':2000}
 split_dirs = {'75':'train_25_test_75', '50':'train_50_test_50', '25':'train_75_test_25'}
 keys = ['75', '50', '25']
