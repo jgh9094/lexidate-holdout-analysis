@@ -9,7 +9,7 @@ split_dirs = {'75':'train_25_test_75', '50':'train_50_test_50', '25':'train_75_t
 keys = ['75', '50', '25']
 data_keys = ['testing_performance' ,'testing_complexity' ,'training_performance' ,'training_complexity' ,'task_id' ,'selection' ,'seed']
 
-regression_prelim_tasks = [359934, 359945, 359948, 359939]
+regression_prelim_tasks = [359934, 359945, 359948, 359933]
 classification_prelim_tasks = [146818, 168784, 190137, 359969]
 
 reps = 20
@@ -37,7 +37,7 @@ def check_data_dir(dirs):
         # check if the data was collected
         if os.path.isfile(f'{data_dir}/{dir}/results.pkl') == False:
             incomplete_dirs.append(dir)
-            continue
+            return 0
 
         # open the pkl file
         results = pickle.load(open(f'{data_dir}/{dir}/results.pkl', 'rb'))
@@ -63,8 +63,11 @@ def generate_dirs():
         for key in keys:
             print('split:', key)
             for i, task in enumerate(classification_prelim_tasks + regression_prelim_tasks):
-                    for rep in range(1,reps+1):
-                        check_dirs.append(f'{scheme}/{split_dirs[key]}/{seed_offsets[key] + rep + (8 * i)}-{task}')
+                for rep in range(1,reps+1):
+                    check_dirs.append(f'{scheme}/{split_dirs[key]}/{seed_offsets[key] + rep + (8 * i)}-{task}')
+                    print(f'{scheme}/{split_dirs[key]}/{seed_offsets[key] + rep + (20 * i)}-{task}')
+                print()
+            exit()
     return check_dirs
 
 

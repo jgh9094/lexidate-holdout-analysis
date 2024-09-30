@@ -82,7 +82,7 @@ elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_359948_MIN} ] && [ ${SLURM_ARRAY_TASK_I
     TASK_ID=359948
     TASK_TYPE=0
 elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_359939_MIN} ] && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_359939_MAX} ] ; then
-    TASK_ID=359939
+    TASK_ID=359933
     TASK_TYPE=0
 else
   echo "${SEED} from ${TASK_ID} and ${SCHEME} failed to launch" >> /home/hernandezj45/Repos/lexidate-variation-analysis/failtolaunch.txt
