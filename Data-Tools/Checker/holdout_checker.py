@@ -11,6 +11,7 @@ data_keys = ['testing_performance' ,'testing_complexity' ,'training_performance'
 
 regression_prelim_tasks = [359934, 359945, 359948, 359933]
 classification_prelim_tasks = [146818, 168784, 190137, 359969]
+openml_tasks = classification_prelim_tasks + regression_prelim_tasks
 
 reps = 20
 data_dir = '/home/hernandezj45/Repos/lexidate-variation-analysis/Results/Holdout/'
@@ -52,16 +53,26 @@ def check_data_dir(dirs):
 def generate_dirs():
     check_dirs = []
     for scheme in selection_scheme:
+        # print('scheme:', scheme)
         for key in keys:
-            for i, task in enumerate(classification_prelim_tasks + regression_prelim_tasks):
+            # print('key:', key)
+            for i, task in enumerate(openml_tasks):
+                # print('task:', task)
+                # print('i:', i)
                 for rep in range(1,reps+1):
-                    check_dirs.append(f'{scheme}/{split_dirs[key]}/{seed_offsets[key] + rep + (20 * (i-1))}-{task}')
+                    # print('seed_offsets:', seed_offsets[key])
+                    # print('rep:', rep)
+                    # print('index:', 20 * (i))
+                    check_dirs.append(f'{scheme}/{split_dirs[key]}/{seed_offsets[key] + rep + (20 * i)}-{task}')
                     # print(f'{scheme}/{split_dirs[key]}/{seed_offsets[key] + rep + (20 * i)}-{task}')
+            print()
+            # exit()
     return check_dirs
 
 
 def main():
-    todo = check_data_dir(generate_dirs())
+    dirs = generate_dirs()
+    todo = check_data_dir(dirs)
 
     print('Incomplete Dirs:')
     for dir in todo:
