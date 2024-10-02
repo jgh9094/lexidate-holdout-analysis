@@ -52,12 +52,10 @@ def check_data_dir(dirs):
 def generate_dirs():
     check_dirs = []
     for scheme in selection_scheme:
-        print('scheme:', scheme)
         for key in keys:
-            print('split:', key)
             for i, task in enumerate(classification_prelim_tasks + regression_prelim_tasks):
                 for rep in range(1,reps+1):
-                    check_dirs.append(f'{scheme}/{split_dirs[key]}/{seed_offsets[key] + rep + (8 * i)}-{task}')
+                    check_dirs.append(f'{scheme}/{split_dirs[key]}/{seed_offsets[key] + rep + (8 * (i-1))}-{task}')
                     # print(f'{scheme}/{split_dirs[key]}/{seed_offsets[key] + rep + (20 * i)}-{task}')
     return check_dirs
 
