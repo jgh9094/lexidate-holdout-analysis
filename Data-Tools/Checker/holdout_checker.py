@@ -53,20 +53,10 @@ def check_data_dir(dirs):
 def generate_dirs():
     check_dirs = []
     for scheme in selection_scheme:
-        # print('scheme:', scheme)
         for key in keys:
-            # print('key:', key)
             for i, task in enumerate(openml_tasks):
-                # print('task:', task)
-                # print('i:', i)
                 for rep in range(1,reps+1):
-                    # print('seed_offsets:', seed_offsets[key])
-                    # print('rep:', rep)
-                    # print('index:', 20 * (i))
                     check_dirs.append(f'{scheme}/{split_dirs[key]}/{seed_offsets[key] + rep + (20 * i)}-{task}')
-                    # print(f'{scheme}/{split_dirs[key]}/{seed_offsets[key] + rep + (20 * i)}-{task}')
-            print()
-            # exit()
     return check_dirs
 
 
