@@ -55,7 +55,7 @@ def generate_dirs():
         for key in keys:
             for i, task in enumerate(classification_prelim_tasks + regression_prelim_tasks):
                 for rep in range(1,reps+1):
-                    check_dirs.append(f'{scheme}/{split_dirs[key]}/{seed_offsets[key] + rep + (8 * (i-1))}-{task}')
+                    check_dirs.append(f'{scheme}/{split_dirs[key]}/{seed_offsets[key] + rep + (20 * (i-1))}-{task}')
                     # print(f'{scheme}/{split_dirs[key]}/{seed_offsets[key] + rep + (20 * i)}-{task}')
     return check_dirs
 
