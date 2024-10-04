@@ -31,9 +31,9 @@ def auto_epsilon_lexicase_selection(scores, k, rng=None, n_parents=1,):
             errors_for_this_case = scores[candidates,cases[0]]
             median_val = np.median(errors_for_this_case)
             median_absolute_deviation = np.median([abs(x - median_val) for x in errors_for_this_case])
-            best_val_for_case = max(errors_for_this_case )
-            min_val_to_survive = best_val_for_case - median_absolute_deviation
-            candidates = [x for x in candidates if scores[x, cases[0]] >= min_val_to_survive]
+            best_val_for_case = min(errors_for_this_case) # smallest error for regression case
+            min_val_to_survive = best_val_for_case + median_absolute_deviation # equation (5) from epsillon lexicase selection paper
+            candidates = [x for x in candidates if scores[x, cases[0]] <= min_val_to_survive]
             cases.pop(0)
         chosen.append(rng.choice(candidates))
 
@@ -151,7 +151,7 @@ def get_estimator_params(n_jobs,
         objective_scorer.__name__ = 'selection-objectives'
         # create list of objective names per sample in y_select + complexity
         objective_names = ['obj_'+str(i) for i in range(y_select.shape[0])] + ['complexity']
-        objective_weights = [objective_weight for _ in range(y_select.shape[0])] + [-1.0]
+        objective_weights = [1.0 for _ in range(y_select.shape[0])] + [-1.0]
 
     elif scheme == 'tournament' or scheme == 'random':
         # create selection objective functions
