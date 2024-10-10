@@ -1,0 +1,96 @@
+# responsibe for generating all figures for holdout approach
+
+rm(list = ls())
+setwd('~/Desktop/Repositories/lexidate-variation-analysis/Data-Tools/Vizualizer/Regression/')
+cat("\014")
+
+library(ggplot2)
+library(cowplot)
+library(dplyr)
+library(PupillometryR)
+library(ggpubr)
+library(scales) # to access break formatting functions
+
+NAMES = c('tournament', 'lexicase')
+SHAPE <- c(21, 24, 22, 25)
+cb_palette <- c('#D81B60', '#1E88E5', '#FFC107', '#004D40')
+TSIZE <- 17
+REPLICATES <- 30
+data_dir <- './'
+r_task_id_lists <- c(359934, 359945, 359948, 359933)
+
+p_theme <- theme(
+  plot.title = element_text(face = "bold", size = 17, hjust=0.5),
+  panel.border = element_blank(),
+  panel.grid.minor = element_blank(),
+  legend.title=element_text(size=17),
+  legend.text=element_text(size=17),
+  axis.title = element_text(size=17),
+  axis.text = element_text(size=11),
+  axis.text.y = element_text(angle = 90, hjust = 0.5),
+  legend.position="bottom",
+  panel.background = element_rect(fill = "#f1f2f5",
+                                  colour = "white",
+                                  size = 0.5, linetype = "solid")
+)
+
+# classification scores
+regression_scores <- read.csv(paste(data_dir, '../holdout_data.csv', sep = "", collapse = NULL), header = TRUE, stringsAsFactors = FALSE)
+regression_scores$selection <- factor(regression_scores$selection, levels = NAMES)
+regression_scores <- filter(regression_scores, task_type == 'regression')
+
+regression_scores <- regression_scores[duplicated(regression_scores$seed) | duplicated(regression_scores$seed, fromLast = TRUE), ] %>%
+  select(training_performance, selection, seed, task_id, split)
+regression_scores <- reshape(regression_scores, timevar = 'selection', idvar = c('seed', 'task_id', 'split'), direction = "wide")
+
+names(regression_scores)[names(regression_scores) == "training_performance.lexicase"] <- "lexicase"
+names(regression_scores)[names(regression_scores) == "training_performance.tournament"] <- "tournament"
+
+
+# call other scripts to generate rows
+source('./training_25.R')
+source('./training_50.R')
+source('./training_75.R')
+
+bottom = plot_grid(
+  get_title(task_1),
+  get_title(task_2),
+  get_title(task_3),
+  get_title(task_4),
+  ncol=4
+)
+
+# legend
+legend <- cowplot::get_legend(
+  task_1 +
+    guides(
+      shape=guide_legend(nrow=1,title="Selection scheme"),
+      color=guide_legend(nrow=1,title="Selection scheme"),
+      fill=guide_legend(nrow=1,title="Selection scheme"),
+    ) +
+    theme(
+      legend.position = "top",
+      legend.box="verticle",
+      legend.justification="center"
+    )
+)
+
+# generate figure
+training_error = plot_grid(
+  ggdraw() + draw_label("Average absolute error on selection set per OpenML regression task", fontface='bold', size = 20) + p_theme,
+  training_25,
+  training_50,
+  training_75,
+  bottom,
+  legend,
+  nrow=6,
+  rel_heights =  c(.1, 1,1,1, 0.06, .1),
+  label_size = TSIZE
+)
+
+save_plot(
+  paste(filename ="training_error.pdf"),
+  training_error,
+  base_width=10,
+  base_height=10
+)
