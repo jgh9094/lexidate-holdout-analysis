@@ -38,7 +38,6 @@ def auto_epsilon_lexicase_selection(scores, k, rng_=None, n_parents=1,):
             cases.pop(0)
         chosen.append(rng.choice(candidates))
 
-
     return np.reshape(chosen, (k, n_parents))
 
 # lexicase selection with ignoring the complexity column
@@ -71,6 +70,7 @@ def lexicase_selection_no_comp(scores, k, rng=None, n_parents=1,):
         chosen.append(rng.choice(candidates))
 
     return np.reshape(chosen, (k, n_parents))
+
 # generate set of unaggreated selection objectives
 def unaggregated_selection_objectives(est,X,y,cv,classification):
     # hold all the scores
@@ -230,7 +230,7 @@ def get_estimator_params(n_jobs,
     print('CV:', cv)
 
     # negative weights for regression tasks and positive weights for classification tasks
-    objective_weights = -1.0 if not classification else 1.0
+    objective_weight = -1.0 if not classification else 1.0
 
     # get selection objective functions
     if validation == 'unaggregated':
@@ -243,7 +243,7 @@ def get_estimator_params(n_jobs,
         objective_scorer.__name__ = 'unaggregated-objectives'
         # create list of objective names per sample in y_select + complexity
         objective_names = ['obj_'+str(i) for i in range(y_train.shape[0])] + ['complexity']
-        objective_weights = [objective_weights for _ in range(y_train.shape[0])] + [-1.0]
+        objective_weights = [objective_weight for _ in range(y_train.shape[0])] + [-1.0]
 
     elif validation == 'aggregated':
         # create selection objective functions
@@ -255,7 +255,7 @@ def get_estimator_params(n_jobs,
         objective_scorer.__name__ = 'aggregated-objectives'
         # create list of objective names per sample in y_select + complexity
         objective_names = ['fold_'+str(i) for i in range(10)] + ['complexity']
-        objective_weights = [objective_weights for _ in range(10)] + [-1.0]
+        objective_weights = [objective_weight for _ in range(10)] + [-1.0]
 
     elif validation == 'compressed'  or validation == 'random':
         # create selection objective functions
@@ -267,7 +267,7 @@ def get_estimator_params(n_jobs,
         objective_scorer.__name__ = 'compressed-objectives'
         # create list of objective names per sample in y_select + complexity
         objective_names = ['cv'] + ['complexity']
-        objective_weights = [objective_weights, -1.0]
+        objective_weights = [objective_weight, -1.0]
 
     else:
         raise ValueError(f"Unknown validation: {validation}")
@@ -298,7 +298,7 @@ def get_estimator_params(n_jobs,
         # estimator params
         'memory_limit':0,
         'preprocessing':False,
-        'classification' : True,
+        'classification' : classification,
         'verbose':1,
         'max_eval_time_seconds':60*5, # 5 min time limit
         'max_time_seconds': float("inf"), # run until generations are done
@@ -314,11 +314,11 @@ def score(est, X, y, X_train, y_train, classification):
 
     # calculate testing performance
     if classification:
-        # get classification accuracy score
+        # get classification testing score
         performance = np.float32(sklearn.metrics.get_scorer("accuracy")(est, X, y))
     else:
-        # get regression mean absolute error score
-        performance = np.float32(sklearn.metrics.get_scorer("neg_mean_absolute_error")(est, X, y))
+        # regression testing score
+        performance = 0
     return {'testing_performance': performance}
 
 #https://github.com/automl/ASKL2.0_experiments/blob/84a9c0b3af8f7ac6e2a003d4dea5e6dce97d4315/experiment_scripts/utils.py

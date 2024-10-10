@@ -30,21 +30,20 @@ def main():
     print('Save Path:', save_path)
     seed = int(args.seed)
     print('Seed:', seed)
-    task_type = bool(args.task_type)
+    task_type = bool(int(args.task_type))
     # if task_type is True, then we are doing classification
     if task_type:
         print('Task Type: Classification')
     else:
         print('Task Type: Regression')
 
-    # the test tasks used by autosklearn2 paper
-    # task_id_lists = [ 189865,167200,359969,189860,75127,189862,75105,168798,126029,168796,
-    #                  167190,167104,167083,146818,126025,75097,168784,168797,189861,190137,167149
-    #                 ]
+    # keep this in mind for the preliminary tasks
+    regression_prelim_tasks = [359934, 359945, 359948, 359933]
 
-    # subset of tasks used for preliminary experiments
-    task_id_lists = [146818,168784,190137,359969]
-    assert task_id in task_id_lists, 'Task ID not in list of tasks'
+    # keep this in mind for the preliminary tasks
+    classification_prelim_tasks = [146818, 168784, 190137, 359969]
+
+    assert task_id in regression_prelim_tasks + classification_prelim_tasks, 'Task ID not in list of tasks'
 
     # execute task
     cv_utils.execute_experiment(validation,
