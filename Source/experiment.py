@@ -51,9 +51,9 @@ def main():
 
     # classification tasks:
     # 100 < rows < 2000
-    # columns < 10000
+    # columns < 1000
     classification_tasks = [359953,146818,359954,359955,190146,168757,359956,
-                            359957,359958,359959,2073,10090,359960,168784,359961,
+                            359957,359958,359959,2073,359960,168784,359961,
                             359962]
 
     assert task_id in regression_tasks + classification_tasks, 'Task ID not in list of tasks'
