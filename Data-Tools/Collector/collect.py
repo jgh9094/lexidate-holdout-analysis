@@ -12,8 +12,10 @@ split_dirs = {'90%':'learn_10_select_90',
               '50%':'learn_50_select_50',
               '20%':'learn_80_select_20',
               '10%':'learn_90_select_10'}
-regression_prelim_tasks = [359934, 359945, 359948, 359933]
-classification_prelim_tasks = [146818, 168784, 190137, 359969]
+regression_tasks = [] # todo
+classification_tasks = [359953,146818,359954,359955,190146,168757,359956,
+                            359957,359958,359959,2073,10090,359960,168784,359961,
+                            359962]
 
 # assuming data is in the home directory
 data_dir = str(Path.home()) + '/Repos/lexidate-variation-analysis/Results'
@@ -57,10 +59,12 @@ def get_data():
                 collector['selection'].append(results['selection'])
                 collector['split'].append(split)
                 collector['seed'].append(results['seed'])
-                if results['task_id'] in classification_prelim_tasks:
+                if results['task_id'] in classification_tasks:
                     collector['task_type'].append('classification')
-                else:
+                elif results['task_id'] in regression_tasks:
                     collector['task_type'].append('regression')
+                else:
+                    exit(f'Error: task_id {results["task_id"]} not found in classification_tasks or regression_tasks')
 
     # create a dataframe from the collector dictionary and make a csv file
     df = pd.DataFrame(collector)
