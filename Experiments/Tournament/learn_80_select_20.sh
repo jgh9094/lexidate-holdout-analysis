@@ -118,6 +118,8 @@ elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_2073_MIN} ]   && [ ${SLURM_ARRAY_TASK_I
 elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_10090_MIN} ] && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_10090_MAX} ] ; then
     TASK_ID=10090
     TASK_TYPE=1
+    echo "TASK_ID: ${TASK_ID}"
+    exit 0
 elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_359960_MIN} ] && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_359960_MAX} ] ; then
     TASK_ID=359960
     TASK_TYPE=1
