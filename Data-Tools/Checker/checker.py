@@ -96,13 +96,15 @@ def main():
     print('*'*100)
     print('Lexicase')
     for key, val in lex_unfinished_dirs.items():
-        print(f'{key}: {val}')
+        output = ",".join(map(str, val))
+        print(f'{key}: {output}')
         print('total:', len(val))
         print()
     print('*'*50)
     print('Tournament')
     for key, val in tor_unfinished_dirs.items():
-        print(f'{key}: {val}')
+        output = ",".join(map(str, val))
+        print(f'{key}: {output}')
         print('total:', len(val))
         print()
     print('*'*100)
