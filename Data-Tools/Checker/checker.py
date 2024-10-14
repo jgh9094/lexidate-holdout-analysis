@@ -72,6 +72,8 @@ def go_though_all_dirs():
     for scheme, scheme_offset in selection_scheme.items():
         for key in keys:
             for i, task in enumerate(openml_tasks):
+                if task == 10090:
+                    continue
                 for rep in range(1,reps+1):
                     # calcualte seed and check dir
                     seed = rep + (reps * i)
