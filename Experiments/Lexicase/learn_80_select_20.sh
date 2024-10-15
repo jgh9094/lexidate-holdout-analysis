@@ -5,7 +5,7 @@
 #SBATCH --array=1-480%16
 #SBATCH --cpus-per-task=9
 #SBATCH -t 72:00:00
-#SBATCH --mem=300GB
+#SBATCH --mem=185GB
 #SBATCH --job-name=l-8-2
 #SBATCH -p defq,moore
 #SBATCH --exclude=esplhpc-cp040
@@ -85,6 +85,8 @@ TASK_359962_MAX=480
 if [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_359953_MIN} ] && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_359953_MAX} ] ; then
   TASK_ID=359953
   TASK_TYPE=1
+  echo "TASK_ID: ${TASK_ID}"
+  exit 0
 elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_146818_MIN} ] && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_146818_MAX} ] ; then
   TASK_ID=146818
   TASK_TYPE=1
@@ -106,6 +108,8 @@ elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_359956_MIN} ] && [ ${SLURM_ARRAY_TASK_I
 elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_359957_MIN} ] && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_359957_MAX} ] ; then
     TASK_ID=359957
     TASK_TYPE=1
+    echo "TASK_ID: ${TASK_ID}"
+    exit 0
 elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_359958_MIN} ] && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_359958_MAX} ] ; then
     TASK_ID=359958
     TASK_TYPE=1
@@ -118,6 +122,8 @@ elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_2073_MIN} ]   && [ ${SLURM_ARRAY_TASK_I
 elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_10090_MIN} ] && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_10090_MAX} ] ; then
     TASK_ID=10090
     TASK_TYPE=1
+    echo "TASK_ID: ${TASK_ID}"
+    exit 0
 elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_359960_MIN} ] && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_359960_MAX} ] ; then
     TASK_ID=359960
     TASK_TYPE=1
@@ -127,6 +133,8 @@ elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_168784_MIN} ] && [ ${SLURM_ARRAY_TASK_I
 elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_359961_MIN} ] && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_359961_MAX} ] ; then
     TASK_ID=359961
     TASK_TYPE=1
+    echo "TASK_ID: ${TASK_ID}"
+    exit 0
 elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_359962_MIN} ] && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_359962_MAX} ] ; then
     TASK_ID=359962
     TASK_TYPE=1
