@@ -34,7 +34,7 @@ python /home/hernandezj45/Repos/lexidate-variation-analysis/Source/experiment.py
 -split_select ${SPLIT_SELECT} \
 -scheme ${SCHEME} \
 -task_id ${TASK_ID} \
--n_jobs 9 \
+-n_jobs 12 \
 -savepath ${DATA_DIR} \
 -seed ${SEED} \
 -task_type ${TASK_TYPE} \
