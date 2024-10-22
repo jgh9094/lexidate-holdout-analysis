@@ -2,7 +2,7 @@
 ########## Define Resources Needed with SBATCH Lines ##########
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --array=481,482
+#SBATCH --array=1,2
 #SBATCH --cpus-per-task=12
 #SBATCH -t 72:00:00
 #SBATCH --mem=200GB
@@ -15,25 +15,27 @@
 source /home/hernandezj45/anaconda3/etc/profile.d/conda.sh
 conda activate tpot2-env-3.10
 
-# check if array task id is 481
-if [ $SLURM_ARRAY_TASK_ID -eq 481 ] ; then
+# check if array task id is 1
+if [ $SLURM_ARRAY_TASK_ID -eq 1 ] ; then
     DATA_DIR=/home/hernandezj45/Repos/lexidate-variation-analysis/Results/Lexicase/learn_20_select_80/
     SPLIT_SELECT=0.80
     SCHEME=lexicase
     SPLIT_OFFSET=500
     EXP_OFFSET=0
-    SEED=$((SLURM_ARRAY_TASK_ID + SPLIT_OFFSET + EXP_OFFSET))
+    S=481
+    SEED=$((S + SPLIT_OFFSET + EXP_OFFSET))
     TASK_ID=168757
     TASK_TYPE=1
 
-elif [ $SLURM_ARRAY_TASK_ID -eq 482 ] ; then
+elif [ $SLURM_ARRAY_TASK_ID -eq 2 ] ; then
     # Define the output directory
     DATA_DIR=/home/hernandezj45/Repos/lexidate-variation-analysis/Results/Lexicase/learn_10_select_90/
     SPLIT_SELECT=0.90
     SCHEME=lexicase
     SPLIT_OFFSET=0
     EXP_OFFSET=0
-    SEED=$((SLURM_ARRAY_TASK_ID + SPLIT_OFFSET + EXP_OFFSET))
+    S=481
+    SEED=$((S + SPLIT_OFFSET + EXP_OFFSET))
     TASK_ID=359955
     TASK_TYPE=1
 fi
