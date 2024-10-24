@@ -1,0 +1,324 @@
+######### Task ID: 146818 #########
+
+#### Testing ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max    IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>  <dbl>
+1 tournament    30      0 0.754  0.870 0.857 0.913 0.0290
+2 lexicase      30      0 0.768  0.884 0.875 0.928 0.0399
+[1] "observed difference"
+       t 
+-1.73719 
+[1] "p-value"
+[1] 0.95899
+
+#### Training ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max     IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>   <dbl>
+1 tournament    30      0 0.866  0.876 0.876 0.891 0.00894
+2 lexicase      30      0 0.875  0.882 0.883 0.898 0.00537
+[1] "observed difference"
+       t 
+-5.24293 
+[1] "p-value"
+[1] 0
+
+###################################################################################################
+######### Task ID: 359954 #########
+
+#### Testing ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max    IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>  <dbl>
+1 tournament    30      0 0.595  0.662 0.653 0.703 0.0405
+2 lexicase      30      0 0.284  0.649 0.635 0.730 0.0405
+[1] "observed difference"
+       t 
+1.259941 
+[1] "p-value"
+[1] 0.107158
+
+#### Training ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max    IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>  <dbl>
+1 tournament    30      0 0.574  0.611 0.612 0.649 0.0201
+2 lexicase      30      0 0.587  0.622 0.622 0.653 0.0294
+[1] "observed difference"
+        t 
+-2.351551 
+[1] "p-value"
+[1] 0.011596
+
+###################################################################################################
+######### Task ID: 359955 #########
+
+#### Testing ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max    IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>  <dbl>
+1 tournament    30      0 0.573  0.747 0.744 0.773 0.0133
+2 lexicase      30      0 0.48   0.747 0.723 0.8   0.0267
+[1] "observed difference"
+       t 
+1.428682 
+[1] "p-value"
+[1] 0.085774
+
+#### Training ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max     IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>   <dbl>
+1 tournament    30      0 0.787  0.803 0.801 0.812 0.00784
+2 lexicase      30      0 0.792  0.804 0.803 0.812 0.00825
+[1] "observed difference"
+        t 
+-1.102713 
+[1] "p-value"
+[1] 0.1286
+
+###################################################################################################
+######### Task ID: 190146 #########
+
+#### Testing ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max    IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>  <dbl>
+1 tournament    30      0 0.706  0.824 0.816 0.882 0.0706
+2 lexicase      30      0 0.671  0.818 0.813 0.882 0.0647
+[1] "observed difference"
+        t 
+0.2347488 
+[1] "p-value"
+[1] 0.402164
+
+#### Training ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max    IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>  <dbl>
+1 tournament    30      0 0.724  0.755 0.756 0.806 0.0175
+2 lexicase      30      0 0.734  0.762 0.765 0.794 0.0197
+[1] "observed difference"
+        t 
+-2.346922 
+[1] "p-value"
+[1] 0.010724
+
+###################################################################################################
+######### Task ID: 168757 #########
+
+#### Testing ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max    IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>  <dbl>
+1 tournament    30      0  0.68   0.74 0.741   0.8 0.0500
+2 lexicase      30      0  0.64   0.73 0.722   0.8 0.0500
+[1] "observed difference"
+       t 
+1.990353 
+[1] "p-value"
+[1] 0.027564
+
+#### Training ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max     IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>   <dbl>
+1 tournament    30      0 0.728  0.749 0.748 0.758 0.00988
+2 lexicase      30      0 0.730  0.749 0.748 0.764 0.0120 
+[1] "observed difference"
+         t 
+0.01830846 
+[1] "p-value"
+[1] 0.512224
+
+###################################################################################################
+######### Task ID: 359956 #########
+
+#### Testing ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max    IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>  <dbl>
+1 tournament    30      0 0.575  0.849 0.830 0.887 0.0448
+2 lexicase      30      0 0.613  0.849 0.839 0.896 0.0189
+[1] "observed difference"
+         t 
+-0.5679033 
+[1] "p-value"
+[1] 0.70116
+
+#### Training ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max     IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>   <dbl>
+1 tournament    30      0 0.837  0.856 0.855 0.870 0.00936
+2 lexicase      30      0 0.835  0.858 0.856 0.874 0.0126 
+[1] "observed difference"
+         t 
+-0.4547244 
+[1] "p-value"
+[1] 0.32901
+
+###################################################################################################
+######### Task ID: 359958 #########
+
+#### Testing ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max    IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>  <dbl>
+1 tournament    30      0 0.877  0.911 0.908 0.925 0.0137
+2 lexicase      30      0 0.788  0.911 0.899 0.925 0.0308
+[1] "observed difference"
+       t 
+1.666767 
+[1] "p-value"
+[1] 0.046768
+
+#### Training ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max     IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>   <dbl>
+1 tournament    30      0 0.898  0.908 0.908 0.918 0.00402
+2 lexicase      30      0 0.905  0.912 0.911 0.918 0.00572
+[1] "observed difference"
+        t 
+-3.865167 
+[1] "p-value"
+[1] 0.000138
+
+###################################################################################################
+######### Task ID: 359959 #########
+
+#### Testing ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max    IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>  <dbl>
+1 tournament    30      0 0.473  0.564 0.562 0.635 0.0524
+2 lexicase      30      0 0.459  0.571 0.557 0.615 0.0456
+[1] "observed difference"
+        t 
+0.4145153 
+[1] "p-value"
+[1] 0.340156
+
+#### Training ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max     IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>   <dbl>
+1 tournament    30      0 0.535  0.557 0.556 0.572 0.00985
+2 lexicase      30      0 0.533  0.554 0.553 0.568 0.0117 
+[1] "observed difference"
+       t 
+1.466608 
+[1] "p-value"
+[1] 0.92531
+
+###################################################################################################
+######### Task ID: 2073 #########
+
+#### Testing ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max    IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>  <dbl>
+1 tournament    30      0 0.591  0.661 0.658 0.725 0.0268
+2 lexicase      30      0 0.503  0.664 0.653 0.725 0.0453
+[1] "observed difference"
+        t 
+0.4633483 
+[1] "p-value"
+[1] 0.331366
+
+#### Training ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max    IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>  <dbl>
+1 tournament    30      0 0.552  0.573 0.573 0.590 0.0106
+2 lexicase      30      0 0.552  0.574 0.575 0.595 0.0166
+[1] "observed difference"
+         t 
+-0.4819825 
+[1] "p-value"
+[1] 0.312318
+
+###################################################################################################
+######### Task ID: 359960 #########
+
+#### Testing ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max    IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>  <dbl>
+1 tournament    30      0 0.879  0.983 0.972     1 0.0419
+2 lexicase      30      0 0.572  0.965 0.951     1 0.0347
+[1] "observed difference"
+       t 
+1.379443 
+[1] "p-value"
+[1] 0.076836
+
+#### Training ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max    IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>  <dbl>
+1 tournament    30      0 0.899  0.923 0.924 0.949 0.0157
+2 lexicase      30      0 0.915  0.937 0.938 0.961 0.0164
+[1] "observed difference"
+        t 
+-4.575782 
+[1] "p-value"
+[1] 2.6e-05
+
+###################################################################################################
+######### Task ID: 168784 #########
+
+#### Testing ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max    IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>  <dbl>
+1 tournament    30      0 0.769  0.813 0.813 0.846 0.0295
+2 lexicase      30      0 0.523  0.821 0.808 0.856 0.0244
+[1] "observed difference"
+        t 
+0.4975305 
+[1] "p-value"
+[1] 0.404168
+
+#### Training ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max    IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>  <dbl>
+1 tournament    30      0 0.677  0.710 0.708 0.729 0.0227
+2 lexicase      30      0 0.683  0.711 0.711 0.731 0.0145
+[1] "observed difference"
+         t 
+-0.7491627 
+[1] "p-value"
+[1] 0.22787
+
+###################################################################################################
+######### Task ID: 359962 #########
+
+#### Testing ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max     IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>   <dbl>
+1 tournament    30      0 0.820  0.848 0.849 0.872 0.00829
+2 lexicase      30      0 0.820  0.853 0.851 0.872 0.00948
+[1] "observed difference"
+         t 
+-0.5546153 
+[1] "p-value"
+[1] 0.72576
+
+#### Training ####
+# A tibble: 2 × 8
+  selection  count na_cnt   min median  mean   max     IQR
+  <fct>      <int>  <int> <dbl>  <dbl> <dbl> <dbl>   <dbl>
+1 tournament    30      0 0.857  0.861 0.861 0.865 0.00322
+2 lexicase      30      0 0.858  0.861 0.861 0.865 0.00176
+[1] "observed difference"
+        t 
+-0.271857 
+[1] "p-value"
+[1] 0.408822
+
+###################################################################################################
