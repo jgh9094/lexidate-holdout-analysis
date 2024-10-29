@@ -17,8 +17,6 @@ def main():
     parser.add_argument("-savepath", required=True, nargs='?')
     # seed offset
     parser.add_argument("-seed", required=True, nargs='?')
-    # is this a classification (True) or regression (False) task
-    parser.add_argument("-task_type", required=True, nargs='?')
 
     args = parser.parse_args()
     split_select = float(args.split_select)
@@ -33,12 +31,6 @@ def main():
     print('Save Path:', save_path)
     seed = int(args.seed)
     print('Seed:', seed)
-    task_type = bool(int(args.task_type))
-    # if task_type is True, then we are doing classification
-    if task_type:
-        print('Task Type: Classification')
-    else:
-        print('Task Type: Regression')
 
     # regression tasks tbd
     regression_tasks = []
@@ -63,8 +55,7 @@ def main():
                                       task_id,
                                       n_jobs,
                                       save_path,
-                                      seed,
-                                      task_type)
+                                      seed)
 
 if __name__ == '__main__':
     main()
