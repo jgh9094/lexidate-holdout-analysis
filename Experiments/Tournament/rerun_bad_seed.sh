@@ -27,7 +27,6 @@ EXP_OFFSET=3000
 S=481
 SEED=$((S + SPLIT_OFFSET + EXP_OFFSET))
 TASK_ID=168757
-TASK_TYPE=1
 
 # let it rip
 python /home/hernandezj45/Repos/lexidate-variation-analysis/Source/experiment.py \
@@ -37,4 +36,3 @@ python /home/hernandezj45/Repos/lexidate-variation-analysis/Source/experiment.py
 -n_jobs 12 \
 -savepath ${DATA_DIR} \
 -seed ${SEED} \
--task_type ${TASK_TYPE} \

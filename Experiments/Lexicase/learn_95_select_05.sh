@@ -72,40 +72,28 @@ TASK_359962_MAX=480
 
 if [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_146818_MIN} ] && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_146818_MAX} ] ; then
   TASK_ID=146818
-  TASK_TYPE=1
 elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_359954_MIN} ] && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_359954_MAX} ] ; then
     TASK_ID=359954
-    TASK_TYPE=1
 elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_359955_MIN} ] && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_359955_MAX} ] ; then
     TASK_ID=359955
-    TASK_TYPE=1
 elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_190146_MIN} ] && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_190146_MAX} ] ; then
     TASK_ID=190146
-    TASK_TYPE=1
 elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_168757_MIN} ] && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_168757_MAX} ] ; then
     TASK_ID=168757
-    TASK_TYPE=1
 elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_359956_MIN} ] && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_359956_MAX} ] ; then
     TASK_ID=359956
-    TASK_TYPE=1
 elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_359958_MIN} ] && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_359958_MAX} ] ; then
     TASK_ID=359958
-    TASK_TYPE=1
 elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_359959_MIN} ] && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_359959_MAX} ] ; then
     TASK_ID=359959
-    TASK_TYPE=1
 elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_2073_MIN} ]   && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_2073_MAX} ] ; then
     TASK_ID=2073
-    TASK_TYPE=1
 elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_359960_MIN} ] && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_359960_MAX} ] ; then
     TASK_ID=359960
-    TASK_TYPE=1
 elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_168784_MIN} ] && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_168784_MAX} ] ; then
     TASK_ID=168784
-    TASK_TYPE=1
 elif [ ${SLURM_ARRAY_TASK_ID} -ge ${TASK_359962_MIN} ] && [ ${SLURM_ARRAY_TASK_ID} -le ${TASK_359962_MAX} ] ; then
     TASK_ID=359962
-    TASK_TYPE=1
 else
   echo "${SEED} from ${TASK_ID} and ${SCHEME} failed to launch" >> /home/hernandezj45/Repos/lexidate-variation-analysis/failtolaunch.txt
 fi
@@ -118,4 +106,3 @@ python /home/hernandezj45/Repos/lexidate-variation-analysis/Source/experiment.py
 -n_jobs 9 \
 -savepath ${DATA_DIR} \
 -seed ${SEED} \
--task_type ${TASK_TYPE} \

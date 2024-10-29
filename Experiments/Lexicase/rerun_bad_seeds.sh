@@ -25,7 +25,6 @@ if [ $SLURM_ARRAY_TASK_ID -eq 1 ] ; then
     S=481
     SEED=$((S + SPLIT_OFFSET + EXP_OFFSET))
     TASK_ID=168757
-    TASK_TYPE=1
 
 elif [ $SLURM_ARRAY_TASK_ID -eq 2 ] ; then
     # Define the output directory
@@ -37,7 +36,6 @@ elif [ $SLURM_ARRAY_TASK_ID -eq 2 ] ; then
     S=481
     SEED=$((S + SPLIT_OFFSET + EXP_OFFSET))
     TASK_ID=359955
-    TASK_TYPE=1
 fi
 
 # let it rip
@@ -48,4 +46,3 @@ python /home/hernandezj45/Repos/lexidate-variation-analysis/Source/experiment.py
 -n_jobs 12 \
 -savepath ${DATA_DIR} \
 -seed ${SEED} \
--task_type ${TASK_TYPE} \
