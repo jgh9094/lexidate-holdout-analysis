@@ -114,7 +114,7 @@ def get_estimator_params(n_jobs,
 
         # evolutionary algorithm params
         'population_size' : 100,
-        'generations' : 2,
+        'generations' : 200,
         'n_jobs':n_jobs,
         'survival_selector' :None,
         'parent_selector': get_selection_scheme(scheme),
