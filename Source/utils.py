@@ -12,33 +12,6 @@ import sklearn.model_selection
 from functools import partial
 from estimator_node_gradual import EstimatorNodeGradual
 
-# median absolute deviation for epsillon lexicase selection
-def auto_epsilon_lexicase_selection(scores, k, rng=None, n_parents=1,):
-    """
-    Select the best individual according to Auto Epsilon Lexicase Selection, *k* times.
-    The returned list contains the indices of the chosen *individuals*.
-    :param scores: The score matrix, where rows the individulas and the columns correspond to scores on different objectives.
-    :returns: A list of indices of selected individuals.
-    """
-    rng = np.random.default_rng(rng)
-    chosen =[]
-    for _ in range(k*n_parents):
-        candidates = list(range(len(scores)))
-        cases = list(range(len(scores[0]) - 1)) # ignore the last column which is complexity
-        rng.shuffle(cases)
-
-        while len(cases) > 0 and len(candidates) > 1:
-            errors_for_this_case = scores[candidates,cases[0]]
-            median_val = np.median(errors_for_this_case)
-            median_absolute_deviation = np.median([abs(x - median_val) for x in errors_for_this_case])
-            best_val_for_case = min(errors_for_this_case) # smallest error for regression case
-            min_val_to_survive = best_val_for_case + median_absolute_deviation # equation (5) from epsillon lexicase selection paper
-            candidates = [x for x in candidates if scores[x, cases[0]] <= min_val_to_survive]
-            cases.pop(0)
-        chosen.append(rng.choice(candidates))
-
-    return np.reshape(chosen, (k, n_parents))
-
 # lexicase selection with ignoring the complexity column
 def lexicase_selection_no_comp(scores, k, rng=None, n_parents=1,):
     """
@@ -70,7 +43,7 @@ def lex_selection_objectives(est,X,y,X_select,y_select,classification):
 
     if classification:
         # classification: wanna maximize the number of correct predictions
-        return list(np.float32(est.predict(X_select) == y_select)) + [np.int64(tpot2.objectives.complexity_scorer(est,0,0))]
+        return list(np.int64(est.predict(X_select) == y_select)) + [np.int64(tpot2.objectives.complexity_scorer(est,0,0))]
     else:
         # regression: wanna minimize the distance between predicted and true values
         return list(np.absolute(y_select - est.predict(X_select), dtype=np.float32)) + [np.int64(tpot2.objectives.complexity_scorer(est,0,0))]
@@ -91,8 +64,6 @@ def aggregated_selection_objectives(est,X,y,X_select,y_select,classification):
 def get_selection_scheme(scheme, classification):
     if scheme == 'lexicase' and classification == True:
         return lexicase_selection_no_comp
-    elif scheme == 'lexicase' and classification == False:
-        return auto_epsilon_lexicase_selection
     elif scheme == 'tournament':
         return tpot2.selectors.tournament_selection
     else:
