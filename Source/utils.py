@@ -274,6 +274,8 @@ def execute_experiment(split_select, scheme, task_id, n_jobs, save_path, seed):
         results["task_id"] = task_id
         results["selection"] = scheme
         results["seed"] = seed
+        # was not included in some runs so need to add when getting all the data
+        results['split'] = str(int(split_select * 100)) + '%'
 
         print('RESULTS:', results)
 

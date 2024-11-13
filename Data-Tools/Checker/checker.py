@@ -32,7 +32,8 @@ tor_unfinished_dirs = {'learn_05_select_95':[],
 
 keys = ['95', '90', '50', '10', '05']
 
-data_keys = ['testing_performance' ,'testing_complexity' ,'training_performance' ,'training_complexity' ,'task_id' ,'selection' ,'seed', 'split']
+# removed 'split' key bc not saved on some failed runs (tpot2 bugs)
+data_keys = ['testing_performance' ,'testing_complexity' ,'training_performance' ,'training_complexity' ,'task_id' ,'selection' ,'seed']
 
 classification_tasks = [146818,359954,359955,190146,168757,359956,359958,359959,2073,359960,168784,359962]
 openml_tasks = classification_tasks
