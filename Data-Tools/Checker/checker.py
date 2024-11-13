@@ -63,7 +63,7 @@ def check_data_dir(dir):
     # check if the keys are present
     for key in data_keys:
         if key not in results.keys():
-            print('key not in results.keys():', key '---', dir)
+            print('key not in results.keys():', key, '---', dir)
             return False
 
     return True
