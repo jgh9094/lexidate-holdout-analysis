@@ -45,12 +45,10 @@ data_dir = '/home/hernandezj45/Repos/lexidate-variation-analysis/Results/'
 def check_data_dir(dir):
     # check if the directory exists
     if os.path.isdir(data_dir + dir) == False:
-        print('os.path.isdir(data_dir + dir) == False:', dir)
         return False
 
     # check if the data was collected
     if os.path.isfile(f'{data_dir}/{dir}/results.pkl') == False:
-        print('os.path.isfile(f\'{data_dir}/{dir}/results.pkl\') == False:', dir)
         return False
 
     # open the pkl file
@@ -58,14 +56,11 @@ def check_data_dir(dir):
 
     # make sure results is of type dict
     if type(results) != dict:
-        print('type(results) != dict:', dir)
         return False
 
     # check if the keys are present
     for key in data_keys:
         if key not in results.keys():
-            print('key not in results.keys():', key, '---', dir)
-            print('results:', results)
             return False
 
     return True
