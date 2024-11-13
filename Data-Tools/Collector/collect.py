@@ -6,16 +6,16 @@ import pickle as pkl
 import pandas as pd
 from pathlib import Path
 
-selection_scheme = ['Lexicase', 'Tournament'] #, 'Random']
-split_dirs = {'90%':'learn_10_select_90',
-              '80%':'learn_20_select_80',
+selection_scheme = ['Lexicase', 'Tournament']
+
+split_dirs = {'95%':'learn_05_select_95',
+              '90%':'learn_10_select_90',
               '50%':'learn_50_select_50',
-              '20%':'learn_80_select_20',
-              '10%':'learn_90_select_10'}
-regression_tasks = [] # todo
-classification_tasks = [359953,146818,359954,359955,190146,168757,359956,
-                            359957,359958,359959,2073,10090,359960,168784,359961,
-                            359962]
+              '10%':'learn_90_select_10',
+              '5%':'learn_95_select_05'}
+
+classification_tasks = [146818,359954,359955,190146,168757,359956,359958,359959,2073,359960,168784,359962]
+
 
 # assuming data is in the home directory
 data_dir = str(Path.home()) + '/Repos/lexidate-variation-analysis/Results'
@@ -61,15 +61,12 @@ def get_data():
                 collector['seed'].append(results['seed'])
                 if results['task_id'] in classification_tasks:
                     collector['task_type'].append('classification')
-                elif results['task_id'] in regression_tasks:
-                    collector['task_type'].append('regression')
                 else:
                     exit(f'Error: task_id {results["task_id"]} not found in classification_tasks or regression_tasks')
 
     # create a dataframe from the collector dictionary and make a csv file
     df = pd.DataFrame(collector)
     df.to_csv('data.csv', index=False)
-
 
 def main():
     get_data()
