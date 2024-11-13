@@ -36,7 +36,7 @@ elif [ $SLURM_ARRAY_TASK_ID -eq 2 ] ; then
     SEED=$((S + SPLIT_OFFSET + EXP_OFFSET))
     TASK_ID=168757
 
-elif [ $SLURM_ARRAY_TASK_ID -eq 2 ] ; then
+elif [ $SLURM_ARRAY_TASK_ID -eq 3 ] ; then
     DATA_DIR=/home/hernandezj45/Repos/lexidate-variation-analysis/Results/Tournament/learn_10_select_90/
     SPLIT_SELECT=0.90
     SCHEME=tournament
