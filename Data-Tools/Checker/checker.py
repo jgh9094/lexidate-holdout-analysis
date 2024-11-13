@@ -78,7 +78,7 @@ def go_though_all_dirs():
                     # calcualte seed and check dir
                     seed = rep + (reps * i)
                     curr = f'{scheme}/{split_dirs[key]}/{scheme_offset + seed_offsets[key] + seed + experiment_replicate_offset}-{task}'
-                    print('checking:', curr)
+                    # print('checking:', curr)
 
                     # check if the data was collected
                     if check_data_dir(curr) == False:
