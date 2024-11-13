@@ -5,41 +5,39 @@ import pickle
 
 selection_scheme = {'Lexicase':0, 'Tournament':3000}
 
-seed_offsets = {'90':0,
-                '80':500,
+experiment_replicate_offset = 10000
+seed_offsets = {'95':0,
+                '90':500,
                 '50':1000,
-                '20':1500,
-                '10':2000}
+                '10':1500,
+                '05':2000}
 
-split_dirs = {'90':'learn_10_select_90',
-              '80':'learn_20_select_80',
+split_dirs = {'95':'learn_05_select_95',
+              '90':'learn_10_select_90',
               '50':'learn_50_select_50',
-              '20':'learn_80_select_20',
-              '10':'learn_90_select_10'}
+              '10':'learn_90_select_10',
+              '05':'learn_95_select_05'}
 
-lex_unfinished_dirs = {'learn_10_select_90':[],
-              'learn_20_select_80':[],
+lex_unfinished_dirs = {'learn_05_select_95':[],
+              'learn_10_select_90':[],
               'learn_50_select_50':[],
-              'learn_80_select_20':[],
-              'learn_90_select_10':[]}
+              'learn_90_select_10':[],
+              'learn_95_select_05':[]}
 
-tor_unfinished_dirs = {'learn_10_select_90':[],
-              'learn_20_select_80':[],
+tor_unfinished_dirs = {'learn_05_select_95':[],
+              'learn_10_select_90':[],
               'learn_50_select_50':[],
-              'learn_80_select_20':[],
-              'learn_90_select_10':[]}
+              'learn_90_select_10':[],
+              'learn_95_select_05':[]}
 
-keys = ['90', '80', '50', '20', '10']
+keys = ['95', '90', '50', '10', '05']
 
-data_keys = ['testing_performance' ,'testing_complexity' ,'training_performance' ,'training_complexity' ,'task_id' ,'selection' ,'seed']
+data_keys = ['testing_performance' ,'testing_complexity' ,'training_performance' ,'training_complexity' ,'task_id' ,'selection' ,'seed', 'split']
 
-regression_tasks = [] # todo
-classification_tasks = [359953,146818,359954,359955,190146,168757,359956,
-                            359957,359958,359959,2073,10090,359960,168784,359961,
-                            359962]
-openml_tasks = classification_tasks + regression_tasks
+classification_tasks = [146818,359954,359955,190146,168757,359956,359958,359959,2073,359960,168784,359962]
+openml_tasks = classification_tasks
 
-reps = 30
+reps = 40
 data_dir = '/home/hernandezj45/Repos/lexidate-variation-analysis/Results/'
 
 # check if data was successfully collected
@@ -72,13 +70,10 @@ def go_though_all_dirs():
     for scheme, scheme_offset in selection_scheme.items():
         for key in keys:
             for i, task in enumerate(openml_tasks):
-                if task in [10090,359953,359957,359961]:
-                    continue
                 for rep in range(1,reps+1):
                     # calcualte seed and check dir
                     seed = rep + (reps * i)
-                    curr = f'{scheme}/{split_dirs[key]}/{scheme_offset + seed_offsets[key] + seed}-{task}'
-
+                    curr = f'{scheme}/{split_dirs[key]}/{scheme_offset + seed_offsets[key] + seed + experiment_replicate_offset}-{task}'
                     # check if the data was collected
                     if check_data_dir(curr) == False:
                         # add to the list of directories to check
@@ -89,7 +84,6 @@ def go_though_all_dirs():
                         else:
                             exit('Scheme not found')
     return
-
 
 def main():
     go_though_all_dirs()
