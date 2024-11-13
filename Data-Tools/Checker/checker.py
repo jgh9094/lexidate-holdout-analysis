@@ -44,10 +44,12 @@ data_dir = '/home/hernandezj45/Repos/lexidate-variation-analysis/Results/'
 def check_data_dir(dir):
     # check if the directory exists
     if os.path.isdir(data_dir + dir) == False:
+        print('os.path.isdir(data_dir + dir) == False:', dir)
         return False
 
     # check if the data was collected
     if os.path.isfile(f'{data_dir}/{dir}/results.pkl') == False:
+        print('os.path.isfile(f\'{data_dir}/{dir}/results.pkl\') == False:', dir)
         return False
 
     # open the pkl file
@@ -55,11 +57,13 @@ def check_data_dir(dir):
 
     # make sure results is of type dict
     if type(results) != dict:
+        print('type(results) != dict:', dir)
         return False
 
     # check if the keys are present
     for key in data_keys:
         if key not in results.keys():
+            print('key not in results.keys():', key '---', dir)
             return False
 
     return True
@@ -74,6 +78,8 @@ def go_though_all_dirs():
                     # calcualte seed and check dir
                     seed = rep + (reps * i)
                     curr = f'{scheme}/{split_dirs[key]}/{scheme_offset + seed_offsets[key] + seed + experiment_replicate_offset}-{task}'
+                    print('checking:', curr)
+
                     # check if the data was collected
                     if check_data_dir(curr) == False:
                         # add to the list of directories to check
