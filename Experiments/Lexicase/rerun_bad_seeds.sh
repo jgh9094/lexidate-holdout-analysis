@@ -2,7 +2,7 @@
 ########## Define Resources Needed with SBATCH Lines ##########
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --array=1,2,3,4
+#SBATCH --array=1,2,3,4,5
 #SBATCH --cpus-per-task=10
 #SBATCH -t 72:00:00
 #SBATCH --mem=200GB
@@ -55,6 +55,16 @@ elif [ $SLURM_ARRAY_TASK_ID -eq 4 ] ; then
     S=481
     SEED=$((S + SPLIT_OFFSET + EXP_OFFSET))
     TASK_ID=168784
+
+elif [ $SLURM_ARRAY_TASK_ID -eq 5 ] ; then
+    DATA_DIR=/home/hernandezj45/Repos/lexidate-variation-analysis/Results/Lexicase/learn_95_select_05/
+    SPLIT_SELECT=0.05
+    SCHEME=lexicase
+    SPLIT_OFFSET=2000
+    EXP_OFFSET=10000
+    S=482
+    SEED=$((S + SPLIT_OFFSET + EXP_OFFSET))
+    TASK_ID=168757
 fi
 
 # let it rip
