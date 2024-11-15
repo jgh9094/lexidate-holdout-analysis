@@ -2,7 +2,7 @@
 ########## Define Resources Needed with SBATCH Lines ##########
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --array=1,2,3,4,5
+#SBATCH --array=1,2,3,4,5,6
 #SBATCH --cpus-per-task=10
 #SBATCH -t 72:00:00
 #SBATCH --mem=200GB
@@ -37,6 +37,16 @@ elif [ $SLURM_ARRAY_TASK_ID -eq 2 ] ; then
     TASK_ID=359955
 
 elif [ $SLURM_ARRAY_TASK_ID -eq 3 ] ; then
+    DATA_DIR=/home/hernandezj45/Repos/lexidate-variation-analysis/Results/Lexicase/learn_05_select_95/
+    SPLIT_SELECT=0.95
+    SCHEME=lexicase
+    SPLIT_OFFSET=0
+    EXP_OFFSET=10000
+    S=483
+    SEED=$((S + SPLIT_OFFSET + EXP_OFFSET))
+    TASK_ID=168757
+
+elif [ $SLURM_ARRAY_TASK_ID -eq 4 ] ; then
     DATA_DIR=/home/hernandezj45/Repos/lexidate-variation-analysis/Results/Lexicase/learn_50_select_50/
     SPLIT_SELECT=0.50
     SCHEME=lexicase
@@ -46,7 +56,7 @@ elif [ $SLURM_ARRAY_TASK_ID -eq 3 ] ; then
     SEED=$((S + SPLIT_OFFSET + EXP_OFFSET))
     TASK_ID=168757
 
-elif [ $SLURM_ARRAY_TASK_ID -eq 4 ] ; then
+elif [ $SLURM_ARRAY_TASK_ID -eq 5 ] ; then
     DATA_DIR=/home/hernandezj45/Repos/lexidate-variation-analysis/Results/Lexicase/learn_95_select_05/
     SPLIT_SELECT=0.05
     SCHEME=lexicase
@@ -56,7 +66,7 @@ elif [ $SLURM_ARRAY_TASK_ID -eq 4 ] ; then
     SEED=$((S + SPLIT_OFFSET + EXP_OFFSET))
     TASK_ID=168784
 
-elif [ $SLURM_ARRAY_TASK_ID -eq 5 ] ; then
+elif [ $SLURM_ARRAY_TASK_ID -eq 6 ] ; then
     DATA_DIR=/home/hernandezj45/Repos/lexidate-variation-analysis/Results/Lexicase/learn_95_select_05/
     SPLIT_SELECT=0.05
     SCHEME=lexicase
