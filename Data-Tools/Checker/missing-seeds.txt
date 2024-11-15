@@ -1,0 +1,37 @@
+****************************************************************************************************
+Lexicase
+learn_05_select_95: 63,87,163
+total: 3
+
+learn_10_select_90:
+total: 0
+
+learn_50_select_50: 165
+total: 1
+
+learn_90_select_10:
+total: 0
+
+learn_95_select_05: 180,411
+total: 2
+
+**************************************************
+Tournament
+learn_05_select_95: 114,171
+total: 2
+
+learn_10_select_90: 113
+total: 1
+
+learn_50_select_50:
+total: 0
+
+learn_90_select_10:
+total: 0
+
+learn_95_select_05:
+total: 0
+
+****************************************************************************************************
+
+These are the seeds that needed to be reran due to tpot errors and memory limits being hit.
