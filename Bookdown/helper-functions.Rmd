@@ -1,0 +1,336 @@
+# Helper functions
+
+Here we show the functions being used to generate the supplementary material.
+All of the following functions are compsed of R code and are used to generate the figures, tables, and statitics.
+
+## Setup
+
+```{r setup, echo=TRUE}
+library(ggplot2)
+library(cowplot)
+library(dplyr)
+library(PupillometryR)
+
+
+NAMES = c('tournament', 'lexicase')
+SHAPE <- c(21, 21)
+cb_palette <- c('#DC1E34', '#004D40')
+data_dir <- './'
+c_task_id_lists <- c(146818,359954,359955,190146,168757,359956,
+                        359958,359959,2073,359960,168784,359962)
+
+p_theme <- theme(
+  plot.title = element_text(face = "bold", size = 17, hjust=0.5),
+  panel.border = element_blank(),
+  panel.grid.minor = element_blank(),
+  legend.title=element_text(size=17),
+  legend.text=element_text(size=17),
+  axis.title = element_text(size=17),
+  axis.text = element_text(size=11),
+  axis.text.y = element_text(angle = 90, hjust = 0.5),
+  legend.position="bottom",
+  panel.background = element_rect(fill = "#f1f2f5",
+                                  colour = "white",
+                                  size = 0.5, linetype = "solid"))
+
+results <- read.csv("./data.csv")
+results$selection <- factor(results$selection, levels = NAMES)
+```
+
+
+## Test set plot
+```{r test-plot, echo=TRUE}
+test_plot <- function(data) { return(
+    ggplot(data,
+    aes(x = selection, y = testing_performance, color = selection,
+                fill = selection, shape = selection)) +
+    geom_flat_violin(position = position_nudge(x = 0.1, y = 0),
+                    scale = "width", alpha = 0.2, width = 1.5) +
+    geom_boxplot(color = "black", width = .08, outlier.shape = NA,
+                alpha = 0.0, linewidth = 0.8,
+                position = position_nudge(x = .15, y = 0)) +
+    geom_point(position = position_jitter(width = 0.03,
+                height = 0.0), size = 1.5, alpha = 1.0) +
+    scale_y_continuous(
+    name = "Accuracy %",
+    labels = scales::percent,
+
+    ) +
+    scale_x_discrete(
+    name = "Selection scheme"
+    ) +
+    scale_shape_manual(values = SHAPE,) +
+    scale_colour_manual(values = cb_palette,) +
+    scale_fill_manual(values = cb_palette,) +
+    ggtitle('Accuracy on test set') +
+    p_theme +
+    guides(
+    shape=guide_legend(nrow = 1, title.position = "left",
+                        title = "Selection scheme"),
+    color=guide_legend(nrow = 1, title.position = "left",
+                        title = "Selection scheme"),
+    fill=guide_legend(nrow = 1, title.position = "left",
+                        title = "Selection scheme")) +
+    theme(axis.ticks.x = element_blank(),
+            axis.text.x = element_blank(),
+            axis.title.x = element_blank(),
+            axis.text.y = element_text(angle = 90, hjust = 0.5))
+)}
+```
+
+## Test set results summary
+```{r test-results-summary, echo=TRUE}
+test_results_summary <- function(data) {
+    return(
+        data %>%
+        group_by(selection) %>%
+        dplyr::summarise(
+            count = n(),
+            na_cnt = sum(is.na(testing_performance)),
+            min = min(testing_performance, na.rm = TRUE),
+            median = median(testing_performance, na.rm = TRUE),
+            mean = mean(testing_performance, na.rm = TRUE),
+            max = max(testing_performance, na.rm = TRUE),
+            IQR = IQR(testing_performance, na.rm = TRUE))
+    )
+}
+```
+
+## Permutaiton test results
+```{r test-results-stats, echo=TRUE, warning=FALSE}
+# permutation test with t-test statistic
+# assuming we are using an alpha of 0.05
+permutation_test <- function(x, y, seed, alternative) {
+  # Set the random seed for reproducibility
+  set.seed(seed)
+
+  # Number of permutations
+  n_permutations = 100000
+
+  # Calculate the observed difference in means
+  observed_diff <- t.test(x, y, var.equal = FALSE)$statistic
+  print(paste('observed_diff:', observed_diff))
+
+  # Combine both samples
+  combined <- c(x, y)
+  n_x <- length(x)
+
+  # Generate permutation differences
+  permutation_diffs <- numeric(n_permutations)
+
+  # Use a reproducible random sequence for each permutation
+  # Generate unique seeds for each permutation
+  seeds <- sample.int(1e9, n_permutations)
+
+  for (i in 1:n_permutations) {
+    # Set seed for this permutation
+    set.seed(seeds[i])
+    # Shuffle the combined data
+    permuted <- sample(combined)
+    # First n_x elements to group 1
+    perm_x <- permuted[1:n_x]
+    # Remaining elements to group 2
+    perm_y <- permuted[(n_x + 1):length(combined)]
+    # Calculate the difference in t-test statistics
+    permutation_diffs[i] <- t.test(perm_x, perm_y,
+                                    var.equal = FALSE)$statistic
+  }
+
+  # sort permutation_diffs
+  permutation_diffs <- sort(permutation_diffs)
+
+  if (alternative == "l") {
+    # is the observed difference < than the 5th percentile
+    print(paste('permutation_diffs[0.05 * n_permutations]:',
+            permutation_diffs[0.05 * n_permutations]))
+
+    if (observed_diff < permutation_diffs[0.05 * n_permutations]) {
+      print('reject null hypothesis')
+    }
+    else {
+      print('fail to reject null hypothesis')
+    }
+
+    # if p_value is 0
+    p_value <- mean(permutation_diffs < observed_diff)
+    if (p_value == 0.0) {
+      print(paste('p-value:', 1/n_permutations))
+    } else {
+       print(paste('p-value:', p_value))
+    }
+
+    # make histogram plot
+    df <- data.frame(difference = permutation_diffs)
+    df$category <- ifelse(df$difference < observed_diff, 'not', 'extreme')
+
+    plot <- ggplot(df, aes(x = difference, fill = category)) +
+        geom_histogram(bins = 100,
+                        color = "black",
+                        alpha = 0.7) +
+        geom_vline(xintercept = observed_diff,
+                    color = "red",
+                    linetype = "dotted",
+                    size = 1
+                    ) +
+        labs(title = "Permutation Test: Frequency of T-test Satistic Differences",
+                x = "Difference in t-test statistics",
+                y = "Frequency"
+                ) +
+        theme_minimal() +
+        scale_colour_manual(values = c('black', 'green')) +
+        scale_fill_manual(values = c('black', 'green'))
+
+  print(plot)
+
+  } else if (alternative == "g") {
+    # is the observed difference > than the 95th percentile
+    print(paste('permutation_diffs[0.95 * n_permutations]:',
+            permutation_diffs[0.95 * n_permutations]))
+
+    if (permutation_diffs[0.95 * n_permutations] < observed_diff) {
+      print('reject null hypothesis')
+    }
+    else{
+      print('fail to reject null hypothesis')
+    }
+
+    # if p_value is 0
+    p_value <- mean(permutation_diffs > observed_diff)
+    if (p_value == 0.0) {
+      print(paste('p-value:', 1/n_permutations))
+    } else {
+       print(paste('p-value:', p_value))
+    }
+
+    # make histogram plot
+    df <- data.frame(difference = permutation_diffs)
+    df$category <- ifelse(df$difference < observed_diff, 'not', 'extreme')
+
+    plot <- ggplot(df, aes(x = difference, fill = category)) +
+        geom_histogram(bins = 100,
+                        color = "black",
+                        alpha = 0.7) +
+        geom_vline(xintercept = observed_diff,
+                    color = "red",
+                    linetype = "dotted",
+                    size = 1
+                    ) +
+        labs(title = "Permutation Test: Frequency of T-test Satistic Differences",
+                x = "Difference in t-test statistics",
+                y = "Frequency"
+                ) +
+        theme_minimal() +
+        scale_shape_manual(values = SHAPE,) +
+        scale_colour_manual(values = c('green', 'black')) +
+        scale_fill_manual(values = c('green', 'black'))
+
+  print(plot)
+  } else if (alternative == "t") {
+    # is the observed difference within 2.5th and 97.5th percentile
+    lower <- observed_diff < permutation_diffs[0.025 * n_permutations]
+    print(paste('lower:', permutation_diffs[0.025 * n_permutations]))
+    upper <- observed_diff > permutation_diffs[0.975 * n_permutations]
+    print(paste('upper:', permutation_diffs[0.975 * n_permutations]))
+
+    if (lower | upper) {
+      print('reject null hypothesis')
+    }
+    else{
+      print('fail to reject null hypothesis')
+    }
+
+    # if p_value is 0
+    p_value <- mean(abs(permutation_diffs) > abs(observed_diff))
+    if (p_value == 0.0) {
+      print(paste('p-value:', 1/n_permutations))
+    } else {
+       print(paste('p-value:', p_value))
+    }
+
+    # make histogram plot
+    df <- data.frame(difference = abs(permutation_diffs))
+    df$category <- ifelse(df$difference > abs(observed_diff), 'extreme', 'not')
+
+    plot <- ggplot(df, aes(x = difference, fill = category)) +
+        geom_histogram(bins = 100,
+                        color = "black",
+                        alpha = 0.7) +
+        geom_vline(xintercept = abs(observed_diff),
+                    color = "red",
+                    linetype = "dotted",
+                    size = 1
+                    ) +
+        labs(title = "Permutation Test: Frequency of T-test Satistic Differences",
+                x = "Difference in t-test statistics",
+                y = "Frequency"
+                ) +
+        theme_minimal() +
+        scale_shape_manual(values = SHAPE,) +
+        scale_colour_manual(values = c('green', 'black')) +
+        scale_fill_manual(values = c('green', 'black'))
+
+  print(plot)
+
+  } else {
+    stop("Invalid alternative (less, greater, or two-sided.")
+  }
+}
+```
+
+## Selection set plot
+```{r select-plot, echo=TRUE}
+selection_plot <- function(data) { return(
+    ggplot(data,
+    aes(x = selection, y = training_performance, color = selection,
+                fill = selection, shape = selection)) +
+    geom_flat_violin(position = position_nudge(x = 0.1, y = 0),
+                    scale = "width", alpha = 0.2, width = 1.5) +
+    geom_boxplot(color = "black", width = .08, outlier.shape = NA,
+                alpha = 0.0, linewidth = 0.8,
+                position = position_nudge(x = .15, y = 0)) +
+    geom_point(position = position_jitter(width = 0.03,
+                height = 0.0), size = 1.5, alpha = 1.0) +
+    scale_y_continuous(
+    name = "Accuracy %",
+    labels = scales::percent,
+
+    ) +
+    scale_x_discrete(
+    name = "Selection set"
+    ) +
+    scale_shape_manual(values = SHAPE,) +
+    scale_colour_manual(values = cb_palette,) +
+    scale_fill_manual(values = cb_palette,) +
+    ggtitle('Accuracy on selection set') +
+    p_theme +
+    guides(
+    shape=guide_legend(nrow = 1, title.position = "left",
+                        title = "Selection scheme"),
+    color=guide_legend(nrow = 1, title.position = "left",
+                        title = "Selection scheme"),
+    fill=guide_legend(nrow = 1, title.position = "left",
+                        title = "Selection scheme")) +
+    theme(axis.ticks.x = element_blank(),
+            axis.text.x = element_blank(),
+            axis.title.x = element_blank(),
+            axis.text.y = element_text(angle = 90, hjust = 0.5))
+)}
+```
+
+## Selection set results summary
+```{r selection-results-summary, echo=TRUE}
+selection_results_summary <- function(data) {
+    return(
+        data %>%
+        group_by(selection) %>%
+        dplyr::summarise(
+            count = n(),
+            na_cnt = sum(is.na(training_performance)),
+            min = min(training_performance, na.rm = TRUE),
+            median = median(training_performance, na.rm = TRUE),
+            mean = mean(training_performance, na.rm = TRUE),
+            max = max(training_performance, na.rm = TRUE),
+            IQR = IQR(training_performance, na.rm = TRUE))
+    )
+}
+```

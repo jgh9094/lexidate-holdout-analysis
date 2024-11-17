@@ -1,0 +1,227 @@
+# Task 168784
+
+We present the results of our analysis of `task 168784` with the different selection set splits used in our study.
+
+```{r task-168784-data, echo=TRUE}
+task_data <- filter(results, task_id == 168784)
+```
+
+## 5%
+
+### Testing set accuracy
+
+```{r task-168784-test-05-perf, echo=TRUE, out.width="100%"}
+test_plot(filter(task_data, split == '5%'))
+```
+
+Summary statistics for the testing performance of the selection schemes at the 5% selection set split:
+```{r task-168784-test-05-sum, echo=TRUE, out.width="100%"}
+test_results_summary(filter(task_data, split == '5%'))
+```
+
+The permutation test revealed that the results are:
+```{r task-168784-test-05-pv, echo=TRUE, out.width="100%"}
+tournament_results <- filter(task_data, split == '5%' & selection == 'tournament')
+lexicase_results <- filter(task_data, split == '5%' & selection == 'lexicase')
+permutation_test(tournament_results$testing_performance,
+                    lexicase_results$testing_performance,
+                    seed = 111,
+                    alternative = "t")
+```
+
+### Selection set accuracy
+
+```{r task-168784-select-05-perf, echo=TRUE, out.width="100%"}
+selection_plot(filter(task_data, split == '5%'))
+```
+
+Summary statistics for the testing performance of the selection schemes at the 5% selection set split:
+```{r task-168784-select-05-sum, echo=TRUE, out.width="100%"}
+selection_results_summary(filter(task_data, split == '5%'))
+```
+
+The permutation test revealed that the results are:
+```{r task-168784-select-05-pv, echo=TRUE, out.width="100%"}
+tournament_results <- filter(task_data, split == '5%' & selection == 'tournament')
+lexicase_results <- filter(task_data, split == '5%' & selection == 'lexicase')
+permutation_test(tournament_results$training_performance,
+                    lexicase_results$training_performance,
+                    seed = 112,
+                    alternative = "l")
+```
+
+## 10%
+
+### Testing set accuracy
+
+```{r task-168784-test-10-perf, echo=TRUE, out.width="100%"}
+test_plot(filter(task_data, split == '10%'))
+```
+
+Summary statistics for the testing performance of the selection schemes at the 5% selection set split:
+```{r task-168784-test-10-sum, echo=TRUE, out.width="100%"}
+test_results_summary(filter(task_data, split == '10%'))
+```
+
+The permutation test revealed that the results are:
+```{r task-168784-test-10-pv, echo=TRUE, out.width="100%"}
+tournament_results <- filter(task_data, split == '10%' & selection == 'tournament')
+lexicase_results <- filter(task_data, split == '10%' & selection == 'lexicase')
+permutation_test(tournament_results$testing_performance,
+                    lexicase_results$testing_performance,
+                    seed = 113,
+                    alternative = "t")
+```
+
+### Selection set accuracy
+
+```{r task-168784-select-10-perf, echo=TRUE, out.width="100%"}
+selection_plot(filter(task_data, split == '10%'))
+```
+
+Summary statistics for the testing performance of the selection schemes at the 5% selection set split:
+```{r task-168784-select-10-sum, echo=TRUE, out.width="100%"}
+selection_results_summary(filter(task_data, split == '10%'))
+```
+
+The permutation test revealed that the results are:
+```{r task-168784-select-10-pv, echo=TRUE, out.width="100%"}
+tournament_results <- filter(task_data, split == '10%' & selection == 'tournament')
+lexicase_results <- filter(task_data, split == '10%' & selection == 'lexicase')
+permutation_test(tournament_results$training_performance,
+                    lexicase_results$training_performance,
+                    seed = 114,
+                    alternative = "l")
+```
+
+## 50%
+
+### Testing set accuracy
+
+```{r task-168784-test-50-perf, echo=TRUE, out.width="100%"}
+test_plot(filter(task_data, split == '50%'))
+```
+
+Summary statistics for the testing performance of the selection schemes at the 5% selection set split:
+```{r task-168784-test-50-sum, echo=TRUE, out.width="100%"}
+test_results_summary(filter(task_data, split == '50%'))
+```
+
+The permutation test revealed that the results are:
+```{r task-168784-test-50-pv, echo=TRUE, out.width="100%"}
+tournament_results <- filter(task_data, split == '50%' & selection == 'tournament')
+lexicase_results <- filter(task_data, split == '50%' & selection == 'lexicase')
+permutation_test(tournament_results$testing_performance,
+                    lexicase_results$testing_performance,
+                    seed = 115,
+                    alternative = "g")
+```
+
+### Selection set accuracy
+
+```{r task-168784-select-50-perf, echo=TRUE, out.width="100%"}
+selection_plot(filter(task_data, split == '50%'))
+```
+
+Summary statistics for the testing performance of the selection schemes at the 5% selection set split:
+```{r task-168784-select-50-sum, echo=TRUE, out.width="100%"}
+selection_results_summary(filter(task_data, split == '50%'))
+```
+
+The permutation test revealed that the results are:
+```{r task-168784-select-50-pv, echo=TRUE, out.width="100%"}
+tournament_results <- filter(task_data, split == '50%' & selection == 'tournament')
+lexicase_results <- filter(task_data, split == '50%' & selection == 'lexicase')
+permutation_test(tournament_results$training_performance,
+                    lexicase_results$training_performance,
+                    seed = 116,
+                    alternative = "t")
+```
+
+## 90%
+
+### Testing set accuracy
+
+```{r task-168784-test-90-perf, echo=TRUE, out.width="100%"}
+test_plot(filter(task_data, split == '90%'))
+```
+
+Summary statistics for the testing performance of the selection schemes at the 5% selection set split:
+```{r task-168784-test-90-sum, echo=TRUE, out.width="100%"}
+test_results_summary(filter(task_data, split == '90%'))
+```
+
+The permutation test revealed that the results are:
+```{r task-168784-test-90-pv, echo=TRUE, out.width="100%"}
+tournament_results <- filter(task_data, split == '90%' & selection == 'tournament')
+lexicase_results <- filter(task_data, split == '90%' & selection == 'lexicase')
+permutation_test(tournament_results$testing_performance,
+                    lexicase_results$testing_performance,
+                    seed = 117,
+                    alternative = "g")
+```
+
+### Selection set accuracy
+
+```{r task-168784-select-90-perf, echo=TRUE, out.width="100%"}
+selection_plot(filter(task_data, split == '90%'))
+```
+
+Summary statistics for the testing performance of the selection schemes at the 5% selection set split:
+```{r task-168784-select-90-sum, echo=TRUE, out.width="100%"}
+selection_results_summary(filter(task_data, split == '90%'))
+```
+
+The permutation test revealed that the results are:
+```{r task-168784-select-90-pv, echo=TRUE, out.width="100%"}
+tournament_results <- filter(task_data, split == '90%' & selection == 'tournament')
+lexicase_results <- filter(task_data, split == '90%' & selection == 'lexicase')
+permutation_test(tournament_results$training_performance,
+                    lexicase_results$training_performance,
+                    seed = 118,
+                    alternative = "t")
+```
+
+## 95%
+
+### Testing set accuracy
+
+```{r task-168784-test-95-perf, echo=TRUE, out.width="100%"}
+test_plot(filter(task_data, split == '95%'))
+```
+
+Summary statistics for the testing performance of the selection schemes at the 5% selection set split:
+```{r task-168784-test-95-sum, echo=TRUE, out.width="100%"}
+test_results_summary(filter(task_data, split == '95%'))
+```
+
+The permutation test revealed that the results are:
+```{r task-168784-test-95-pv, echo=TRUE, out.width="100%"}
+tournament_results <- filter(task_data, split == '95%' & selection == 'tournament')
+lexicase_results <- filter(task_data, split == '95%' & selection == 'lexicase')
+permutation_test(tournament_results$testing_performance,
+                    lexicase_results$testing_performance,
+                    seed = 119,
+                    alternative = "g")
+```
+
+### Selection set accuracy
+
+```{r task-168784-select-95-perf, echo=TRUE, out.width="100%"}
+selection_plot(filter(task_data, split == '95%'))
+```
+
+Summary statistics for the testing performance of the selection schemes at the 5% selection set split:
+```{r task-168784-select-95-sum, echo=TRUE, out.width="100%"}
+selection_results_summary(filter(task_data, split == '95%'))
+```
+
+The permutation test revealed that the results are:
+```{r task-168784-select-95-pv, echo=TRUE, out.width="100%"}
+tournament_results <- filter(task_data, split == '95%' & selection == 'tournament')
+lexicase_results <- filter(task_data, split == '95%' & selection == 'lexicase')
+permutation_test(tournament_results$training_performance,
+                    lexicase_results$training_performance,
+                    seed = 120,
+                    alternative = "t")
+```

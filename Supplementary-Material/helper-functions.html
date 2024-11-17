@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Helper functions | Supplementary Material for ‘Lexidate Selection Set Analysis: Varying Selection Schemes To Assess Generalizability Of Evolved Machine Learning Pipelines’</title>
+  <meta name="description" content="Supplementary Material" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Helper functions | Supplementary Material for ‘Lexidate Selection Set Analysis: Varying Selection Schemes To Assess Generalizability Of Evolved Machine Learning Pipelines’" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Supplementary Material" />
+  <meta name="github-repo" content="jgh9094/lexidate-holdout-analysis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Helper functions | Supplementary Material for ‘Lexidate Selection Set Analysis: Varying Selection Schemes To Assess Generalizability Of Evolved Machine Learning Pipelines’" />
+  
+  <meta name="twitter:description" content="Supplementary Material" />
+  
+
+<meta name="author" content="Jose Guadalupe Hernandez, Anil Kumar Saini, Jason H. Moore" />
+
+
+<meta name="date" content="2024-11-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="task-146818.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Supplementary Material</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#about-our-supplemental-material"><i class="fa fa-check"></i><b>1.1</b> About our supplemental material</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#contributing-authors"><i class="fa fa-check"></i><b>1.2</b> Contributing authors</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="helper-functions.html"><a href="helper-functions.html"><i class="fa fa-check"></i><b>2</b> Helper functions</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="helper-functions.html"><a href="helper-functions.html#setup"><i class="fa fa-check"></i><b>2.1</b> Setup</a></li>
+<li class="chapter" data-level="2.2" data-path="helper-functions.html"><a href="helper-functions.html#test-set-plot"><i class="fa fa-check"></i><b>2.2</b> Test set plot</a></li>
+<li class="chapter" data-level="2.3" data-path="helper-functions.html"><a href="helper-functions.html#test-set-results-summary"><i class="fa fa-check"></i><b>2.3</b> Test set results summary</a></li>
+<li class="chapter" data-level="2.4" data-path="helper-functions.html"><a href="helper-functions.html#permutaiton-test-results"><i class="fa fa-check"></i><b>2.4</b> Permutaiton test results</a></li>
+<li class="chapter" data-level="2.5" data-path="helper-functions.html"><a href="helper-functions.html#selection-set-plot"><i class="fa fa-check"></i><b>2.5</b> Selection set plot</a></li>
+<li class="chapter" data-level="2.6" data-path="helper-functions.html"><a href="helper-functions.html#selection-set-results-summary"><i class="fa fa-check"></i><b>2.6</b> Selection set results summary</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="task-146818.html"><a href="task-146818.html"><i class="fa fa-check"></i><b>3</b> Task 146818</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="task-146818.html"><a href="task-146818.html#section"><i class="fa fa-check"></i><b>3.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="task-146818.html"><a href="task-146818.html#testing-set-accuracy"><i class="fa fa-check"></i><b>3.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="3.1.2" data-path="task-146818.html"><a href="task-146818.html#selection-set-accuracy"><i class="fa fa-check"></i><b>3.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="task-146818.html"><a href="task-146818.html#section-1"><i class="fa fa-check"></i><b>3.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="task-146818.html"><a href="task-146818.html#testing-set-accuracy-1"><i class="fa fa-check"></i><b>3.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="3.2.2" data-path="task-146818.html"><a href="task-146818.html#selection-set-accuracy-1"><i class="fa fa-check"></i><b>3.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="task-146818.html"><a href="task-146818.html#section-2"><i class="fa fa-check"></i><b>3.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="task-146818.html"><a href="task-146818.html#testing-set-accuracy-2"><i class="fa fa-check"></i><b>3.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="3.3.2" data-path="task-146818.html"><a href="task-146818.html#selection-set-accuracy-2"><i class="fa fa-check"></i><b>3.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="task-146818.html"><a href="task-146818.html#section-3"><i class="fa fa-check"></i><b>3.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="task-146818.html"><a href="task-146818.html#testing-set-accuracy-3"><i class="fa fa-check"></i><b>3.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="3.4.2" data-path="task-146818.html"><a href="task-146818.html#selection-set-accuracy-3"><i class="fa fa-check"></i><b>3.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="task-146818.html"><a href="task-146818.html#section-4"><i class="fa fa-check"></i><b>3.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="task-146818.html"><a href="task-146818.html#testing-set-accuracy-4"><i class="fa fa-check"></i><b>3.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="3.5.2" data-path="task-146818.html"><a href="task-146818.html#selection-set-accuracy-4"><i class="fa fa-check"></i><b>3.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="task-359954.html"><a href="task-359954.html"><i class="fa fa-check"></i><b>4</b> Task 359954</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="task-359954.html"><a href="task-359954.html#section-5"><i class="fa fa-check"></i><b>4.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="task-359954.html"><a href="task-359954.html#testing-set-accuracy-5"><i class="fa fa-check"></i><b>4.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="4.1.2" data-path="task-359954.html"><a href="task-359954.html#selection-set-accuracy-5"><i class="fa fa-check"></i><b>4.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="task-359954.html"><a href="task-359954.html#section-6"><i class="fa fa-check"></i><b>4.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="task-359954.html"><a href="task-359954.html#testing-set-accuracy-6"><i class="fa fa-check"></i><b>4.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="4.2.2" data-path="task-359954.html"><a href="task-359954.html#selection-set-accuracy-6"><i class="fa fa-check"></i><b>4.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="task-359954.html"><a href="task-359954.html#section-7"><i class="fa fa-check"></i><b>4.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="task-359954.html"><a href="task-359954.html#testing-set-accuracy-7"><i class="fa fa-check"></i><b>4.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="4.3.2" data-path="task-359954.html"><a href="task-359954.html#selection-set-accuracy-7"><i class="fa fa-check"></i><b>4.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="task-359954.html"><a href="task-359954.html#section-8"><i class="fa fa-check"></i><b>4.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="task-359954.html"><a href="task-359954.html#testing-set-accuracy-8"><i class="fa fa-check"></i><b>4.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="4.4.2" data-path="task-359954.html"><a href="task-359954.html#selection-set-accuracy-8"><i class="fa fa-check"></i><b>4.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="task-359954.html"><a href="task-359954.html#section-9"><i class="fa fa-check"></i><b>4.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="task-359954.html"><a href="task-359954.html#testing-set-accuracy-9"><i class="fa fa-check"></i><b>4.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="4.5.2" data-path="task-359954.html"><a href="task-359954.html#selection-set-accuracy-9"><i class="fa fa-check"></i><b>4.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="task-359955.html"><a href="task-359955.html"><i class="fa fa-check"></i><b>5</b> Task 359955</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="task-359955.html"><a href="task-359955.html#section-10"><i class="fa fa-check"></i><b>5.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="task-359955.html"><a href="task-359955.html#testing-set-accuracy-10"><i class="fa fa-check"></i><b>5.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="5.1.2" data-path="task-359955.html"><a href="task-359955.html#selection-set-accuracy-10"><i class="fa fa-check"></i><b>5.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="task-359955.html"><a href="task-359955.html#section-11"><i class="fa fa-check"></i><b>5.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="task-359955.html"><a href="task-359955.html#testing-set-accuracy-11"><i class="fa fa-check"></i><b>5.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="5.2.2" data-path="task-359955.html"><a href="task-359955.html#selection-set-accuracy-11"><i class="fa fa-check"></i><b>5.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="task-359955.html"><a href="task-359955.html#section-12"><i class="fa fa-check"></i><b>5.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="task-359955.html"><a href="task-359955.html#testing-set-accuracy-12"><i class="fa fa-check"></i><b>5.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="5.3.2" data-path="task-359955.html"><a href="task-359955.html#selection-set-accuracy-12"><i class="fa fa-check"></i><b>5.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="task-359955.html"><a href="task-359955.html#section-13"><i class="fa fa-check"></i><b>5.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="task-359955.html"><a href="task-359955.html#testing-set-accuracy-13"><i class="fa fa-check"></i><b>5.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="5.4.2" data-path="task-359955.html"><a href="task-359955.html#selection-set-accuracy-13"><i class="fa fa-check"></i><b>5.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="task-359955.html"><a href="task-359955.html#section-14"><i class="fa fa-check"></i><b>5.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="task-359955.html"><a href="task-359955.html#testing-set-accuracy-14"><i class="fa fa-check"></i><b>5.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="5.5.2" data-path="task-359955.html"><a href="task-359955.html#selection-set-accuracy-14"><i class="fa fa-check"></i><b>5.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="task-190146.html"><a href="task-190146.html"><i class="fa fa-check"></i><b>6</b> Task 190146</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="task-190146.html"><a href="task-190146.html#section-15"><i class="fa fa-check"></i><b>6.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="task-190146.html"><a href="task-190146.html#testing-set-accuracy-15"><i class="fa fa-check"></i><b>6.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="6.1.2" data-path="task-190146.html"><a href="task-190146.html#selection-set-accuracy-15"><i class="fa fa-check"></i><b>6.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="task-190146.html"><a href="task-190146.html#section-16"><i class="fa fa-check"></i><b>6.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="task-190146.html"><a href="task-190146.html#testing-set-accuracy-16"><i class="fa fa-check"></i><b>6.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="6.2.2" data-path="task-190146.html"><a href="task-190146.html#selection-set-accuracy-16"><i class="fa fa-check"></i><b>6.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="task-190146.html"><a href="task-190146.html#section-17"><i class="fa fa-check"></i><b>6.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="task-190146.html"><a href="task-190146.html#testing-set-accuracy-17"><i class="fa fa-check"></i><b>6.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="6.3.2" data-path="task-190146.html"><a href="task-190146.html#selection-set-accuracy-17"><i class="fa fa-check"></i><b>6.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="task-190146.html"><a href="task-190146.html#section-18"><i class="fa fa-check"></i><b>6.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="task-190146.html"><a href="task-190146.html#testing-set-accuracy-18"><i class="fa fa-check"></i><b>6.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="6.4.2" data-path="task-190146.html"><a href="task-190146.html#selection-set-accuracy-18"><i class="fa fa-check"></i><b>6.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="task-190146.html"><a href="task-190146.html#section-19"><i class="fa fa-check"></i><b>6.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="task-190146.html"><a href="task-190146.html#testing-set-accuracy-19"><i class="fa fa-check"></i><b>6.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="6.5.2" data-path="task-190146.html"><a href="task-190146.html#selection-set-accuracy-19"><i class="fa fa-check"></i><b>6.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="task-168757.html"><a href="task-168757.html"><i class="fa fa-check"></i><b>7</b> Task 168757</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="task-168757.html"><a href="task-168757.html#section-20"><i class="fa fa-check"></i><b>7.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="task-168757.html"><a href="task-168757.html#testing-set-accuracy-20"><i class="fa fa-check"></i><b>7.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="7.1.2" data-path="task-168757.html"><a href="task-168757.html#selection-set-accuracy-20"><i class="fa fa-check"></i><b>7.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="task-168757.html"><a href="task-168757.html#section-21"><i class="fa fa-check"></i><b>7.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="task-168757.html"><a href="task-168757.html#testing-set-accuracy-21"><i class="fa fa-check"></i><b>7.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="7.2.2" data-path="task-168757.html"><a href="task-168757.html#selection-set-accuracy-21"><i class="fa fa-check"></i><b>7.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="task-168757.html"><a href="task-168757.html#section-22"><i class="fa fa-check"></i><b>7.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="task-168757.html"><a href="task-168757.html#testing-set-accuracy-22"><i class="fa fa-check"></i><b>7.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="7.3.2" data-path="task-168757.html"><a href="task-168757.html#selection-set-accuracy-22"><i class="fa fa-check"></i><b>7.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="task-168757.html"><a href="task-168757.html#section-23"><i class="fa fa-check"></i><b>7.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="task-168757.html"><a href="task-168757.html#testing-set-accuracy-23"><i class="fa fa-check"></i><b>7.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="7.4.2" data-path="task-168757.html"><a href="task-168757.html#selection-set-accuracy-23"><i class="fa fa-check"></i><b>7.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="task-168757.html"><a href="task-168757.html#section-24"><i class="fa fa-check"></i><b>7.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="task-168757.html"><a href="task-168757.html#testing-set-accuracy-24"><i class="fa fa-check"></i><b>7.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="7.5.2" data-path="task-168757.html"><a href="task-168757.html#selection-set-accuracy-24"><i class="fa fa-check"></i><b>7.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="task-359956.html"><a href="task-359956.html"><i class="fa fa-check"></i><b>8</b> Task 359956</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="task-359956.html"><a href="task-359956.html#section-25"><i class="fa fa-check"></i><b>8.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="task-359956.html"><a href="task-359956.html#testing-set-accuracy-25"><i class="fa fa-check"></i><b>8.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="8.1.2" data-path="task-359956.html"><a href="task-359956.html#selection-set-accuracy-25"><i class="fa fa-check"></i><b>8.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="task-359956.html"><a href="task-359956.html#section-26"><i class="fa fa-check"></i><b>8.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="task-359956.html"><a href="task-359956.html#testing-set-accuracy-26"><i class="fa fa-check"></i><b>8.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="8.2.2" data-path="task-359956.html"><a href="task-359956.html#selection-set-accuracy-26"><i class="fa fa-check"></i><b>8.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="task-359956.html"><a href="task-359956.html#section-27"><i class="fa fa-check"></i><b>8.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="task-359956.html"><a href="task-359956.html#testing-set-accuracy-27"><i class="fa fa-check"></i><b>8.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="8.3.2" data-path="task-359956.html"><a href="task-359956.html#selection-set-accuracy-27"><i class="fa fa-check"></i><b>8.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="task-359956.html"><a href="task-359956.html#section-28"><i class="fa fa-check"></i><b>8.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="task-359956.html"><a href="task-359956.html#testing-set-accuracy-28"><i class="fa fa-check"></i><b>8.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="8.4.2" data-path="task-359956.html"><a href="task-359956.html#selection-set-accuracy-28"><i class="fa fa-check"></i><b>8.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="task-359956.html"><a href="task-359956.html#section-29"><i class="fa fa-check"></i><b>8.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="task-359956.html"><a href="task-359956.html#testing-set-accuracy-29"><i class="fa fa-check"></i><b>8.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="8.5.2" data-path="task-359956.html"><a href="task-359956.html#selection-set-accuracy-29"><i class="fa fa-check"></i><b>8.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="task-359958.html"><a href="task-359958.html"><i class="fa fa-check"></i><b>9</b> Task 359958</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="task-359958.html"><a href="task-359958.html#section-30"><i class="fa fa-check"></i><b>9.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="task-359958.html"><a href="task-359958.html#testing-set-accuracy-30"><i class="fa fa-check"></i><b>9.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="9.1.2" data-path="task-359958.html"><a href="task-359958.html#selection-set-accuracy-30"><i class="fa fa-check"></i><b>9.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="task-359958.html"><a href="task-359958.html#section-31"><i class="fa fa-check"></i><b>9.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="task-359958.html"><a href="task-359958.html#testing-set-accuracy-31"><i class="fa fa-check"></i><b>9.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="9.2.2" data-path="task-359958.html"><a href="task-359958.html#selection-set-accuracy-31"><i class="fa fa-check"></i><b>9.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="task-359958.html"><a href="task-359958.html#section-32"><i class="fa fa-check"></i><b>9.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="task-359958.html"><a href="task-359958.html#testing-set-accuracy-32"><i class="fa fa-check"></i><b>9.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="9.3.2" data-path="task-359958.html"><a href="task-359958.html#selection-set-accuracy-32"><i class="fa fa-check"></i><b>9.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="task-359958.html"><a href="task-359958.html#section-33"><i class="fa fa-check"></i><b>9.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="task-359958.html"><a href="task-359958.html#testing-set-accuracy-33"><i class="fa fa-check"></i><b>9.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="9.4.2" data-path="task-359958.html"><a href="task-359958.html#selection-set-accuracy-33"><i class="fa fa-check"></i><b>9.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="task-359958.html"><a href="task-359958.html#section-34"><i class="fa fa-check"></i><b>9.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="task-359958.html"><a href="task-359958.html#testing-set-accuracy-34"><i class="fa fa-check"></i><b>9.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="9.5.2" data-path="task-359958.html"><a href="task-359958.html#selection-set-accuracy-34"><i class="fa fa-check"></i><b>9.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="task-359959.html"><a href="task-359959.html"><i class="fa fa-check"></i><b>10</b> Task 359959</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="task-359959.html"><a href="task-359959.html#section-35"><i class="fa fa-check"></i><b>10.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="task-359959.html"><a href="task-359959.html#testing-set-accuracy-35"><i class="fa fa-check"></i><b>10.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="10.1.2" data-path="task-359959.html"><a href="task-359959.html#selection-set-accuracy-35"><i class="fa fa-check"></i><b>10.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="task-359959.html"><a href="task-359959.html#section-36"><i class="fa fa-check"></i><b>10.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="task-359959.html"><a href="task-359959.html#testing-set-accuracy-36"><i class="fa fa-check"></i><b>10.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="10.2.2" data-path="task-359959.html"><a href="task-359959.html#selection-set-accuracy-36"><i class="fa fa-check"></i><b>10.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="task-359959.html"><a href="task-359959.html#section-37"><i class="fa fa-check"></i><b>10.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="task-359959.html"><a href="task-359959.html#testing-set-accuracy-37"><i class="fa fa-check"></i><b>10.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="10.3.2" data-path="task-359959.html"><a href="task-359959.html#selection-set-accuracy-37"><i class="fa fa-check"></i><b>10.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="task-359959.html"><a href="task-359959.html#section-38"><i class="fa fa-check"></i><b>10.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="task-359959.html"><a href="task-359959.html#testing-set-accuracy-38"><i class="fa fa-check"></i><b>10.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="10.4.2" data-path="task-359959.html"><a href="task-359959.html#selection-set-accuracy-38"><i class="fa fa-check"></i><b>10.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="task-359959.html"><a href="task-359959.html#section-39"><i class="fa fa-check"></i><b>10.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="task-359959.html"><a href="task-359959.html#testing-set-accuracy-39"><i class="fa fa-check"></i><b>10.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="10.5.2" data-path="task-359959.html"><a href="task-359959.html#selection-set-accuracy-39"><i class="fa fa-check"></i><b>10.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="task-2073.html"><a href="task-2073.html"><i class="fa fa-check"></i><b>11</b> Task 2073</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="task-2073.html"><a href="task-2073.html#section-40"><i class="fa fa-check"></i><b>11.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="task-2073.html"><a href="task-2073.html#testing-set-accuracy-40"><i class="fa fa-check"></i><b>11.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="11.1.2" data-path="task-2073.html"><a href="task-2073.html#selection-set-accuracy-40"><i class="fa fa-check"></i><b>11.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="task-2073.html"><a href="task-2073.html#section-41"><i class="fa fa-check"></i><b>11.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="task-2073.html"><a href="task-2073.html#testing-set-accuracy-41"><i class="fa fa-check"></i><b>11.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="11.2.2" data-path="task-2073.html"><a href="task-2073.html#selection-set-accuracy-41"><i class="fa fa-check"></i><b>11.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="task-2073.html"><a href="task-2073.html#section-42"><i class="fa fa-check"></i><b>11.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="task-2073.html"><a href="task-2073.html#testing-set-accuracy-42"><i class="fa fa-check"></i><b>11.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="11.3.2" data-path="task-2073.html"><a href="task-2073.html#selection-set-accuracy-42"><i class="fa fa-check"></i><b>11.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="task-2073.html"><a href="task-2073.html#section-43"><i class="fa fa-check"></i><b>11.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="task-2073.html"><a href="task-2073.html#testing-set-accuracy-43"><i class="fa fa-check"></i><b>11.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="11.4.2" data-path="task-2073.html"><a href="task-2073.html#selection-set-accuracy-43"><i class="fa fa-check"></i><b>11.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="task-2073.html"><a href="task-2073.html#section-44"><i class="fa fa-check"></i><b>11.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="task-2073.html"><a href="task-2073.html#testing-set-accuracy-44"><i class="fa fa-check"></i><b>11.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="11.5.2" data-path="task-2073.html"><a href="task-2073.html#selection-set-accuracy-44"><i class="fa fa-check"></i><b>11.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="task-359960.html"><a href="task-359960.html"><i class="fa fa-check"></i><b>12</b> Task 359960</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="task-359960.html"><a href="task-359960.html#section-45"><i class="fa fa-check"></i><b>12.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="task-359960.html"><a href="task-359960.html#testing-set-accuracy-45"><i class="fa fa-check"></i><b>12.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="12.1.2" data-path="task-359960.html"><a href="task-359960.html#selection-set-accuracy-45"><i class="fa fa-check"></i><b>12.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="task-359960.html"><a href="task-359960.html#section-46"><i class="fa fa-check"></i><b>12.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="task-359960.html"><a href="task-359960.html#testing-set-accuracy-46"><i class="fa fa-check"></i><b>12.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="12.2.2" data-path="task-359960.html"><a href="task-359960.html#selection-set-accuracy-46"><i class="fa fa-check"></i><b>12.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="task-359960.html"><a href="task-359960.html#section-47"><i class="fa fa-check"></i><b>12.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="task-359960.html"><a href="task-359960.html#testing-set-accuracy-47"><i class="fa fa-check"></i><b>12.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="12.3.2" data-path="task-359960.html"><a href="task-359960.html#selection-set-accuracy-47"><i class="fa fa-check"></i><b>12.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="task-359960.html"><a href="task-359960.html#section-48"><i class="fa fa-check"></i><b>12.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="task-359960.html"><a href="task-359960.html#testing-set-accuracy-48"><i class="fa fa-check"></i><b>12.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="12.4.2" data-path="task-359960.html"><a href="task-359960.html#selection-set-accuracy-48"><i class="fa fa-check"></i><b>12.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="task-359960.html"><a href="task-359960.html#section-49"><i class="fa fa-check"></i><b>12.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="task-359960.html"><a href="task-359960.html#testing-set-accuracy-49"><i class="fa fa-check"></i><b>12.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="12.5.2" data-path="task-359960.html"><a href="task-359960.html#selection-set-accuracy-49"><i class="fa fa-check"></i><b>12.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="task-168784.html"><a href="task-168784.html"><i class="fa fa-check"></i><b>13</b> Task 168784</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="task-168784.html"><a href="task-168784.html#section-50"><i class="fa fa-check"></i><b>13.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="task-168784.html"><a href="task-168784.html#testing-set-accuracy-50"><i class="fa fa-check"></i><b>13.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="13.1.2" data-path="task-168784.html"><a href="task-168784.html#selection-set-accuracy-50"><i class="fa fa-check"></i><b>13.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="task-168784.html"><a href="task-168784.html#section-51"><i class="fa fa-check"></i><b>13.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="task-168784.html"><a href="task-168784.html#testing-set-accuracy-51"><i class="fa fa-check"></i><b>13.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="13.2.2" data-path="task-168784.html"><a href="task-168784.html#selection-set-accuracy-51"><i class="fa fa-check"></i><b>13.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="task-168784.html"><a href="task-168784.html#section-52"><i class="fa fa-check"></i><b>13.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="task-168784.html"><a href="task-168784.html#testing-set-accuracy-52"><i class="fa fa-check"></i><b>13.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="13.3.2" data-path="task-168784.html"><a href="task-168784.html#selection-set-accuracy-52"><i class="fa fa-check"></i><b>13.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="task-168784.html"><a href="task-168784.html#section-53"><i class="fa fa-check"></i><b>13.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="task-168784.html"><a href="task-168784.html#testing-set-accuracy-53"><i class="fa fa-check"></i><b>13.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="13.4.2" data-path="task-168784.html"><a href="task-168784.html#selection-set-accuracy-53"><i class="fa fa-check"></i><b>13.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="task-168784.html"><a href="task-168784.html#section-54"><i class="fa fa-check"></i><b>13.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="task-168784.html"><a href="task-168784.html#testing-set-accuracy-54"><i class="fa fa-check"></i><b>13.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="13.5.2" data-path="task-168784.html"><a href="task-168784.html#selection-set-accuracy-54"><i class="fa fa-check"></i><b>13.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="task-359962.html"><a href="task-359962.html"><i class="fa fa-check"></i><b>14</b> Task 359962</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="task-359962.html"><a href="task-359962.html#section-55"><i class="fa fa-check"></i><b>14.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="task-359962.html"><a href="task-359962.html#testing-set-accuracy-55"><i class="fa fa-check"></i><b>14.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="14.1.2" data-path="task-359962.html"><a href="task-359962.html#selection-set-accuracy-55"><i class="fa fa-check"></i><b>14.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="task-359962.html"><a href="task-359962.html#section-56"><i class="fa fa-check"></i><b>14.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="task-359962.html"><a href="task-359962.html#testing-set-accuracy-56"><i class="fa fa-check"></i><b>14.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="14.2.2" data-path="task-359962.html"><a href="task-359962.html#selection-set-accuracy-56"><i class="fa fa-check"></i><b>14.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="task-359962.html"><a href="task-359962.html#section-57"><i class="fa fa-check"></i><b>14.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="task-359962.html"><a href="task-359962.html#testing-set-accuracy-57"><i class="fa fa-check"></i><b>14.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="14.3.2" data-path="task-359962.html"><a href="task-359962.html#selection-set-accuracy-57"><i class="fa fa-check"></i><b>14.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="task-359962.html"><a href="task-359962.html#section-58"><i class="fa fa-check"></i><b>14.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="task-359962.html"><a href="task-359962.html#testing-set-accuracy-58"><i class="fa fa-check"></i><b>14.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="14.4.2" data-path="task-359962.html"><a href="task-359962.html#selection-set-accuracy-58"><i class="fa fa-check"></i><b>14.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="task-359962.html"><a href="task-359962.html#section-59"><i class="fa fa-check"></i><b>14.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="14.5.1" data-path="task-359962.html"><a href="task-359962.html#testing-set-accuracy-59"><i class="fa fa-check"></i><b>14.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="14.5.2" data-path="task-359962.html"><a href="task-359962.html#selection-set-accuracy-59"><i class="fa fa-check"></i><b>14.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with ❤ and bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Supplementary Material for ‘Lexidate Selection Set Analysis: Varying Selection Schemes To Assess Generalizability Of Evolved Machine Learning Pipelines’</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="helper-functions" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Helper functions<a href="helper-functions.html#helper-functions" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Here we show the functions being used to generate the supplementary material.
+All of the following functions are compsed of R code and are used to generate the figures, tables, and statitics.</p>
+<div id="setup" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Setup<a href="helper-functions.html#setup" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="helper-functions.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="helper-functions.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb1-3"><a href="helper-functions.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-4"><a href="helper-functions.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(PupillometryR)</span>
+<span id="cb1-5"><a href="helper-functions.html#cb1-5" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="helper-functions.html#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="helper-functions.html#cb1-7" tabindex="-1"></a>NAMES <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;tournament&#39;</span>, <span class="st">&#39;lexicase&#39;</span>)</span>
+<span id="cb1-8"><a href="helper-functions.html#cb1-8" tabindex="-1"></a>SHAPE <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">21</span>, <span class="dv">21</span>)</span>
+<span id="cb1-9"><a href="helper-functions.html#cb1-9" tabindex="-1"></a>cb_palette <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;#DC1E34&#39;</span>, <span class="st">&#39;#004D40&#39;</span>)</span>
+<span id="cb1-10"><a href="helper-functions.html#cb1-10" tabindex="-1"></a>data_dir <span class="ot">&lt;-</span> <span class="st">&#39;./&#39;</span></span>
+<span id="cb1-11"><a href="helper-functions.html#cb1-11" tabindex="-1"></a>c_task_id_lists <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">146818</span>,<span class="dv">359954</span>,<span class="dv">359955</span>,<span class="dv">190146</span>,<span class="dv">168757</span>,<span class="dv">359956</span>,</span>
+<span id="cb1-12"><a href="helper-functions.html#cb1-12" tabindex="-1"></a>                        <span class="dv">359958</span>,<span class="dv">359959</span>,<span class="dv">2073</span>,<span class="dv">359960</span>,<span class="dv">168784</span>,<span class="dv">359962</span>)</span>
+<span id="cb1-13"><a href="helper-functions.html#cb1-13" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="helper-functions.html#cb1-14" tabindex="-1"></a>p_theme <span class="ot">&lt;-</span> <span class="fu">theme</span>(</span>
+<span id="cb1-15"><a href="helper-functions.html#cb1-15" tabindex="-1"></a>  <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">17</span>, <span class="at">hjust=</span><span class="fl">0.5</span>),</span>
+<span id="cb1-16"><a href="helper-functions.html#cb1-16" tabindex="-1"></a>  <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-17"><a href="helper-functions.html#cb1-17" tabindex="-1"></a>  <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-18"><a href="helper-functions.html#cb1-18" tabindex="-1"></a>  <span class="at">legend.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">17</span>),</span>
+<span id="cb1-19"><a href="helper-functions.html#cb1-19" tabindex="-1"></a>  <span class="at">legend.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">17</span>),</span>
+<span id="cb1-20"><a href="helper-functions.html#cb1-20" tabindex="-1"></a>  <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">17</span>),</span>
+<span id="cb1-21"><a href="helper-functions.html#cb1-21" tabindex="-1"></a>  <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">11</span>),</span>
+<span id="cb1-22"><a href="helper-functions.html#cb1-22" tabindex="-1"></a>  <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb1-23"><a href="helper-functions.html#cb1-23" tabindex="-1"></a>  <span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb1-24"><a href="helper-functions.html#cb1-24" tabindex="-1"></a>  <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;#f1f2f5&quot;</span>,</span>
+<span id="cb1-25"><a href="helper-functions.html#cb1-25" tabindex="-1"></a>                                  <span class="at">colour =</span> <span class="st">&quot;white&quot;</span>,</span>
+<span id="cb1-26"><a href="helper-functions.html#cb1-26" tabindex="-1"></a>                                  <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">linetype =</span> <span class="st">&quot;solid&quot;</span>))</span>
+<span id="cb1-27"><a href="helper-functions.html#cb1-27" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="helper-functions.html#cb1-28" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;./data.csv&quot;</span>)</span>
+<span id="cb1-29"><a href="helper-functions.html#cb1-29" tabindex="-1"></a>results<span class="sc">$</span>selection <span class="ot">&lt;-</span> <span class="fu">factor</span>(results<span class="sc">$</span>selection, <span class="at">levels =</span> NAMES)</span></code></pre></div>
+</div>
+<div id="test-set-plot" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Test set plot<a href="helper-functions.html#test-set-plot" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="helper-functions.html#cb2-1" tabindex="-1"></a>test_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(data) { <span class="fu">return</span>(</span>
+<span id="cb2-2"><a href="helper-functions.html#cb2-2" tabindex="-1"></a>    <span class="fu">ggplot</span>(data,</span>
+<span id="cb2-3"><a href="helper-functions.html#cb2-3" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> selection, <span class="at">y =</span> testing_performance, <span class="at">color =</span> selection,</span>
+<span id="cb2-4"><a href="helper-functions.html#cb2-4" tabindex="-1"></a>                <span class="at">fill =</span> selection, <span class="at">shape =</span> selection)) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="helper-functions.html#cb2-5" tabindex="-1"></a>    <span class="fu">geom_flat_violin</span>(<span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">x =</span> <span class="fl">0.1</span>, <span class="at">y =</span> <span class="dv">0</span>),</span>
+<span id="cb2-6"><a href="helper-functions.html#cb2-6" tabindex="-1"></a>                    <span class="at">scale =</span> <span class="st">&quot;width&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">width =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb2-7"><a href="helper-functions.html#cb2-7" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">width =</span> .<span class="dv">08</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>,</span>
+<span id="cb2-8"><a href="helper-functions.html#cb2-8" tabindex="-1"></a>                <span class="at">alpha =</span> <span class="fl">0.0</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>,</span>
+<span id="cb2-9"><a href="helper-functions.html#cb2-9" tabindex="-1"></a>                <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">x =</span> .<span class="dv">15</span>, <span class="at">y =</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb2-10"><a href="helper-functions.html#cb2-10" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.03</span>,</span>
+<span id="cb2-11"><a href="helper-functions.html#cb2-11" tabindex="-1"></a>                <span class="at">height =</span> <span class="fl">0.0</span>), <span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">alpha =</span> <span class="fl">1.0</span>) <span class="sc">+</span></span>
+<span id="cb2-12"><a href="helper-functions.html#cb2-12" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb2-13"><a href="helper-functions.html#cb2-13" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;Accuracy %&quot;</span>,</span>
+<span id="cb2-14"><a href="helper-functions.html#cb2-14" tabindex="-1"></a>    <span class="at">labels =</span> scales<span class="sc">::</span>percent,</span>
+<span id="cb2-15"><a href="helper-functions.html#cb2-15" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="helper-functions.html#cb2-16" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb2-17"><a href="helper-functions.html#cb2-17" tabindex="-1"></a>    <span class="fu">scale_x_discrete</span>(</span>
+<span id="cb2-18"><a href="helper-functions.html#cb2-18" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;Selection scheme&quot;</span></span>
+<span id="cb2-19"><a href="helper-functions.html#cb2-19" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb2-20"><a href="helper-functions.html#cb2-20" tabindex="-1"></a>    <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> SHAPE,) <span class="sc">+</span></span>
+<span id="cb2-21"><a href="helper-functions.html#cb2-21" tabindex="-1"></a>    <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> cb_palette,) <span class="sc">+</span></span>
+<span id="cb2-22"><a href="helper-functions.html#cb2-22" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> cb_palette,) <span class="sc">+</span></span>
+<span id="cb2-23"><a href="helper-functions.html#cb2-23" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&#39;Accuracy on test set&#39;</span>) <span class="sc">+</span></span>
+<span id="cb2-24"><a href="helper-functions.html#cb2-24" tabindex="-1"></a>    p_theme <span class="sc">+</span></span>
+<span id="cb2-25"><a href="helper-functions.html#cb2-25" tabindex="-1"></a>    <span class="fu">guides</span>(</span>
+<span id="cb2-26"><a href="helper-functions.html#cb2-26" tabindex="-1"></a>    <span class="at">shape=</span><span class="fu">guide_legend</span>(<span class="at">nrow =</span> <span class="dv">1</span>, <span class="at">title.position =</span> <span class="st">&quot;left&quot;</span>,</span>
+<span id="cb2-27"><a href="helper-functions.html#cb2-27" tabindex="-1"></a>                        <span class="at">title =</span> <span class="st">&quot;Selection scheme&quot;</span>),</span>
+<span id="cb2-28"><a href="helper-functions.html#cb2-28" tabindex="-1"></a>    <span class="at">color=</span><span class="fu">guide_legend</span>(<span class="at">nrow =</span> <span class="dv">1</span>, <span class="at">title.position =</span> <span class="st">&quot;left&quot;</span>,</span>
+<span id="cb2-29"><a href="helper-functions.html#cb2-29" tabindex="-1"></a>                        <span class="at">title =</span> <span class="st">&quot;Selection scheme&quot;</span>),</span>
+<span id="cb2-30"><a href="helper-functions.html#cb2-30" tabindex="-1"></a>    <span class="at">fill=</span><span class="fu">guide_legend</span>(<span class="at">nrow =</span> <span class="dv">1</span>, <span class="at">title.position =</span> <span class="st">&quot;left&quot;</span>,</span>
+<span id="cb2-31"><a href="helper-functions.html#cb2-31" tabindex="-1"></a>                        <span class="at">title =</span> <span class="st">&quot;Selection scheme&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb2-32"><a href="helper-functions.html#cb2-32" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb2-33"><a href="helper-functions.html#cb2-33" tabindex="-1"></a>            <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb2-34"><a href="helper-functions.html#cb2-34" tabindex="-1"></a>            <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb2-35"><a href="helper-functions.html#cb2-35" tabindex="-1"></a>            <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb2-36"><a href="helper-functions.html#cb2-36" tabindex="-1"></a>)}</span></code></pre></div>
+</div>
+<div id="test-set-results-summary" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Test set results summary<a href="helper-functions.html#test-set-results-summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="helper-functions.html#cb3-1" tabindex="-1"></a>test_results_summary <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
+<span id="cb3-2"><a href="helper-functions.html#cb3-2" tabindex="-1"></a>    <span class="fu">return</span>(</span>
+<span id="cb3-3"><a href="helper-functions.html#cb3-3" tabindex="-1"></a>        data <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="helper-functions.html#cb3-4" tabindex="-1"></a>        <span class="fu">group_by</span>(selection) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="helper-functions.html#cb3-5" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
+<span id="cb3-6"><a href="helper-functions.html#cb3-6" tabindex="-1"></a>            <span class="at">count =</span> <span class="fu">n</span>(),</span>
+<span id="cb3-7"><a href="helper-functions.html#cb3-7" tabindex="-1"></a>            <span class="at">na_cnt =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(testing_performance)),</span>
+<span id="cb3-8"><a href="helper-functions.html#cb3-8" tabindex="-1"></a>            <span class="at">min =</span> <span class="fu">min</span>(testing_performance, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-9"><a href="helper-functions.html#cb3-9" tabindex="-1"></a>            <span class="at">median =</span> <span class="fu">median</span>(testing_performance, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-10"><a href="helper-functions.html#cb3-10" tabindex="-1"></a>            <span class="at">mean =</span> <span class="fu">mean</span>(testing_performance, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-11"><a href="helper-functions.html#cb3-11" tabindex="-1"></a>            <span class="at">max =</span> <span class="fu">max</span>(testing_performance, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-12"><a href="helper-functions.html#cb3-12" tabindex="-1"></a>            <span class="at">IQR =</span> <span class="fu">IQR</span>(testing_performance, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb3-13"><a href="helper-functions.html#cb3-13" tabindex="-1"></a>    )</span>
+<span id="cb3-14"><a href="helper-functions.html#cb3-14" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="permutaiton-test-results" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Permutaiton test results<a href="helper-functions.html#permutaiton-test-results" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="helper-functions.html#cb4-1" tabindex="-1"></a><span class="co"># permutation test with t-test statistic</span></span>
+<span id="cb4-2"><a href="helper-functions.html#cb4-2" tabindex="-1"></a><span class="co"># assuming we are using an alpha of 0.05</span></span>
+<span id="cb4-3"><a href="helper-functions.html#cb4-3" tabindex="-1"></a>permutation_test <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, seed, alternative) {</span>
+<span id="cb4-4"><a href="helper-functions.html#cb4-4" tabindex="-1"></a>  <span class="co"># Set the random seed for reproducibility</span></span>
+<span id="cb4-5"><a href="helper-functions.html#cb4-5" tabindex="-1"></a>  <span class="fu">set.seed</span>(seed)</span>
+<span id="cb4-6"><a href="helper-functions.html#cb4-6" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="helper-functions.html#cb4-7" tabindex="-1"></a>  <span class="co"># Number of permutations</span></span>
+<span id="cb4-8"><a href="helper-functions.html#cb4-8" tabindex="-1"></a>  n_permutations <span class="ot">=</span> <span class="dv">100000</span></span>
+<span id="cb4-9"><a href="helper-functions.html#cb4-9" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="helper-functions.html#cb4-10" tabindex="-1"></a>  <span class="co"># Calculate the observed difference in means</span></span>
+<span id="cb4-11"><a href="helper-functions.html#cb4-11" tabindex="-1"></a>  observed_diff <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, y, <span class="at">var.equal =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>statistic</span>
+<span id="cb4-12"><a href="helper-functions.html#cb4-12" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&#39;observed_diff:&#39;</span>, observed_diff))</span>
+<span id="cb4-13"><a href="helper-functions.html#cb4-13" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="helper-functions.html#cb4-14" tabindex="-1"></a>  <span class="co"># Combine both samples</span></span>
+<span id="cb4-15"><a href="helper-functions.html#cb4-15" tabindex="-1"></a>  combined <span class="ot">&lt;-</span> <span class="fu">c</span>(x, y)</span>
+<span id="cb4-16"><a href="helper-functions.html#cb4-16" tabindex="-1"></a>  n_x <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb4-17"><a href="helper-functions.html#cb4-17" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="helper-functions.html#cb4-18" tabindex="-1"></a>  <span class="co"># Generate permutation differences</span></span>
+<span id="cb4-19"><a href="helper-functions.html#cb4-19" tabindex="-1"></a>  permutation_diffs <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_permutations)</span>
+<span id="cb4-20"><a href="helper-functions.html#cb4-20" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="helper-functions.html#cb4-21" tabindex="-1"></a>  <span class="co"># Use a reproducible random sequence for each permutation</span></span>
+<span id="cb4-22"><a href="helper-functions.html#cb4-22" tabindex="-1"></a>  <span class="co"># Generate unique seeds for each permutation</span></span>
+<span id="cb4-23"><a href="helper-functions.html#cb4-23" tabindex="-1"></a>  seeds <span class="ot">&lt;-</span> <span class="fu">sample.int</span>(<span class="fl">1e9</span>, n_permutations)</span>
+<span id="cb4-24"><a href="helper-functions.html#cb4-24" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="helper-functions.html#cb4-25" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_permutations) {</span>
+<span id="cb4-26"><a href="helper-functions.html#cb4-26" tabindex="-1"></a>    <span class="co"># Set seed for this permutation</span></span>
+<span id="cb4-27"><a href="helper-functions.html#cb4-27" tabindex="-1"></a>    <span class="fu">set.seed</span>(seeds[i])</span>
+<span id="cb4-28"><a href="helper-functions.html#cb4-28" tabindex="-1"></a>    <span class="co"># Shuffle the combined data</span></span>
+<span id="cb4-29"><a href="helper-functions.html#cb4-29" tabindex="-1"></a>    permuted <span class="ot">&lt;-</span> <span class="fu">sample</span>(combined)</span>
+<span id="cb4-30"><a href="helper-functions.html#cb4-30" tabindex="-1"></a>    <span class="co"># First n_x elements to group 1</span></span>
+<span id="cb4-31"><a href="helper-functions.html#cb4-31" tabindex="-1"></a>    perm_x <span class="ot">&lt;-</span> permuted[<span class="dv">1</span><span class="sc">:</span>n_x]</span>
+<span id="cb4-32"><a href="helper-functions.html#cb4-32" tabindex="-1"></a>    <span class="co"># Remaining elements to group 2</span></span>
+<span id="cb4-33"><a href="helper-functions.html#cb4-33" tabindex="-1"></a>    perm_y <span class="ot">&lt;-</span> permuted[(n_x <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span><span class="fu">length</span>(combined)]</span>
+<span id="cb4-34"><a href="helper-functions.html#cb4-34" tabindex="-1"></a>    <span class="co"># Calculate the difference in t-test statistics</span></span>
+<span id="cb4-35"><a href="helper-functions.html#cb4-35" tabindex="-1"></a>    permutation_diffs[i] <span class="ot">&lt;-</span> <span class="fu">t.test</span>(perm_x, perm_y,</span>
+<span id="cb4-36"><a href="helper-functions.html#cb4-36" tabindex="-1"></a>                                    <span class="at">var.equal =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>statistic</span>
+<span id="cb4-37"><a href="helper-functions.html#cb4-37" tabindex="-1"></a>  }</span>
+<span id="cb4-38"><a href="helper-functions.html#cb4-38" tabindex="-1"></a></span>
+<span id="cb4-39"><a href="helper-functions.html#cb4-39" tabindex="-1"></a>  <span class="co"># sort permutation_diffs</span></span>
+<span id="cb4-40"><a href="helper-functions.html#cb4-40" tabindex="-1"></a>  permutation_diffs <span class="ot">&lt;-</span> <span class="fu">sort</span>(permutation_diffs)</span>
+<span id="cb4-41"><a href="helper-functions.html#cb4-41" tabindex="-1"></a></span>
+<span id="cb4-42"><a href="helper-functions.html#cb4-42" tabindex="-1"></a>  <span class="cf">if</span> (alternative <span class="sc">==</span> <span class="st">&quot;l&quot;</span>) {</span>
+<span id="cb4-43"><a href="helper-functions.html#cb4-43" tabindex="-1"></a>    <span class="co"># is the observed difference &lt; than the 5th percentile</span></span>
+<span id="cb4-44"><a href="helper-functions.html#cb4-44" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&#39;permutation_diffs[0.05 * n_permutations]:&#39;</span>,</span>
+<span id="cb4-45"><a href="helper-functions.html#cb4-45" tabindex="-1"></a>            permutation_diffs[<span class="fl">0.05</span> <span class="sc">*</span> n_permutations]))</span>
+<span id="cb4-46"><a href="helper-functions.html#cb4-46" tabindex="-1"></a></span>
+<span id="cb4-47"><a href="helper-functions.html#cb4-47" tabindex="-1"></a>    <span class="cf">if</span> (observed_diff <span class="sc">&lt;</span> permutation_diffs[<span class="fl">0.05</span> <span class="sc">*</span> n_permutations]) {</span>
+<span id="cb4-48"><a href="helper-functions.html#cb4-48" tabindex="-1"></a>      <span class="fu">print</span>(<span class="st">&#39;reject null hypothesis&#39;</span>)</span>
+<span id="cb4-49"><a href="helper-functions.html#cb4-49" tabindex="-1"></a>    }</span>
+<span id="cb4-50"><a href="helper-functions.html#cb4-50" tabindex="-1"></a>    <span class="cf">else</span> {</span>
+<span id="cb4-51"><a href="helper-functions.html#cb4-51" tabindex="-1"></a>      <span class="fu">print</span>(<span class="st">&#39;fail to reject null hypothesis&#39;</span>)</span>
+<span id="cb4-52"><a href="helper-functions.html#cb4-52" tabindex="-1"></a>    }</span>
+<span id="cb4-53"><a href="helper-functions.html#cb4-53" tabindex="-1"></a></span>
+<span id="cb4-54"><a href="helper-functions.html#cb4-54" tabindex="-1"></a>    <span class="co"># if p_value is 0</span></span>
+<span id="cb4-55"><a href="helper-functions.html#cb4-55" tabindex="-1"></a>    p_value <span class="ot">&lt;-</span> <span class="fu">mean</span>(permutation_diffs <span class="sc">&lt;</span> observed_diff)</span>
+<span id="cb4-56"><a href="helper-functions.html#cb4-56" tabindex="-1"></a>    <span class="cf">if</span> (p_value <span class="sc">==</span> <span class="fl">0.0</span>) {</span>
+<span id="cb4-57"><a href="helper-functions.html#cb4-57" tabindex="-1"></a>      <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&#39;p-value:&#39;</span>, <span class="dv">1</span><span class="sc">/</span>n_permutations))</span>
+<span id="cb4-58"><a href="helper-functions.html#cb4-58" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb4-59"><a href="helper-functions.html#cb4-59" tabindex="-1"></a>       <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&#39;p-value:&#39;</span>, p_value))</span>
+<span id="cb4-60"><a href="helper-functions.html#cb4-60" tabindex="-1"></a>    }</span>
+<span id="cb4-61"><a href="helper-functions.html#cb4-61" tabindex="-1"></a></span>
+<span id="cb4-62"><a href="helper-functions.html#cb4-62" tabindex="-1"></a>    <span class="co"># make histogram plot</span></span>
+<span id="cb4-63"><a href="helper-functions.html#cb4-63" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">difference =</span> permutation_diffs)</span>
+<span id="cb4-64"><a href="helper-functions.html#cb4-64" tabindex="-1"></a>    df<span class="sc">$</span>category <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(df<span class="sc">$</span>difference <span class="sc">&lt;</span> observed_diff, <span class="st">&#39;not&#39;</span>, <span class="st">&#39;extreme&#39;</span>)</span>
+<span id="cb4-65"><a href="helper-functions.html#cb4-65" tabindex="-1"></a></span>
+<span id="cb4-66"><a href="helper-functions.html#cb4-66" tabindex="-1"></a>    plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> difference, <span class="at">fill =</span> category)) <span class="sc">+</span></span>
+<span id="cb4-67"><a href="helper-functions.html#cb4-67" tabindex="-1"></a>        <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">100</span>,</span>
+<span id="cb4-68"><a href="helper-functions.html#cb4-68" tabindex="-1"></a>                        <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb4-69"><a href="helper-functions.html#cb4-69" tabindex="-1"></a>                        <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb4-70"><a href="helper-functions.html#cb4-70" tabindex="-1"></a>        <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> observed_diff,</span>
+<span id="cb4-71"><a href="helper-functions.html#cb4-71" tabindex="-1"></a>                    <span class="at">color =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb4-72"><a href="helper-functions.html#cb4-72" tabindex="-1"></a>                    <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>,</span>
+<span id="cb4-73"><a href="helper-functions.html#cb4-73" tabindex="-1"></a>                    <span class="at">size =</span> <span class="dv">1</span></span>
+<span id="cb4-74"><a href="helper-functions.html#cb4-74" tabindex="-1"></a>                    ) <span class="sc">+</span></span>
+<span id="cb4-75"><a href="helper-functions.html#cb4-75" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Permutation Test: Frequency of T-test Satistic Differences&quot;</span>,</span>
+<span id="cb4-76"><a href="helper-functions.html#cb4-76" tabindex="-1"></a>                <span class="at">x =</span> <span class="st">&quot;Difference in t-test statistics&quot;</span>,</span>
+<span id="cb4-77"><a href="helper-functions.html#cb4-77" tabindex="-1"></a>                <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span></span>
+<span id="cb4-78"><a href="helper-functions.html#cb4-78" tabindex="-1"></a>                ) <span class="sc">+</span></span>
+<span id="cb4-79"><a href="helper-functions.html#cb4-79" tabindex="-1"></a>        <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb4-80"><a href="helper-functions.html#cb4-80" tabindex="-1"></a>        <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;black&#39;</span>, <span class="st">&#39;green&#39;</span>)) <span class="sc">+</span></span>
+<span id="cb4-81"><a href="helper-functions.html#cb4-81" tabindex="-1"></a>        <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;black&#39;</span>, <span class="st">&#39;green&#39;</span>))</span>
+<span id="cb4-82"><a href="helper-functions.html#cb4-82" tabindex="-1"></a></span>
+<span id="cb4-83"><a href="helper-functions.html#cb4-83" tabindex="-1"></a>  <span class="fu">print</span>(plot)</span>
+<span id="cb4-84"><a href="helper-functions.html#cb4-84" tabindex="-1"></a></span>
+<span id="cb4-85"><a href="helper-functions.html#cb4-85" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (alternative <span class="sc">==</span> <span class="st">&quot;g&quot;</span>) {</span>
+<span id="cb4-86"><a href="helper-functions.html#cb4-86" tabindex="-1"></a>    <span class="co"># is the observed difference &gt; than the 95th percentile</span></span>
+<span id="cb4-87"><a href="helper-functions.html#cb4-87" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&#39;permutation_diffs[0.95 * n_permutations]:&#39;</span>,</span>
+<span id="cb4-88"><a href="helper-functions.html#cb4-88" tabindex="-1"></a>            permutation_diffs[<span class="fl">0.95</span> <span class="sc">*</span> n_permutations]))</span>
+<span id="cb4-89"><a href="helper-functions.html#cb4-89" tabindex="-1"></a></span>
+<span id="cb4-90"><a href="helper-functions.html#cb4-90" tabindex="-1"></a>    <span class="cf">if</span> (permutation_diffs[<span class="fl">0.95</span> <span class="sc">*</span> n_permutations] <span class="sc">&lt;</span> observed_diff) {</span>
+<span id="cb4-91"><a href="helper-functions.html#cb4-91" tabindex="-1"></a>      <span class="fu">print</span>(<span class="st">&#39;reject null hypothesis&#39;</span>)</span>
+<span id="cb4-92"><a href="helper-functions.html#cb4-92" tabindex="-1"></a>    }</span>
+<span id="cb4-93"><a href="helper-functions.html#cb4-93" tabindex="-1"></a>    <span class="cf">else</span>{</span>
+<span id="cb4-94"><a href="helper-functions.html#cb4-94" tabindex="-1"></a>      <span class="fu">print</span>(<span class="st">&#39;fail to reject null hypothesis&#39;</span>)</span>
+<span id="cb4-95"><a href="helper-functions.html#cb4-95" tabindex="-1"></a>    }</span>
+<span id="cb4-96"><a href="helper-functions.html#cb4-96" tabindex="-1"></a></span>
+<span id="cb4-97"><a href="helper-functions.html#cb4-97" tabindex="-1"></a>    <span class="co"># if p_value is 0</span></span>
+<span id="cb4-98"><a href="helper-functions.html#cb4-98" tabindex="-1"></a>    p_value <span class="ot">&lt;-</span> <span class="fu">mean</span>(permutation_diffs <span class="sc">&gt;</span> observed_diff)</span>
+<span id="cb4-99"><a href="helper-functions.html#cb4-99" tabindex="-1"></a>    <span class="cf">if</span> (p_value <span class="sc">==</span> <span class="fl">0.0</span>) {</span>
+<span id="cb4-100"><a href="helper-functions.html#cb4-100" tabindex="-1"></a>      <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&#39;p-value:&#39;</span>, <span class="dv">1</span><span class="sc">/</span>n_permutations))</span>
+<span id="cb4-101"><a href="helper-functions.html#cb4-101" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb4-102"><a href="helper-functions.html#cb4-102" tabindex="-1"></a>       <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&#39;p-value:&#39;</span>, p_value))</span>
+<span id="cb4-103"><a href="helper-functions.html#cb4-103" tabindex="-1"></a>    }</span>
+<span id="cb4-104"><a href="helper-functions.html#cb4-104" tabindex="-1"></a></span>
+<span id="cb4-105"><a href="helper-functions.html#cb4-105" tabindex="-1"></a>    <span class="co"># make histogram plot</span></span>
+<span id="cb4-106"><a href="helper-functions.html#cb4-106" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">difference =</span> permutation_diffs)</span>
+<span id="cb4-107"><a href="helper-functions.html#cb4-107" tabindex="-1"></a>    df<span class="sc">$</span>category <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(df<span class="sc">$</span>difference <span class="sc">&lt;</span> observed_diff, <span class="st">&#39;not&#39;</span>, <span class="st">&#39;extreme&#39;</span>)</span>
+<span id="cb4-108"><a href="helper-functions.html#cb4-108" tabindex="-1"></a></span>
+<span id="cb4-109"><a href="helper-functions.html#cb4-109" tabindex="-1"></a>    plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> difference, <span class="at">fill =</span> category)) <span class="sc">+</span></span>
+<span id="cb4-110"><a href="helper-functions.html#cb4-110" tabindex="-1"></a>        <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">100</span>,</span>
+<span id="cb4-111"><a href="helper-functions.html#cb4-111" tabindex="-1"></a>                        <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb4-112"><a href="helper-functions.html#cb4-112" tabindex="-1"></a>                        <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb4-113"><a href="helper-functions.html#cb4-113" tabindex="-1"></a>        <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> observed_diff,</span>
+<span id="cb4-114"><a href="helper-functions.html#cb4-114" tabindex="-1"></a>                    <span class="at">color =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb4-115"><a href="helper-functions.html#cb4-115" tabindex="-1"></a>                    <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>,</span>
+<span id="cb4-116"><a href="helper-functions.html#cb4-116" tabindex="-1"></a>                    <span class="at">size =</span> <span class="dv">1</span></span>
+<span id="cb4-117"><a href="helper-functions.html#cb4-117" tabindex="-1"></a>                    ) <span class="sc">+</span></span>
+<span id="cb4-118"><a href="helper-functions.html#cb4-118" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Permutation Test: Frequency of T-test Satistic Differences&quot;</span>,</span>
+<span id="cb4-119"><a href="helper-functions.html#cb4-119" tabindex="-1"></a>                <span class="at">x =</span> <span class="st">&quot;Difference in t-test statistics&quot;</span>,</span>
+<span id="cb4-120"><a href="helper-functions.html#cb4-120" tabindex="-1"></a>                <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span></span>
+<span id="cb4-121"><a href="helper-functions.html#cb4-121" tabindex="-1"></a>                ) <span class="sc">+</span></span>
+<span id="cb4-122"><a href="helper-functions.html#cb4-122" tabindex="-1"></a>        <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb4-123"><a href="helper-functions.html#cb4-123" tabindex="-1"></a>        <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> SHAPE,) <span class="sc">+</span></span>
+<span id="cb4-124"><a href="helper-functions.html#cb4-124" tabindex="-1"></a>        <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;green&#39;</span>, <span class="st">&#39;black&#39;</span>)) <span class="sc">+</span></span>
+<span id="cb4-125"><a href="helper-functions.html#cb4-125" tabindex="-1"></a>        <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;green&#39;</span>, <span class="st">&#39;black&#39;</span>))</span>
+<span id="cb4-126"><a href="helper-functions.html#cb4-126" tabindex="-1"></a></span>
+<span id="cb4-127"><a href="helper-functions.html#cb4-127" tabindex="-1"></a>  <span class="fu">print</span>(plot)</span>
+<span id="cb4-128"><a href="helper-functions.html#cb4-128" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (alternative <span class="sc">==</span> <span class="st">&quot;t&quot;</span>) {</span>
+<span id="cb4-129"><a href="helper-functions.html#cb4-129" tabindex="-1"></a>    <span class="co"># is the observed difference within 2.5th and 97.5th percentile</span></span>
+<span id="cb4-130"><a href="helper-functions.html#cb4-130" tabindex="-1"></a>    lower <span class="ot">&lt;-</span> observed_diff <span class="sc">&lt;</span> permutation_diffs[<span class="fl">0.025</span> <span class="sc">*</span> n_permutations]</span>
+<span id="cb4-131"><a href="helper-functions.html#cb4-131" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&#39;lower:&#39;</span>, permutation_diffs[<span class="fl">0.025</span> <span class="sc">*</span> n_permutations]))</span>
+<span id="cb4-132"><a href="helper-functions.html#cb4-132" tabindex="-1"></a>    upper <span class="ot">&lt;-</span> observed_diff <span class="sc">&gt;</span> permutation_diffs[<span class="fl">0.975</span> <span class="sc">*</span> n_permutations]</span>
+<span id="cb4-133"><a href="helper-functions.html#cb4-133" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&#39;upper:&#39;</span>, permutation_diffs[<span class="fl">0.975</span> <span class="sc">*</span> n_permutations]))</span>
+<span id="cb4-134"><a href="helper-functions.html#cb4-134" tabindex="-1"></a></span>
+<span id="cb4-135"><a href="helper-functions.html#cb4-135" tabindex="-1"></a>    <span class="cf">if</span> (lower <span class="sc">|</span> upper) {</span>
+<span id="cb4-136"><a href="helper-functions.html#cb4-136" tabindex="-1"></a>      <span class="fu">print</span>(<span class="st">&#39;reject null hypothesis&#39;</span>)</span>
+<span id="cb4-137"><a href="helper-functions.html#cb4-137" tabindex="-1"></a>    }</span>
+<span id="cb4-138"><a href="helper-functions.html#cb4-138" tabindex="-1"></a>    <span class="cf">else</span>{</span>
+<span id="cb4-139"><a href="helper-functions.html#cb4-139" tabindex="-1"></a>      <span class="fu">print</span>(<span class="st">&#39;fail to reject null hypothesis&#39;</span>)</span>
+<span id="cb4-140"><a href="helper-functions.html#cb4-140" tabindex="-1"></a>    }</span>
+<span id="cb4-141"><a href="helper-functions.html#cb4-141" tabindex="-1"></a></span>
+<span id="cb4-142"><a href="helper-functions.html#cb4-142" tabindex="-1"></a>    <span class="co"># if p_value is 0</span></span>
+<span id="cb4-143"><a href="helper-functions.html#cb4-143" tabindex="-1"></a>    p_value <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>(permutation_diffs) <span class="sc">&gt;</span> <span class="fu">abs</span>(observed_diff))</span>
+<span id="cb4-144"><a href="helper-functions.html#cb4-144" tabindex="-1"></a>    <span class="cf">if</span> (p_value <span class="sc">==</span> <span class="fl">0.0</span>) {</span>
+<span id="cb4-145"><a href="helper-functions.html#cb4-145" tabindex="-1"></a>      <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&#39;p-value:&#39;</span>, <span class="dv">1</span><span class="sc">/</span>n_permutations))</span>
+<span id="cb4-146"><a href="helper-functions.html#cb4-146" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb4-147"><a href="helper-functions.html#cb4-147" tabindex="-1"></a>       <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&#39;p-value:&#39;</span>, p_value))</span>
+<span id="cb4-148"><a href="helper-functions.html#cb4-148" tabindex="-1"></a>    }</span>
+<span id="cb4-149"><a href="helper-functions.html#cb4-149" tabindex="-1"></a></span>
+<span id="cb4-150"><a href="helper-functions.html#cb4-150" tabindex="-1"></a>    <span class="co"># make histogram plot</span></span>
+<span id="cb4-151"><a href="helper-functions.html#cb4-151" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">difference =</span> <span class="fu">abs</span>(permutation_diffs))</span>
+<span id="cb4-152"><a href="helper-functions.html#cb4-152" tabindex="-1"></a>    df<span class="sc">$</span>category <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(df<span class="sc">$</span>difference <span class="sc">&gt;</span> <span class="fu">abs</span>(observed_diff), <span class="st">&#39;extreme&#39;</span>, <span class="st">&#39;not&#39;</span>)</span>
+<span id="cb4-153"><a href="helper-functions.html#cb4-153" tabindex="-1"></a></span>
+<span id="cb4-154"><a href="helper-functions.html#cb4-154" tabindex="-1"></a>    plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> difference, <span class="at">fill =</span> category)) <span class="sc">+</span></span>
+<span id="cb4-155"><a href="helper-functions.html#cb4-155" tabindex="-1"></a>        <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">100</span>,</span>
+<span id="cb4-156"><a href="helper-functions.html#cb4-156" tabindex="-1"></a>                        <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb4-157"><a href="helper-functions.html#cb4-157" tabindex="-1"></a>                        <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb4-158"><a href="helper-functions.html#cb4-158" tabindex="-1"></a>        <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">abs</span>(observed_diff),</span>
+<span id="cb4-159"><a href="helper-functions.html#cb4-159" tabindex="-1"></a>                    <span class="at">color =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb4-160"><a href="helper-functions.html#cb4-160" tabindex="-1"></a>                    <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>,</span>
+<span id="cb4-161"><a href="helper-functions.html#cb4-161" tabindex="-1"></a>                    <span class="at">size =</span> <span class="dv">1</span></span>
+<span id="cb4-162"><a href="helper-functions.html#cb4-162" tabindex="-1"></a>                    ) <span class="sc">+</span></span>
+<span id="cb4-163"><a href="helper-functions.html#cb4-163" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Permutation Test: Frequency of T-test Satistic Differences&quot;</span>,</span>
+<span id="cb4-164"><a href="helper-functions.html#cb4-164" tabindex="-1"></a>                <span class="at">x =</span> <span class="st">&quot;Difference in t-test statistics&quot;</span>,</span>
+<span id="cb4-165"><a href="helper-functions.html#cb4-165" tabindex="-1"></a>                <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span></span>
+<span id="cb4-166"><a href="helper-functions.html#cb4-166" tabindex="-1"></a>                ) <span class="sc">+</span></span>
+<span id="cb4-167"><a href="helper-functions.html#cb4-167" tabindex="-1"></a>        <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb4-168"><a href="helper-functions.html#cb4-168" tabindex="-1"></a>        <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> SHAPE,) <span class="sc">+</span></span>
+<span id="cb4-169"><a href="helper-functions.html#cb4-169" tabindex="-1"></a>        <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;green&#39;</span>, <span class="st">&#39;black&#39;</span>)) <span class="sc">+</span></span>
+<span id="cb4-170"><a href="helper-functions.html#cb4-170" tabindex="-1"></a>        <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;green&#39;</span>, <span class="st">&#39;black&#39;</span>))</span>
+<span id="cb4-171"><a href="helper-functions.html#cb4-171" tabindex="-1"></a></span>
+<span id="cb4-172"><a href="helper-functions.html#cb4-172" tabindex="-1"></a>  <span class="fu">print</span>(plot)</span>
+<span id="cb4-173"><a href="helper-functions.html#cb4-173" tabindex="-1"></a></span>
+<span id="cb4-174"><a href="helper-functions.html#cb4-174" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb4-175"><a href="helper-functions.html#cb4-175" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;Invalid alternative (less, greater, or two-sided.&quot;</span>)</span>
+<span id="cb4-176"><a href="helper-functions.html#cb4-176" tabindex="-1"></a>  }</span>
+<span id="cb4-177"><a href="helper-functions.html#cb4-177" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="selection-set-plot" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Selection set plot<a href="helper-functions.html#selection-set-plot" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="helper-functions.html#cb5-1" tabindex="-1"></a>selection_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(data) { <span class="fu">return</span>(</span>
+<span id="cb5-2"><a href="helper-functions.html#cb5-2" tabindex="-1"></a>    <span class="fu">ggplot</span>(data,</span>
+<span id="cb5-3"><a href="helper-functions.html#cb5-3" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> selection, <span class="at">y =</span> training_performance, <span class="at">color =</span> selection,</span>
+<span id="cb5-4"><a href="helper-functions.html#cb5-4" tabindex="-1"></a>                <span class="at">fill =</span> selection, <span class="at">shape =</span> selection)) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="helper-functions.html#cb5-5" tabindex="-1"></a>    <span class="fu">geom_flat_violin</span>(<span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">x =</span> <span class="fl">0.1</span>, <span class="at">y =</span> <span class="dv">0</span>),</span>
+<span id="cb5-6"><a href="helper-functions.html#cb5-6" tabindex="-1"></a>                    <span class="at">scale =</span> <span class="st">&quot;width&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">width =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb5-7"><a href="helper-functions.html#cb5-7" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">width =</span> .<span class="dv">08</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>,</span>
+<span id="cb5-8"><a href="helper-functions.html#cb5-8" tabindex="-1"></a>                <span class="at">alpha =</span> <span class="fl">0.0</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>,</span>
+<span id="cb5-9"><a href="helper-functions.html#cb5-9" tabindex="-1"></a>                <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">x =</span> .<span class="dv">15</span>, <span class="at">y =</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb5-10"><a href="helper-functions.html#cb5-10" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.03</span>,</span>
+<span id="cb5-11"><a href="helper-functions.html#cb5-11" tabindex="-1"></a>                <span class="at">height =</span> <span class="fl">0.0</span>), <span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">alpha =</span> <span class="fl">1.0</span>) <span class="sc">+</span></span>
+<span id="cb5-12"><a href="helper-functions.html#cb5-12" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb5-13"><a href="helper-functions.html#cb5-13" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;Accuracy %&quot;</span>,</span>
+<span id="cb5-14"><a href="helper-functions.html#cb5-14" tabindex="-1"></a>    <span class="at">labels =</span> scales<span class="sc">::</span>percent,</span>
+<span id="cb5-15"><a href="helper-functions.html#cb5-15" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="helper-functions.html#cb5-16" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb5-17"><a href="helper-functions.html#cb5-17" tabindex="-1"></a>    <span class="fu">scale_x_discrete</span>(</span>
+<span id="cb5-18"><a href="helper-functions.html#cb5-18" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;Selection set&quot;</span></span>
+<span id="cb5-19"><a href="helper-functions.html#cb5-19" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb5-20"><a href="helper-functions.html#cb5-20" tabindex="-1"></a>    <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> SHAPE,) <span class="sc">+</span></span>
+<span id="cb5-21"><a href="helper-functions.html#cb5-21" tabindex="-1"></a>    <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> cb_palette,) <span class="sc">+</span></span>
+<span id="cb5-22"><a href="helper-functions.html#cb5-22" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> cb_palette,) <span class="sc">+</span></span>
+<span id="cb5-23"><a href="helper-functions.html#cb5-23" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&#39;Accuracy on selection set&#39;</span>) <span class="sc">+</span></span>
+<span id="cb5-24"><a href="helper-functions.html#cb5-24" tabindex="-1"></a>    p_theme <span class="sc">+</span></span>
+<span id="cb5-25"><a href="helper-functions.html#cb5-25" tabindex="-1"></a>    <span class="fu">guides</span>(</span>
+<span id="cb5-26"><a href="helper-functions.html#cb5-26" tabindex="-1"></a>    <span class="at">shape=</span><span class="fu">guide_legend</span>(<span class="at">nrow =</span> <span class="dv">1</span>, <span class="at">title.position =</span> <span class="st">&quot;left&quot;</span>,</span>
+<span id="cb5-27"><a href="helper-functions.html#cb5-27" tabindex="-1"></a>                        <span class="at">title =</span> <span class="st">&quot;Selection scheme&quot;</span>),</span>
+<span id="cb5-28"><a href="helper-functions.html#cb5-28" tabindex="-1"></a>    <span class="at">color=</span><span class="fu">guide_legend</span>(<span class="at">nrow =</span> <span class="dv">1</span>, <span class="at">title.position =</span> <span class="st">&quot;left&quot;</span>,</span>
+<span id="cb5-29"><a href="helper-functions.html#cb5-29" tabindex="-1"></a>                        <span class="at">title =</span> <span class="st">&quot;Selection scheme&quot;</span>),</span>
+<span id="cb5-30"><a href="helper-functions.html#cb5-30" tabindex="-1"></a>    <span class="at">fill=</span><span class="fu">guide_legend</span>(<span class="at">nrow =</span> <span class="dv">1</span>, <span class="at">title.position =</span> <span class="st">&quot;left&quot;</span>,</span>
+<span id="cb5-31"><a href="helper-functions.html#cb5-31" tabindex="-1"></a>                        <span class="at">title =</span> <span class="st">&quot;Selection scheme&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb5-32"><a href="helper-functions.html#cb5-32" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-33"><a href="helper-functions.html#cb5-33" tabindex="-1"></a>            <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-34"><a href="helper-functions.html#cb5-34" tabindex="-1"></a>            <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb5-35"><a href="helper-functions.html#cb5-35" tabindex="-1"></a>            <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb5-36"><a href="helper-functions.html#cb5-36" tabindex="-1"></a>)}</span></code></pre></div>
+</div>
+<div id="selection-set-results-summary" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Selection set results summary<a href="helper-functions.html#selection-set-results-summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="helper-functions.html#cb6-1" tabindex="-1"></a>selection_results_summary <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
+<span id="cb6-2"><a href="helper-functions.html#cb6-2" tabindex="-1"></a>    <span class="fu">return</span>(</span>
+<span id="cb6-3"><a href="helper-functions.html#cb6-3" tabindex="-1"></a>        data <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="helper-functions.html#cb6-4" tabindex="-1"></a>        <span class="fu">group_by</span>(selection) <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="helper-functions.html#cb6-5" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
+<span id="cb6-6"><a href="helper-functions.html#cb6-6" tabindex="-1"></a>            <span class="at">count =</span> <span class="fu">n</span>(),</span>
+<span id="cb6-7"><a href="helper-functions.html#cb6-7" tabindex="-1"></a>            <span class="at">na_cnt =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(training_performance)),</span>
+<span id="cb6-8"><a href="helper-functions.html#cb6-8" tabindex="-1"></a>            <span class="at">min =</span> <span class="fu">min</span>(training_performance, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb6-9"><a href="helper-functions.html#cb6-9" tabindex="-1"></a>            <span class="at">median =</span> <span class="fu">median</span>(training_performance, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb6-10"><a href="helper-functions.html#cb6-10" tabindex="-1"></a>            <span class="at">mean =</span> <span class="fu">mean</span>(training_performance, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb6-11"><a href="helper-functions.html#cb6-11" tabindex="-1"></a>            <span class="at">max =</span> <span class="fu">max</span>(training_performance, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb6-12"><a href="helper-functions.html#cb6-12" tabindex="-1"></a>            <span class="at">IQR =</span> <span class="fu">IQR</span>(training_performance, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb6-13"><a href="helper-functions.html#cb6-13" tabindex="-1"></a>    )</span>
+<span id="cb6-14"><a href="helper-functions.html#cb6-14" tabindex="-1"></a>}</span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="task-146818.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jgh9094/GPTP-2024-Lexicase-Analysis/tree/main/helper-functions.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["lexidate-holdout-supplemental.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Task 359954 | Supplementary Material for ‘Lexidate Selection Set Analysis: Varying Selection Schemes To Assess Generalizability Of Evolved Machine Learning Pipelines’</title>
+  <meta name="description" content="Supplementary Material" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Task 359954 | Supplementary Material for ‘Lexidate Selection Set Analysis: Varying Selection Schemes To Assess Generalizability Of Evolved Machine Learning Pipelines’" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Supplementary Material" />
+  <meta name="github-repo" content="jgh9094/lexidate-holdout-analysis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Task 359954 | Supplementary Material for ‘Lexidate Selection Set Analysis: Varying Selection Schemes To Assess Generalizability Of Evolved Machine Learning Pipelines’" />
+  
+  <meta name="twitter:description" content="Supplementary Material" />
+  
+
+<meta name="author" content="Jose Guadalupe Hernandez, Anil Kumar Saini, Jason H. Moore" />
+
+
+<meta name="date" content="2024-11-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="task-146818.html"/>
+<link rel="next" href="task-359955.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Supplementary Material</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#about-our-supplemental-material"><i class="fa fa-check"></i><b>1.1</b> About our supplemental material</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#contributing-authors"><i class="fa fa-check"></i><b>1.2</b> Contributing authors</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="helper-functions.html"><a href="helper-functions.html"><i class="fa fa-check"></i><b>2</b> Helper functions</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="helper-functions.html"><a href="helper-functions.html#setup"><i class="fa fa-check"></i><b>2.1</b> Setup</a></li>
+<li class="chapter" data-level="2.2" data-path="helper-functions.html"><a href="helper-functions.html#test-set-plot"><i class="fa fa-check"></i><b>2.2</b> Test set plot</a></li>
+<li class="chapter" data-level="2.3" data-path="helper-functions.html"><a href="helper-functions.html#test-set-results-summary"><i class="fa fa-check"></i><b>2.3</b> Test set results summary</a></li>
+<li class="chapter" data-level="2.4" data-path="helper-functions.html"><a href="helper-functions.html#permutaiton-test-results"><i class="fa fa-check"></i><b>2.4</b> Permutaiton test results</a></li>
+<li class="chapter" data-level="2.5" data-path="helper-functions.html"><a href="helper-functions.html#selection-set-plot"><i class="fa fa-check"></i><b>2.5</b> Selection set plot</a></li>
+<li class="chapter" data-level="2.6" data-path="helper-functions.html"><a href="helper-functions.html#selection-set-results-summary"><i class="fa fa-check"></i><b>2.6</b> Selection set results summary</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="task-146818.html"><a href="task-146818.html"><i class="fa fa-check"></i><b>3</b> Task 146818</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="task-146818.html"><a href="task-146818.html#section"><i class="fa fa-check"></i><b>3.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="task-146818.html"><a href="task-146818.html#testing-set-accuracy"><i class="fa fa-check"></i><b>3.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="3.1.2" data-path="task-146818.html"><a href="task-146818.html#selection-set-accuracy"><i class="fa fa-check"></i><b>3.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="task-146818.html"><a href="task-146818.html#section-1"><i class="fa fa-check"></i><b>3.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="task-146818.html"><a href="task-146818.html#testing-set-accuracy-1"><i class="fa fa-check"></i><b>3.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="3.2.2" data-path="task-146818.html"><a href="task-146818.html#selection-set-accuracy-1"><i class="fa fa-check"></i><b>3.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="task-146818.html"><a href="task-146818.html#section-2"><i class="fa fa-check"></i><b>3.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="task-146818.html"><a href="task-146818.html#testing-set-accuracy-2"><i class="fa fa-check"></i><b>3.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="3.3.2" data-path="task-146818.html"><a href="task-146818.html#selection-set-accuracy-2"><i class="fa fa-check"></i><b>3.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="task-146818.html"><a href="task-146818.html#section-3"><i class="fa fa-check"></i><b>3.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="task-146818.html"><a href="task-146818.html#testing-set-accuracy-3"><i class="fa fa-check"></i><b>3.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="3.4.2" data-path="task-146818.html"><a href="task-146818.html#selection-set-accuracy-3"><i class="fa fa-check"></i><b>3.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="task-146818.html"><a href="task-146818.html#section-4"><i class="fa fa-check"></i><b>3.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="task-146818.html"><a href="task-146818.html#testing-set-accuracy-4"><i class="fa fa-check"></i><b>3.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="3.5.2" data-path="task-146818.html"><a href="task-146818.html#selection-set-accuracy-4"><i class="fa fa-check"></i><b>3.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="task-359954.html"><a href="task-359954.html"><i class="fa fa-check"></i><b>4</b> Task 359954</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="task-359954.html"><a href="task-359954.html#section-5"><i class="fa fa-check"></i><b>4.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="task-359954.html"><a href="task-359954.html#testing-set-accuracy-5"><i class="fa fa-check"></i><b>4.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="4.1.2" data-path="task-359954.html"><a href="task-359954.html#selection-set-accuracy-5"><i class="fa fa-check"></i><b>4.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="task-359954.html"><a href="task-359954.html#section-6"><i class="fa fa-check"></i><b>4.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="task-359954.html"><a href="task-359954.html#testing-set-accuracy-6"><i class="fa fa-check"></i><b>4.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="4.2.2" data-path="task-359954.html"><a href="task-359954.html#selection-set-accuracy-6"><i class="fa fa-check"></i><b>4.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="task-359954.html"><a href="task-359954.html#section-7"><i class="fa fa-check"></i><b>4.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="task-359954.html"><a href="task-359954.html#testing-set-accuracy-7"><i class="fa fa-check"></i><b>4.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="4.3.2" data-path="task-359954.html"><a href="task-359954.html#selection-set-accuracy-7"><i class="fa fa-check"></i><b>4.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="task-359954.html"><a href="task-359954.html#section-8"><i class="fa fa-check"></i><b>4.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="task-359954.html"><a href="task-359954.html#testing-set-accuracy-8"><i class="fa fa-check"></i><b>4.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="4.4.2" data-path="task-359954.html"><a href="task-359954.html#selection-set-accuracy-8"><i class="fa fa-check"></i><b>4.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="task-359954.html"><a href="task-359954.html#section-9"><i class="fa fa-check"></i><b>4.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="task-359954.html"><a href="task-359954.html#testing-set-accuracy-9"><i class="fa fa-check"></i><b>4.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="4.5.2" data-path="task-359954.html"><a href="task-359954.html#selection-set-accuracy-9"><i class="fa fa-check"></i><b>4.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="task-359955.html"><a href="task-359955.html"><i class="fa fa-check"></i><b>5</b> Task 359955</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="task-359955.html"><a href="task-359955.html#section-10"><i class="fa fa-check"></i><b>5.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="task-359955.html"><a href="task-359955.html#testing-set-accuracy-10"><i class="fa fa-check"></i><b>5.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="5.1.2" data-path="task-359955.html"><a href="task-359955.html#selection-set-accuracy-10"><i class="fa fa-check"></i><b>5.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="task-359955.html"><a href="task-359955.html#section-11"><i class="fa fa-check"></i><b>5.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="task-359955.html"><a href="task-359955.html#testing-set-accuracy-11"><i class="fa fa-check"></i><b>5.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="5.2.2" data-path="task-359955.html"><a href="task-359955.html#selection-set-accuracy-11"><i class="fa fa-check"></i><b>5.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="task-359955.html"><a href="task-359955.html#section-12"><i class="fa fa-check"></i><b>5.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="task-359955.html"><a href="task-359955.html#testing-set-accuracy-12"><i class="fa fa-check"></i><b>5.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="5.3.2" data-path="task-359955.html"><a href="task-359955.html#selection-set-accuracy-12"><i class="fa fa-check"></i><b>5.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="task-359955.html"><a href="task-359955.html#section-13"><i class="fa fa-check"></i><b>5.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="task-359955.html"><a href="task-359955.html#testing-set-accuracy-13"><i class="fa fa-check"></i><b>5.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="5.4.2" data-path="task-359955.html"><a href="task-359955.html#selection-set-accuracy-13"><i class="fa fa-check"></i><b>5.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="task-359955.html"><a href="task-359955.html#section-14"><i class="fa fa-check"></i><b>5.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="task-359955.html"><a href="task-359955.html#testing-set-accuracy-14"><i class="fa fa-check"></i><b>5.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="5.5.2" data-path="task-359955.html"><a href="task-359955.html#selection-set-accuracy-14"><i class="fa fa-check"></i><b>5.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="task-190146.html"><a href="task-190146.html"><i class="fa fa-check"></i><b>6</b> Task 190146</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="task-190146.html"><a href="task-190146.html#section-15"><i class="fa fa-check"></i><b>6.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="task-190146.html"><a href="task-190146.html#testing-set-accuracy-15"><i class="fa fa-check"></i><b>6.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="6.1.2" data-path="task-190146.html"><a href="task-190146.html#selection-set-accuracy-15"><i class="fa fa-check"></i><b>6.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="task-190146.html"><a href="task-190146.html#section-16"><i class="fa fa-check"></i><b>6.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="task-190146.html"><a href="task-190146.html#testing-set-accuracy-16"><i class="fa fa-check"></i><b>6.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="6.2.2" data-path="task-190146.html"><a href="task-190146.html#selection-set-accuracy-16"><i class="fa fa-check"></i><b>6.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="task-190146.html"><a href="task-190146.html#section-17"><i class="fa fa-check"></i><b>6.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="task-190146.html"><a href="task-190146.html#testing-set-accuracy-17"><i class="fa fa-check"></i><b>6.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="6.3.2" data-path="task-190146.html"><a href="task-190146.html#selection-set-accuracy-17"><i class="fa fa-check"></i><b>6.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="task-190146.html"><a href="task-190146.html#section-18"><i class="fa fa-check"></i><b>6.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="task-190146.html"><a href="task-190146.html#testing-set-accuracy-18"><i class="fa fa-check"></i><b>6.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="6.4.2" data-path="task-190146.html"><a href="task-190146.html#selection-set-accuracy-18"><i class="fa fa-check"></i><b>6.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="task-190146.html"><a href="task-190146.html#section-19"><i class="fa fa-check"></i><b>6.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="task-190146.html"><a href="task-190146.html#testing-set-accuracy-19"><i class="fa fa-check"></i><b>6.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="6.5.2" data-path="task-190146.html"><a href="task-190146.html#selection-set-accuracy-19"><i class="fa fa-check"></i><b>6.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="task-168757.html"><a href="task-168757.html"><i class="fa fa-check"></i><b>7</b> Task 168757</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="task-168757.html"><a href="task-168757.html#section-20"><i class="fa fa-check"></i><b>7.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="task-168757.html"><a href="task-168757.html#testing-set-accuracy-20"><i class="fa fa-check"></i><b>7.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="7.1.2" data-path="task-168757.html"><a href="task-168757.html#selection-set-accuracy-20"><i class="fa fa-check"></i><b>7.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="task-168757.html"><a href="task-168757.html#section-21"><i class="fa fa-check"></i><b>7.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="task-168757.html"><a href="task-168757.html#testing-set-accuracy-21"><i class="fa fa-check"></i><b>7.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="7.2.2" data-path="task-168757.html"><a href="task-168757.html#selection-set-accuracy-21"><i class="fa fa-check"></i><b>7.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="task-168757.html"><a href="task-168757.html#section-22"><i class="fa fa-check"></i><b>7.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="task-168757.html"><a href="task-168757.html#testing-set-accuracy-22"><i class="fa fa-check"></i><b>7.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="7.3.2" data-path="task-168757.html"><a href="task-168757.html#selection-set-accuracy-22"><i class="fa fa-check"></i><b>7.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="task-168757.html"><a href="task-168757.html#section-23"><i class="fa fa-check"></i><b>7.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="task-168757.html"><a href="task-168757.html#testing-set-accuracy-23"><i class="fa fa-check"></i><b>7.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="7.4.2" data-path="task-168757.html"><a href="task-168757.html#selection-set-accuracy-23"><i class="fa fa-check"></i><b>7.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="task-168757.html"><a href="task-168757.html#section-24"><i class="fa fa-check"></i><b>7.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="task-168757.html"><a href="task-168757.html#testing-set-accuracy-24"><i class="fa fa-check"></i><b>7.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="7.5.2" data-path="task-168757.html"><a href="task-168757.html#selection-set-accuracy-24"><i class="fa fa-check"></i><b>7.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="task-359956.html"><a href="task-359956.html"><i class="fa fa-check"></i><b>8</b> Task 359956</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="task-359956.html"><a href="task-359956.html#section-25"><i class="fa fa-check"></i><b>8.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="task-359956.html"><a href="task-359956.html#testing-set-accuracy-25"><i class="fa fa-check"></i><b>8.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="8.1.2" data-path="task-359956.html"><a href="task-359956.html#selection-set-accuracy-25"><i class="fa fa-check"></i><b>8.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="task-359956.html"><a href="task-359956.html#section-26"><i class="fa fa-check"></i><b>8.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="task-359956.html"><a href="task-359956.html#testing-set-accuracy-26"><i class="fa fa-check"></i><b>8.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="8.2.2" data-path="task-359956.html"><a href="task-359956.html#selection-set-accuracy-26"><i class="fa fa-check"></i><b>8.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="task-359956.html"><a href="task-359956.html#section-27"><i class="fa fa-check"></i><b>8.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="task-359956.html"><a href="task-359956.html#testing-set-accuracy-27"><i class="fa fa-check"></i><b>8.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="8.3.2" data-path="task-359956.html"><a href="task-359956.html#selection-set-accuracy-27"><i class="fa fa-check"></i><b>8.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="task-359956.html"><a href="task-359956.html#section-28"><i class="fa fa-check"></i><b>8.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="task-359956.html"><a href="task-359956.html#testing-set-accuracy-28"><i class="fa fa-check"></i><b>8.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="8.4.2" data-path="task-359956.html"><a href="task-359956.html#selection-set-accuracy-28"><i class="fa fa-check"></i><b>8.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="task-359956.html"><a href="task-359956.html#section-29"><i class="fa fa-check"></i><b>8.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="task-359956.html"><a href="task-359956.html#testing-set-accuracy-29"><i class="fa fa-check"></i><b>8.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="8.5.2" data-path="task-359956.html"><a href="task-359956.html#selection-set-accuracy-29"><i class="fa fa-check"></i><b>8.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="task-359958.html"><a href="task-359958.html"><i class="fa fa-check"></i><b>9</b> Task 359958</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="task-359958.html"><a href="task-359958.html#section-30"><i class="fa fa-check"></i><b>9.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="task-359958.html"><a href="task-359958.html#testing-set-accuracy-30"><i class="fa fa-check"></i><b>9.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="9.1.2" data-path="task-359958.html"><a href="task-359958.html#selection-set-accuracy-30"><i class="fa fa-check"></i><b>9.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="task-359958.html"><a href="task-359958.html#section-31"><i class="fa fa-check"></i><b>9.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="task-359958.html"><a href="task-359958.html#testing-set-accuracy-31"><i class="fa fa-check"></i><b>9.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="9.2.2" data-path="task-359958.html"><a href="task-359958.html#selection-set-accuracy-31"><i class="fa fa-check"></i><b>9.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="task-359958.html"><a href="task-359958.html#section-32"><i class="fa fa-check"></i><b>9.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="task-359958.html"><a href="task-359958.html#testing-set-accuracy-32"><i class="fa fa-check"></i><b>9.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="9.3.2" data-path="task-359958.html"><a href="task-359958.html#selection-set-accuracy-32"><i class="fa fa-check"></i><b>9.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="task-359958.html"><a href="task-359958.html#section-33"><i class="fa fa-check"></i><b>9.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="task-359958.html"><a href="task-359958.html#testing-set-accuracy-33"><i class="fa fa-check"></i><b>9.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="9.4.2" data-path="task-359958.html"><a href="task-359958.html#selection-set-accuracy-33"><i class="fa fa-check"></i><b>9.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="task-359958.html"><a href="task-359958.html#section-34"><i class="fa fa-check"></i><b>9.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="task-359958.html"><a href="task-359958.html#testing-set-accuracy-34"><i class="fa fa-check"></i><b>9.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="9.5.2" data-path="task-359958.html"><a href="task-359958.html#selection-set-accuracy-34"><i class="fa fa-check"></i><b>9.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="task-359959.html"><a href="task-359959.html"><i class="fa fa-check"></i><b>10</b> Task 359959</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="task-359959.html"><a href="task-359959.html#section-35"><i class="fa fa-check"></i><b>10.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="task-359959.html"><a href="task-359959.html#testing-set-accuracy-35"><i class="fa fa-check"></i><b>10.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="10.1.2" data-path="task-359959.html"><a href="task-359959.html#selection-set-accuracy-35"><i class="fa fa-check"></i><b>10.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="task-359959.html"><a href="task-359959.html#section-36"><i class="fa fa-check"></i><b>10.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="task-359959.html"><a href="task-359959.html#testing-set-accuracy-36"><i class="fa fa-check"></i><b>10.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="10.2.2" data-path="task-359959.html"><a href="task-359959.html#selection-set-accuracy-36"><i class="fa fa-check"></i><b>10.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="task-359959.html"><a href="task-359959.html#section-37"><i class="fa fa-check"></i><b>10.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="task-359959.html"><a href="task-359959.html#testing-set-accuracy-37"><i class="fa fa-check"></i><b>10.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="10.3.2" data-path="task-359959.html"><a href="task-359959.html#selection-set-accuracy-37"><i class="fa fa-check"></i><b>10.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="task-359959.html"><a href="task-359959.html#section-38"><i class="fa fa-check"></i><b>10.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="task-359959.html"><a href="task-359959.html#testing-set-accuracy-38"><i class="fa fa-check"></i><b>10.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="10.4.2" data-path="task-359959.html"><a href="task-359959.html#selection-set-accuracy-38"><i class="fa fa-check"></i><b>10.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="task-359959.html"><a href="task-359959.html#section-39"><i class="fa fa-check"></i><b>10.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="task-359959.html"><a href="task-359959.html#testing-set-accuracy-39"><i class="fa fa-check"></i><b>10.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="10.5.2" data-path="task-359959.html"><a href="task-359959.html#selection-set-accuracy-39"><i class="fa fa-check"></i><b>10.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="task-2073.html"><a href="task-2073.html"><i class="fa fa-check"></i><b>11</b> Task 2073</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="task-2073.html"><a href="task-2073.html#section-40"><i class="fa fa-check"></i><b>11.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="task-2073.html"><a href="task-2073.html#testing-set-accuracy-40"><i class="fa fa-check"></i><b>11.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="11.1.2" data-path="task-2073.html"><a href="task-2073.html#selection-set-accuracy-40"><i class="fa fa-check"></i><b>11.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="task-2073.html"><a href="task-2073.html#section-41"><i class="fa fa-check"></i><b>11.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="task-2073.html"><a href="task-2073.html#testing-set-accuracy-41"><i class="fa fa-check"></i><b>11.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="11.2.2" data-path="task-2073.html"><a href="task-2073.html#selection-set-accuracy-41"><i class="fa fa-check"></i><b>11.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="task-2073.html"><a href="task-2073.html#section-42"><i class="fa fa-check"></i><b>11.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="task-2073.html"><a href="task-2073.html#testing-set-accuracy-42"><i class="fa fa-check"></i><b>11.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="11.3.2" data-path="task-2073.html"><a href="task-2073.html#selection-set-accuracy-42"><i class="fa fa-check"></i><b>11.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="task-2073.html"><a href="task-2073.html#section-43"><i class="fa fa-check"></i><b>11.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="task-2073.html"><a href="task-2073.html#testing-set-accuracy-43"><i class="fa fa-check"></i><b>11.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="11.4.2" data-path="task-2073.html"><a href="task-2073.html#selection-set-accuracy-43"><i class="fa fa-check"></i><b>11.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="task-2073.html"><a href="task-2073.html#section-44"><i class="fa fa-check"></i><b>11.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="task-2073.html"><a href="task-2073.html#testing-set-accuracy-44"><i class="fa fa-check"></i><b>11.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="11.5.2" data-path="task-2073.html"><a href="task-2073.html#selection-set-accuracy-44"><i class="fa fa-check"></i><b>11.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="task-359960.html"><a href="task-359960.html"><i class="fa fa-check"></i><b>12</b> Task 359960</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="task-359960.html"><a href="task-359960.html#section-45"><i class="fa fa-check"></i><b>12.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="task-359960.html"><a href="task-359960.html#testing-set-accuracy-45"><i class="fa fa-check"></i><b>12.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="12.1.2" data-path="task-359960.html"><a href="task-359960.html#selection-set-accuracy-45"><i class="fa fa-check"></i><b>12.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="task-359960.html"><a href="task-359960.html#section-46"><i class="fa fa-check"></i><b>12.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="task-359960.html"><a href="task-359960.html#testing-set-accuracy-46"><i class="fa fa-check"></i><b>12.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="12.2.2" data-path="task-359960.html"><a href="task-359960.html#selection-set-accuracy-46"><i class="fa fa-check"></i><b>12.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="task-359960.html"><a href="task-359960.html#section-47"><i class="fa fa-check"></i><b>12.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="task-359960.html"><a href="task-359960.html#testing-set-accuracy-47"><i class="fa fa-check"></i><b>12.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="12.3.2" data-path="task-359960.html"><a href="task-359960.html#selection-set-accuracy-47"><i class="fa fa-check"></i><b>12.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="task-359960.html"><a href="task-359960.html#section-48"><i class="fa fa-check"></i><b>12.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="task-359960.html"><a href="task-359960.html#testing-set-accuracy-48"><i class="fa fa-check"></i><b>12.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="12.4.2" data-path="task-359960.html"><a href="task-359960.html#selection-set-accuracy-48"><i class="fa fa-check"></i><b>12.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="task-359960.html"><a href="task-359960.html#section-49"><i class="fa fa-check"></i><b>12.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="task-359960.html"><a href="task-359960.html#testing-set-accuracy-49"><i class="fa fa-check"></i><b>12.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="12.5.2" data-path="task-359960.html"><a href="task-359960.html#selection-set-accuracy-49"><i class="fa fa-check"></i><b>12.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="task-168784.html"><a href="task-168784.html"><i class="fa fa-check"></i><b>13</b> Task 168784</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="task-168784.html"><a href="task-168784.html#section-50"><i class="fa fa-check"></i><b>13.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="task-168784.html"><a href="task-168784.html#testing-set-accuracy-50"><i class="fa fa-check"></i><b>13.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="13.1.2" data-path="task-168784.html"><a href="task-168784.html#selection-set-accuracy-50"><i class="fa fa-check"></i><b>13.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="task-168784.html"><a href="task-168784.html#section-51"><i class="fa fa-check"></i><b>13.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="task-168784.html"><a href="task-168784.html#testing-set-accuracy-51"><i class="fa fa-check"></i><b>13.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="13.2.2" data-path="task-168784.html"><a href="task-168784.html#selection-set-accuracy-51"><i class="fa fa-check"></i><b>13.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="task-168784.html"><a href="task-168784.html#section-52"><i class="fa fa-check"></i><b>13.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="task-168784.html"><a href="task-168784.html#testing-set-accuracy-52"><i class="fa fa-check"></i><b>13.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="13.3.2" data-path="task-168784.html"><a href="task-168784.html#selection-set-accuracy-52"><i class="fa fa-check"></i><b>13.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="task-168784.html"><a href="task-168784.html#section-53"><i class="fa fa-check"></i><b>13.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="task-168784.html"><a href="task-168784.html#testing-set-accuracy-53"><i class="fa fa-check"></i><b>13.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="13.4.2" data-path="task-168784.html"><a href="task-168784.html#selection-set-accuracy-53"><i class="fa fa-check"></i><b>13.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="task-168784.html"><a href="task-168784.html#section-54"><i class="fa fa-check"></i><b>13.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="task-168784.html"><a href="task-168784.html#testing-set-accuracy-54"><i class="fa fa-check"></i><b>13.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="13.5.2" data-path="task-168784.html"><a href="task-168784.html#selection-set-accuracy-54"><i class="fa fa-check"></i><b>13.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="task-359962.html"><a href="task-359962.html"><i class="fa fa-check"></i><b>14</b> Task 359962</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="task-359962.html"><a href="task-359962.html#section-55"><i class="fa fa-check"></i><b>14.1</b> 5%</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="task-359962.html"><a href="task-359962.html#testing-set-accuracy-55"><i class="fa fa-check"></i><b>14.1.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="14.1.2" data-path="task-359962.html"><a href="task-359962.html#selection-set-accuracy-55"><i class="fa fa-check"></i><b>14.1.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="task-359962.html"><a href="task-359962.html#section-56"><i class="fa fa-check"></i><b>14.2</b> 10%</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="task-359962.html"><a href="task-359962.html#testing-set-accuracy-56"><i class="fa fa-check"></i><b>14.2.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="14.2.2" data-path="task-359962.html"><a href="task-359962.html#selection-set-accuracy-56"><i class="fa fa-check"></i><b>14.2.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="task-359962.html"><a href="task-359962.html#section-57"><i class="fa fa-check"></i><b>14.3</b> 50%</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="task-359962.html"><a href="task-359962.html#testing-set-accuracy-57"><i class="fa fa-check"></i><b>14.3.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="14.3.2" data-path="task-359962.html"><a href="task-359962.html#selection-set-accuracy-57"><i class="fa fa-check"></i><b>14.3.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="task-359962.html"><a href="task-359962.html#section-58"><i class="fa fa-check"></i><b>14.4</b> 90%</a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="task-359962.html"><a href="task-359962.html#testing-set-accuracy-58"><i class="fa fa-check"></i><b>14.4.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="14.4.2" data-path="task-359962.html"><a href="task-359962.html#selection-set-accuracy-58"><i class="fa fa-check"></i><b>14.4.2</b> Selection set accuracy</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="task-359962.html"><a href="task-359962.html#section-59"><i class="fa fa-check"></i><b>14.5</b> 95%</a>
+<ul>
+<li class="chapter" data-level="14.5.1" data-path="task-359962.html"><a href="task-359962.html#testing-set-accuracy-59"><i class="fa fa-check"></i><b>14.5.1</b> Testing set accuracy</a></li>
+<li class="chapter" data-level="14.5.2" data-path="task-359962.html"><a href="task-359962.html#selection-set-accuracy-59"><i class="fa fa-check"></i><b>14.5.2</b> Selection set accuracy</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with ❤ and bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Supplementary Material for ‘Lexidate Selection Set Analysis: Varying Selection Schemes To Assess Generalizability Of Evolved Machine Learning Pipelines’</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="task-359954" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Task 359954<a href="task-359954.html#task-359954" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We present the results of our analysis of <code>task 359954</code> with the different selection set splits used in our study.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="task-359954.html#cb58-1" tabindex="-1"></a>task_data <span class="ot">&lt;-</span> <span class="fu">filter</span>(results, task_id <span class="sc">==</span> <span class="dv">359954</span>)</span></code></pre></div>
+<div id="section-5" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> 5%<a href="task-359954.html#section-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="testing-set-accuracy-5" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Testing set accuracy<a href="task-359954.html#testing-set-accuracy-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="task-359954.html#cb59-1" tabindex="-1"></a><span class="fu">test_plot</span>(<span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;5%&#39;</span>))</span></code></pre></div>
+<p><img src="lexidate-holdout-supplemental_files/figure-html/task-359954-test-05-perf-1.png" width="100%" /></p>
+<p>Summary statistics for the testing performance of the selection schemes at the 5% selection set split:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="task-359954.html#cb60-1" tabindex="-1"></a><span class="fu">test_results_summary</span>(<span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;5%&#39;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 8
+##   selection  count na_cnt   min median  mean   max    IQR
+##   &lt;fct&gt;      &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1 tournament    40      0 0.527  0.649 0.643 0.703 0.0541
+## 2 lexicase      40      0 0.514  0.642 0.642 0.743 0.0811</code></pre>
+<p>The permutation test revealed that the results are:</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="task-359954.html#cb62-1" tabindex="-1"></a>tournament_results <span class="ot">&lt;-</span> <span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;5%&#39;</span> <span class="sc">&amp;</span> selection <span class="sc">==</span> <span class="st">&#39;tournament&#39;</span>)</span>
+<span id="cb62-2"><a href="task-359954.html#cb62-2" tabindex="-1"></a>lexicase_results <span class="ot">&lt;-</span> <span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;5%&#39;</span> <span class="sc">&amp;</span> selection <span class="sc">==</span> <span class="st">&#39;lexicase&#39;</span>)</span>
+<span id="cb62-3"><a href="task-359954.html#cb62-3" tabindex="-1"></a><span class="fu">permutation_test</span>(tournament_results<span class="sc">$</span>testing_performance,</span>
+<span id="cb62-4"><a href="task-359954.html#cb62-4" tabindex="-1"></a>                    lexicase_results<span class="sc">$</span>testing_performance,</span>
+<span id="cb62-5"><a href="task-359954.html#cb62-5" tabindex="-1"></a>                    <span class="at">seed =</span> <span class="dv">11</span>,</span>
+<span id="cb62-6"><a href="task-359954.html#cb62-6" tabindex="-1"></a>                    <span class="at">alternative =</span> <span class="st">&quot;t&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;observed_diff: 0.089899097880169&quot;
+## [1] &quot;lower: -1.99686947621326&quot;
+## [1] &quot;upper: 1.99686947621326&quot;
+## [1] &quot;fail to reject null hypothesis&quot;
+## [1] &quot;p-value: 0.91166&quot;</code></pre>
+<p><img src="lexidate-holdout-supplemental_files/figure-html/task-359954-test-05-pv-1.png" width="100%" /></p>
+</div>
+<div id="selection-set-accuracy-5" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Selection set accuracy<a href="task-359954.html#selection-set-accuracy-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="task-359954.html#cb64-1" tabindex="-1"></a><span class="fu">selection_plot</span>(<span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;5%&#39;</span>))</span></code></pre></div>
+<p><img src="lexidate-holdout-supplemental_files/figure-html/task-359954-select-05-perf-1.png" width="100%" /></p>
+<p>Summary statistics for the testing performance of the selection schemes at the 5% selection set split:</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="task-359954.html#cb65-1" tabindex="-1"></a><span class="fu">selection_results_summary</span>(<span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;5%&#39;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 8
+##   selection  count na_cnt   min median  mean   max    IQR
+##   &lt;fct&gt;      &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1 tournament    40      0 0.765  0.853 0.846 0.941 0.0882
+## 2 lexicase      40      0 0.794  0.897 0.899 0.971 0.0662</code></pre>
+<p>The permutation test revealed that the results are:</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="task-359954.html#cb67-1" tabindex="-1"></a>tournament_results <span class="ot">&lt;-</span> <span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;5%&#39;</span> <span class="sc">&amp;</span> selection <span class="sc">==</span> <span class="st">&#39;tournament&#39;</span>)</span>
+<span id="cb67-2"><a href="task-359954.html#cb67-2" tabindex="-1"></a>lexicase_results <span class="ot">&lt;-</span> <span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;5%&#39;</span> <span class="sc">&amp;</span> selection <span class="sc">==</span> <span class="st">&#39;lexicase&#39;</span>)</span>
+<span id="cb67-3"><a href="task-359954.html#cb67-3" tabindex="-1"></a><span class="fu">permutation_test</span>(tournament_results<span class="sc">$</span>training_performance,</span>
+<span id="cb67-4"><a href="task-359954.html#cb67-4" tabindex="-1"></a>                    lexicase_results<span class="sc">$</span>training_performance,</span>
+<span id="cb67-5"><a href="task-359954.html#cb67-5" tabindex="-1"></a>                    <span class="at">seed =</span> <span class="dv">12</span>,</span>
+<span id="cb67-6"><a href="task-359954.html#cb67-6" tabindex="-1"></a>                    <span class="at">alternative =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;observed_diff: -4.99649396670713&quot;
+## [1] &quot;permutation_diffs[0.05 * n_permutations]: -1.68354186553216&quot;
+## [1] &quot;reject null hypothesis&quot;
+## [1] &quot;p-value: 1e-05&quot;</code></pre>
+<p><img src="lexidate-holdout-supplemental_files/figure-html/task-359954-select-05-pv-1.png" width="100%" /></p>
+</div>
+</div>
+<div id="section-6" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> 10%<a href="task-359954.html#section-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="testing-set-accuracy-6" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Testing set accuracy<a href="task-359954.html#testing-set-accuracy-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="task-359954.html#cb69-1" tabindex="-1"></a><span class="fu">test_plot</span>(<span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;10%&#39;</span>))</span></code></pre></div>
+<p><img src="lexidate-holdout-supplemental_files/figure-html/task-359954-test-10-perf-1.png" width="100%" /></p>
+<p>Summary statistics for the testing performance of the selection schemes at the 5% selection set split:</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="task-359954.html#cb70-1" tabindex="-1"></a><span class="fu">test_results_summary</span>(<span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;10%&#39;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 8
+##   selection  count na_cnt   min median  mean   max    IQR
+##   &lt;fct&gt;      &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1 tournament    40      0 0.5    0.649 0.650 0.716 0.0405
+## 2 lexicase      40      0 0.284  0.649 0.643 0.716 0.0439</code></pre>
+<p>The permutation test revealed that the results are:</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="task-359954.html#cb72-1" tabindex="-1"></a>tournament_results <span class="ot">&lt;-</span> <span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;10%&#39;</span> <span class="sc">&amp;</span> selection <span class="sc">==</span> <span class="st">&#39;tournament&#39;</span>)</span>
+<span id="cb72-2"><a href="task-359954.html#cb72-2" tabindex="-1"></a>lexicase_results <span class="ot">&lt;-</span> <span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;10%&#39;</span> <span class="sc">&amp;</span> selection <span class="sc">==</span> <span class="st">&#39;lexicase&#39;</span>)</span>
+<span id="cb72-3"><a href="task-359954.html#cb72-3" tabindex="-1"></a><span class="fu">permutation_test</span>(tournament_results<span class="sc">$</span>testing_performance,</span>
+<span id="cb72-4"><a href="task-359954.html#cb72-4" tabindex="-1"></a>                    lexicase_results<span class="sc">$</span>testing_performance,</span>
+<span id="cb72-5"><a href="task-359954.html#cb72-5" tabindex="-1"></a>                    <span class="at">seed =</span> <span class="dv">13</span>,</span>
+<span id="cb72-6"><a href="task-359954.html#cb72-6" tabindex="-1"></a>                    <span class="at">alternative =</span> <span class="st">&quot;t&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;observed_diff: 0.581706669215585&quot;
+## [1] &quot;lower: -1.89401584174984&quot;
+## [1] &quot;upper: 1.89401627937136&quot;
+## [1] &quot;fail to reject null hypothesis&quot;
+## [1] &quot;p-value: 0.63091&quot;</code></pre>
+<p><img src="lexidate-holdout-supplemental_files/figure-html/task-359954-test-10-pv-1.png" width="100%" /></p>
+</div>
+<div id="selection-set-accuracy-6" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Selection set accuracy<a href="task-359954.html#selection-set-accuracy-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="task-359954.html#cb74-1" tabindex="-1"></a><span class="fu">selection_plot</span>(<span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;10%&#39;</span>))</span></code></pre></div>
+<p><img src="lexidate-holdout-supplemental_files/figure-html/task-359954-select-10-perf-1.png" width="100%" /></p>
+<p>Summary statistics for the testing performance of the selection schemes at the 5% selection set split:</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="task-359954.html#cb75-1" tabindex="-1"></a><span class="fu">selection_results_summary</span>(<span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;10%&#39;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 8
+##   selection  count na_cnt   min median  mean   max    IQR
+##   &lt;fct&gt;      &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1 tournament    40      0 0.687  0.791 0.787 0.881 0.0784
+## 2 lexicase      40      0 0.746  0.821 0.818 0.881 0.0597</code></pre>
+<p>The permutation test revealed that the results are:</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="task-359954.html#cb77-1" tabindex="-1"></a>tournament_results <span class="ot">&lt;-</span> <span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;10%&#39;</span> <span class="sc">&amp;</span> selection <span class="sc">==</span> <span class="st">&#39;tournament&#39;</span>)</span>
+<span id="cb77-2"><a href="task-359954.html#cb77-2" tabindex="-1"></a>lexicase_results <span class="ot">&lt;-</span> <span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;10%&#39;</span> <span class="sc">&amp;</span> selection <span class="sc">==</span> <span class="st">&#39;lexicase&#39;</span>)</span>
+<span id="cb77-3"><a href="task-359954.html#cb77-3" tabindex="-1"></a><span class="fu">permutation_test</span>(tournament_results<span class="sc">$</span>training_performance,</span>
+<span id="cb77-4"><a href="task-359954.html#cb77-4" tabindex="-1"></a>                    lexicase_results<span class="sc">$</span>training_performance,</span>
+<span id="cb77-5"><a href="task-359954.html#cb77-5" tabindex="-1"></a>                    <span class="at">seed =</span> <span class="dv">14</span>,</span>
+<span id="cb77-6"><a href="task-359954.html#cb77-6" tabindex="-1"></a>                    <span class="at">alternative =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;observed_diff: -3.49007120627971&quot;
+## [1] &quot;permutation_diffs[0.05 * n_permutations]: -1.65102702194372&quot;
+## [1] &quot;reject null hypothesis&quot;
+## [1] &quot;p-value: 0.00027&quot;</code></pre>
+<p><img src="lexidate-holdout-supplemental_files/figure-html/task-359954-select-10-pv-1.png" width="100%" /></p>
+</div>
+</div>
+<div id="section-7" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> 50%<a href="task-359954.html#section-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="testing-set-accuracy-7" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Testing set accuracy<a href="task-359954.html#testing-set-accuracy-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="task-359954.html#cb79-1" tabindex="-1"></a><span class="fu">test_plot</span>(<span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;50%&#39;</span>))</span></code></pre></div>
+<p><img src="lexidate-holdout-supplemental_files/figure-html/task-359954-test-50-perf-1.png" width="100%" /></p>
+<p>Summary statistics for the testing performance of the selection schemes at the 5% selection set split:</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="task-359954.html#cb80-1" tabindex="-1"></a><span class="fu">test_results_summary</span>(<span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;50%&#39;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 8
+##   selection  count na_cnt   min median  mean   max    IQR
+##   &lt;fct&gt;      &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1 tournament    40      0 0.378  0.676 0.662 0.716 0.0304
+## 2 lexicase      40      0 0.284  0.662 0.647 0.730 0.0574</code></pre>
+<p>The permutation test revealed that the results are:</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="task-359954.html#cb82-1" tabindex="-1"></a>tournament_results <span class="ot">&lt;-</span> <span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;50%&#39;</span> <span class="sc">&amp;</span> selection <span class="sc">==</span> <span class="st">&#39;tournament&#39;</span>)</span>
+<span id="cb82-2"><a href="task-359954.html#cb82-2" tabindex="-1"></a>lexicase_results <span class="ot">&lt;-</span> <span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;50%&#39;</span> <span class="sc">&amp;</span> selection <span class="sc">==</span> <span class="st">&#39;lexicase&#39;</span>)</span>
+<span id="cb82-3"><a href="task-359954.html#cb82-3" tabindex="-1"></a><span class="fu">permutation_test</span>(tournament_results<span class="sc">$</span>testing_performance,</span>
+<span id="cb82-4"><a href="task-359954.html#cb82-4" tabindex="-1"></a>                    lexicase_results<span class="sc">$</span>testing_performance,</span>
+<span id="cb82-5"><a href="task-359954.html#cb82-5" tabindex="-1"></a>                    <span class="at">seed =</span> <span class="dv">15</span>,</span>
+<span id="cb82-6"><a href="task-359954.html#cb82-6" tabindex="-1"></a>                    <span class="at">alternative =</span> <span class="st">&quot;t&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;observed_diff: 1.05447797672778&quot;
+## [1] &quot;lower: -1.89851953697627&quot;
+## [1] &quot;upper: 1.89851953697627&quot;
+## [1] &quot;fail to reject null hypothesis&quot;
+## [1] &quot;p-value: 0.31566&quot;</code></pre>
+<p><img src="lexidate-holdout-supplemental_files/figure-html/task-359954-test-50-pv-1.png" width="100%" /></p>
+</div>
+<div id="selection-set-accuracy-7" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Selection set accuracy<a href="task-359954.html#selection-set-accuracy-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="task-359954.html#cb84-1" tabindex="-1"></a><span class="fu">selection_plot</span>(<span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;50%&#39;</span>))</span></code></pre></div>
+<p><img src="lexidate-holdout-supplemental_files/figure-html/task-359954-select-50-perf-1.png" width="100%" /></p>
+<p>Summary statistics for the testing performance of the selection schemes at the 5% selection set split:</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="task-359954.html#cb85-1" tabindex="-1"></a><span class="fu">selection_results_summary</span>(<span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;50%&#39;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 8
+##   selection  count na_cnt   min median  mean   max    IQR
+##   &lt;fct&gt;      &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1 tournament    40      0 0.680  0.701 0.703 0.728 0.0189
+## 2 lexicase      40      0 0.686  0.704 0.706 0.728 0.0181</code></pre>
+<p>The permutation test revealed that the results are:</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="task-359954.html#cb87-1" tabindex="-1"></a>tournament_results <span class="ot">&lt;-</span> <span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;50%&#39;</span> <span class="sc">&amp;</span> selection <span class="sc">==</span> <span class="st">&#39;tournament&#39;</span>)</span>
+<span id="cb87-2"><a href="task-359954.html#cb87-2" tabindex="-1"></a>lexicase_results <span class="ot">&lt;-</span> <span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;50%&#39;</span> <span class="sc">&amp;</span> selection <span class="sc">==</span> <span class="st">&#39;lexicase&#39;</span>)</span>
+<span id="cb87-3"><a href="task-359954.html#cb87-3" tabindex="-1"></a><span class="fu">permutation_test</span>(tournament_results<span class="sc">$</span>training_performance,</span>
+<span id="cb87-4"><a href="task-359954.html#cb87-4" tabindex="-1"></a>                    lexicase_results<span class="sc">$</span>training_performance,</span>
+<span id="cb87-5"><a href="task-359954.html#cb87-5" tabindex="-1"></a>                    <span class="at">seed =</span> <span class="dv">16</span>,</span>
+<span id="cb87-6"><a href="task-359954.html#cb87-6" tabindex="-1"></a>                    <span class="at">alternative =</span> <span class="st">&quot;t&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;observed_diff: -1.0089201210214&quot;
+## [1] &quot;lower: -1.97083964694619&quot;
+## [1] &quot;upper: 1.9708394540355&quot;
+## [1] &quot;fail to reject null hypothesis&quot;
+## [1] &quot;p-value: 0.32044&quot;</code></pre>
+<p><img src="lexidate-holdout-supplemental_files/figure-html/task-359954-select-50-pv-1.png" width="100%" /></p>
+</div>
+</div>
+<div id="section-8" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> 90%<a href="task-359954.html#section-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="testing-set-accuracy-8" class="section level3 hasAnchor" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> Testing set accuracy<a href="task-359954.html#testing-set-accuracy-8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="task-359954.html#cb89-1" tabindex="-1"></a><span class="fu">test_plot</span>(<span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;90%&#39;</span>))</span></code></pre></div>
+<p><img src="lexidate-holdout-supplemental_files/figure-html/task-359954-test-90-perf-1.png" width="100%" /></p>
+<p>Summary statistics for the testing performance of the selection schemes at the 5% selection set split:</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="task-359954.html#cb90-1" tabindex="-1"></a><span class="fu">test_results_summary</span>(<span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;90%&#39;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 8
+##   selection  count na_cnt   min median  mean   max    IQR
+##   &lt;fct&gt;      &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1 tournament    40      0 0.432  0.662 0.649 0.743 0.0405
+## 2 lexicase      40      0 0.432  0.642 0.620 0.689 0.0676</code></pre>
+<p>The permutation test revealed that the results are:</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="task-359954.html#cb92-1" tabindex="-1"></a>tournament_results <span class="ot">&lt;-</span> <span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;90%&#39;</span> <span class="sc">&amp;</span> selection <span class="sc">==</span> <span class="st">&#39;tournament&#39;</span>)</span>
+<span id="cb92-2"><a href="task-359954.html#cb92-2" tabindex="-1"></a>lexicase_results <span class="ot">&lt;-</span> <span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;90%&#39;</span> <span class="sc">&amp;</span> selection <span class="sc">==</span> <span class="st">&#39;lexicase&#39;</span>)</span>
+<span id="cb92-3"><a href="task-359954.html#cb92-3" tabindex="-1"></a><span class="fu">permutation_test</span>(tournament_results<span class="sc">$</span>testing_performance,</span>
+<span id="cb92-4"><a href="task-359954.html#cb92-4" tabindex="-1"></a>                    lexicase_results<span class="sc">$</span>testing_performance,</span>
+<span id="cb92-5"><a href="task-359954.html#cb92-5" tabindex="-1"></a>                    <span class="at">seed =</span> <span class="dv">17</span>,</span>
+<span id="cb92-6"><a href="task-359954.html#cb92-6" tabindex="-1"></a>                    <span class="at">alternative =</span> <span class="st">&quot;g&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;observed_diff: 2.11112337167441&quot;
+## [1] &quot;permutation_diffs[0.95 * n_permutations]: 1.64634620519505&quot;
+## [1] &quot;reject null hypothesis&quot;
+## [1] &quot;p-value: 0.01917&quot;</code></pre>
+<p><img src="lexidate-holdout-supplemental_files/figure-html/task-359954-test-90-pv-1.png" width="100%" /></p>
+</div>
+<div id="selection-set-accuracy-8" class="section level3 hasAnchor" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> Selection set accuracy<a href="task-359954.html#selection-set-accuracy-8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="task-359954.html#cb94-1" tabindex="-1"></a><span class="fu">selection_plot</span>(<span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;90%&#39;</span>))</span></code></pre></div>
+<p><img src="lexidate-holdout-supplemental_files/figure-html/task-359954-select-90-perf-1.png" width="100%" /></p>
+<p>Summary statistics for the testing performance of the selection schemes at the 5% selection set split:</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="task-359954.html#cb95-1" tabindex="-1"></a><span class="fu">selection_results_summary</span>(<span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;90%&#39;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 8
+##   selection  count na_cnt   min median  mean   max    IQR
+##   &lt;fct&gt;      &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+## 1 tournament    40      0 0.572  0.611 0.613 0.653 0.0289
+## 2 lexicase      40      0 0.574  0.613 0.612 0.644 0.0235</code></pre>
+<p>The permutation test revealed that the results are:</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="task-359954.html#cb97-1" tabindex="-1"></a>tournament_results <span class="ot">&lt;-</span> <span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;90%&#39;</span> <span class="sc">&amp;</span> selection <span class="sc">==</span> <span class="st">&#39;tournament&#39;</span>)</span>
+<span id="cb97-2"><a href="task-359954.html#cb97-2" tabindex="-1"></a>lexicase_results <span class="ot">&lt;-</span> <span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;90%&#39;</span> <span class="sc">&amp;</span> selection <span class="sc">==</span> <span class="st">&#39;lexicase&#39;</span>)</span>
+<span id="cb97-3"><a href="task-359954.html#cb97-3" tabindex="-1"></a><span class="fu">permutation_test</span>(tournament_results<span class="sc">$</span>training_performance,</span>
+<span id="cb97-4"><a href="task-359954.html#cb97-4" tabindex="-1"></a>                    lexicase_results<span class="sc">$</span>training_performance,</span>
+<span id="cb97-5"><a href="task-359954.html#cb97-5" tabindex="-1"></a>                    <span class="at">seed =</span> <span class="dv">18</span>,</span>
+<span id="cb97-6"><a href="task-359954.html#cb97-6" tabindex="-1"></a>                    <span class="at">alternative =</span> <span class="st">&quot;t&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;observed_diff: 0.218175712374656&quot;
+## [1] &quot;lower: -1.99095942630688&quot;
+## [1] &quot;upper: 1.99096129334562&quot;
+## [1] &quot;fail to reject null hypothesis&quot;
+## [1] &quot;p-value: 0.83358&quot;</code></pre>
+<p><img src="lexidate-holdout-supplemental_files/figure-html/task-359954-select-90-pv-1.png" width="100%" /></p>
+</div>
+</div>
+<div id="section-9" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> 95%<a href="task-359954.html#section-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="testing-set-accuracy-9" class="section level3 hasAnchor" number="4.5.1">
+<h3><span class="header-section-number">4.5.1</span> Testing set accuracy<a href="task-359954.html#testing-set-accuracy-9" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="task-359954.html#cb99-1" tabindex="-1"></a><span class="fu">test_plot</span>(<span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;95%&#39;</span>))</span></code></pre></div>
+<p><img src="lexidate-holdout-supplemental_files/figure-html/task-359954-test-95-perf-1.png" width="100%" /></p>
+<p>Summary statistics for the testing performance of the selection schemes at the 5% selection set split:</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="task-359954.html#cb100-1" tabindex="-1"></a><span class="fu">test_results_summary</span>(<span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;95%&#39;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 8
+##   selection  count na_cnt   min median  mean   max   IQR
+##   &lt;fct&gt;      &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 tournament    40      0 0.149  0.622 0.561 0.703 0.142
+## 2 lexicase      40      0 0.446  0.601 0.601 0.703 0.111</code></pre>
+<p>The permutation test revealed that the results are:</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="task-359954.html#cb102-1" tabindex="-1"></a>tournament_results <span class="ot">&lt;-</span> <span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;95%&#39;</span> <span class="sc">&amp;</span> selection <span class="sc">==</span> <span class="st">&#39;tournament&#39;</span>)</span>
+<span id="cb102-2"><a href="task-359954.html#cb102-2" tabindex="-1"></a>lexicase_results <span class="ot">&lt;-</span> <span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;95%&#39;</span> <span class="sc">&amp;</span> selection <span class="sc">==</span> <span class="st">&#39;lexicase&#39;</span>)</span>
+<span id="cb102-3"><a href="task-359954.html#cb102-3" tabindex="-1"></a><span class="fu">permutation_test</span>(tournament_results<span class="sc">$</span>testing_performance,</span>
+<span id="cb102-4"><a href="task-359954.html#cb102-4" tabindex="-1"></a>                    lexicase_results<span class="sc">$</span>testing_performance,</span>
+<span id="cb102-5"><a href="task-359954.html#cb102-5" tabindex="-1"></a>                    <span class="at">seed =</span> <span class="dv">19</span>,</span>
+<span id="cb102-6"><a href="task-359954.html#cb102-6" tabindex="-1"></a>                    <span class="at">alternative =</span> <span class="st">&quot;t&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;observed_diff: -1.54710562137524&quot;
+## [1] &quot;lower: -1.95772948677679&quot;
+## [1] &quot;upper: 1.95772969216945&quot;
+## [1] &quot;fail to reject null hypothesis&quot;
+## [1] &quot;p-value: 0.12617&quot;</code></pre>
+<p><img src="lexidate-holdout-supplemental_files/figure-html/task-359954-test-95-pv-1.png" width="100%" /></p>
+</div>
+<div id="selection-set-accuracy-9" class="section level3 hasAnchor" number="4.5.2">
+<h3><span class="header-section-number">4.5.2</span> Selection set accuracy<a href="task-359954.html#selection-set-accuracy-9" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="task-359954.html#cb104-1" tabindex="-1"></a><span class="fu">selection_plot</span>(<span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;95%&#39;</span>))</span></code></pre></div>
+<p><img src="lexidate-holdout-supplemental_files/figure-html/task-359954-select-95-perf-1.png" width="100%" /></p>
+<p>Summary statistics for the testing performance of the selection schemes at the 5% selection set split:</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="task-359954.html#cb105-1" tabindex="-1"></a><span class="fu">selection_results_summary</span>(<span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;95%&#39;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 8
+##   selection  count na_cnt   min median  mean   max     IQR
+##   &lt;fct&gt;      &lt;int&gt;  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+## 1 tournament    40      0 0.518  0.579 0.573 0.628 0.0234 
+## 2 lexicase      40      0 0.509  0.583 0.582 0.617 0.00994</code></pre>
+<p>The permutation test revealed that the results are:</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="task-359954.html#cb107-1" tabindex="-1"></a>tournament_results <span class="ot">&lt;-</span> <span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;95%&#39;</span> <span class="sc">&amp;</span> selection <span class="sc">==</span> <span class="st">&#39;tournament&#39;</span>)</span>
+<span id="cb107-2"><a href="task-359954.html#cb107-2" tabindex="-1"></a>lexicase_results <span class="ot">&lt;-</span> <span class="fu">filter</span>(task_data, split <span class="sc">==</span> <span class="st">&#39;95%&#39;</span> <span class="sc">&amp;</span> selection <span class="sc">==</span> <span class="st">&#39;lexicase&#39;</span>)</span>
+<span id="cb107-3"><a href="task-359954.html#cb107-3" tabindex="-1"></a><span class="fu">permutation_test</span>(tournament_results<span class="sc">$</span>training_performance,</span>
+<span id="cb107-4"><a href="task-359954.html#cb107-4" tabindex="-1"></a>                    lexicase_results<span class="sc">$</span>training_performance,</span>
+<span id="cb107-5"><a href="task-359954.html#cb107-5" tabindex="-1"></a>                    <span class="at">seed =</span> <span class="dv">20</span>,</span>
+<span id="cb107-6"><a href="task-359954.html#cb107-6" tabindex="-1"></a>                    <span class="at">alternative =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;observed_diff: -1.96456434004405&quot;
+## [1] &quot;permutation_diffs[0.05 * n_permutations]: -1.64935315376094&quot;
+## [1] &quot;reject null hypothesis&quot;
+## [1] &quot;p-value: 0.02535&quot;</code></pre>
+<p><img src="lexidate-holdout-supplemental_files/figure-html/task-359954-select-95-pv-1.png" width="100%" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="task-146818.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="task-359955.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jgh9094/GPTP-2024-Lexicase-Analysis/tree/main/task-359954.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["lexidate-holdout-supplemental.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
