@@ -194,7 +194,12 @@ def get_best_pipeline_results(est, obj_names, scheme, seed):
     # get correct subset of evaluated individuals and drop NaN values
     if scheme == 'lexicase':
         sub = est.evaluated_individuals.dropna(subset=['obj_0'])
-        sub['performance'] = est.evaluated_individuals[obj_names[:-1]].mean(axis=1)
+        # fixed 'est' to 'sub', error would have occured with size mismatch
+        # our results never encoureted this issue
+        # sub['performance'] = est.evaluated_individuals[obj_names[:-1]].mean(axis=1)
+
+        # fix
+        sub['performance'] = sub.evaluated_individuals[obj_names[:-1]].mean(axis=1)
     else:
         sub = est.evaluated_individuals.dropna(subset=['performance'])
 
