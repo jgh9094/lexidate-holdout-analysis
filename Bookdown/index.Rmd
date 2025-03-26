@@ -1,6 +1,6 @@
 ---
-title: "Supplementary Material for 'Lexidate Selection Set Analysis: Varying Selection Schemes To Assess Generalizability Of Evolved Machine Learning Pipelines'"
-author: "Jose Guadalupe Hernandez, Anil Kumar Saini, Jason H. Moore"
+title: "Supplementary Material for 'Evaluating the Generalizability of Machine Learning Pipelines When Using Lexicase or Tournament Selection'"
+author: "Anonymous"
 date: "`r Sys.Date()`"
 output: bookdown::gitbook
 documentclass: book
@@ -26,14 +26,26 @@ This is not intended as a stand-alone document, but as a companion to our manusc
 As you may have noticed (unless you're reading a pdf version of this), our supplemental material is hosted using [GitHub pages](https://pages.github.com/).
 We compiled our data analyses and supplemental documentation into this nifty web-accessible book using [bookdown](https://bookdown.org).
 
-The code used for this supplemental material can be found in [this GitHub repository](https://github.com/jgh9094/lexidate-holdout-analysis).
+<!-- The code used for this supplemental material can be found in [this GitHub repository](https://github.com/jgh9094/lexidate-holdout-analysis). -->
 
 Our supplemental material includes the following:
 
 - Helper functions (Section \@ref(helper-functions))
+- Task 146818 (Section \@ref(task-146818)
+- Task 359954 (Section \@ref(task-359954)
+- Task 359955 (Section \@ref(task-359955)
+- Task 190146 (Section \@ref(task-190146)
+- Task 168757 (Section \@ref(task-168757)
+- Task 359956 (Section \@ref(task-359956)
+- Task 359958 (Section \@ref(task-359958)
+- Task 359959 (Section \@ref(task-359959)
+- Task 2073 (Section \@ref(task-2073)
+- Task 359960 (Section \@ref(task-359960)
+- Task 168784 (Section \@ref(task-168784)
 
-## Contributing authors
 
-- [Jose Guadalupe Hernandez](https://jgh9094.github.io/)
-- [Anil Kumar Saini](https://theaksaini.github.io/)
-- [Jason H. Moore](https://jasonhmoore.org/)
+<!-- ## Contributing authors -->
+
+<!-- - [Jose Guadalupe Hernandez](https://jgh9094.github.io/) -->
+<!-- - [Anil Kumar Saini](https://theaksaini.github.io/) -->
+<!-- - [Jason H. Moore](https://jasonhmoore.org/) -->

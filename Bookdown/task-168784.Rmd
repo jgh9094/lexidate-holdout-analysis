@@ -8,7 +8,7 @@ task_data <- filter(results, task_id == 168784)
 
 ## 5%
 
-### Testing set accuracy
+### Test accuracy
 
 ```{r task-168784-test-05-perf, echo=TRUE, out.width="100%"}
 test_plot(filter(task_data, split == '5%'))
@@ -29,15 +29,15 @@ permutation_test(tournament_results$testing_performance,
                     alternative = "t")
 ```
 
-### Selection set accuracy
+### Validation accuracy
 
 ```{r task-168784-select-05-perf, echo=TRUE, out.width="100%"}
-selection_plot(filter(task_data, split == '5%'))
+validation_plot(filter(task_data, split == '5%'))
 ```
 
 Summary statistics for the testing performance of the selection schemes at the 5% selection set split:
 ```{r task-168784-select-05-sum, echo=TRUE, out.width="100%"}
-selection_results_summary(filter(task_data, split == '5%'))
+validation_accuracy_summary(filter(task_data, split == '5%'))
 ```
 
 The permutation test revealed that the results are:
@@ -49,10 +49,30 @@ permutation_test(tournament_results$training_performance,
                     seed = 112,
                     alternative = "l")
 ```
+### Pipeline complexity
+
+```{r task-168784-complexity-05-perf, echo=TRUE, out.width="100%"}
+complexity_plot(filter(task_data, split == '5%'))
+```
+
+Summary statistics for the pipeline complexity of the selection schemes at the 5% selection set split:
+```{r task-168784-complexity-05-sum, echo=TRUE, out.width="100%"}
+complexity_summary(filter(task_data, split == '5%'))
+```
+
+The permutation test revealed that the results are:
+```{r task-168784-complexity-05-pv, echo=TRUE, out.width="100%"}
+tournament_results <- filter(task_data, split == '5%' & selection == 'tournament')
+lexicase_results <- filter(task_data, split == '5%' & selection == 'lexicase')
+permutation_test(tournament_results$testing_complexity,
+                    lexicase_results$testing_complexity,
+                    seed = 243,
+                    alternative = "t")
+```
 
 ## 10%
 
-### Testing set accuracy
+### Test accuracy
 
 ```{r task-168784-test-10-perf, echo=TRUE, out.width="100%"}
 test_plot(filter(task_data, split == '10%'))
@@ -73,15 +93,15 @@ permutation_test(tournament_results$testing_performance,
                     alternative = "t")
 ```
 
-### Selection set accuracy
+### Validation accuracy
 
 ```{r task-168784-select-10-perf, echo=TRUE, out.width="100%"}
-selection_plot(filter(task_data, split == '10%'))
+validation_plot(filter(task_data, split == '10%'))
 ```
 
 Summary statistics for the testing performance of the selection schemes at the 5% selection set split:
 ```{r task-168784-select-10-sum, echo=TRUE, out.width="100%"}
-selection_results_summary(filter(task_data, split == '10%'))
+validation_accuracy_summary(filter(task_data, split == '10%'))
 ```
 
 The permutation test revealed that the results are:
@@ -93,10 +113,30 @@ permutation_test(tournament_results$training_performance,
                     seed = 114,
                     alternative = "l")
 ```
+### Pipeline complexity
+
+```{r task-168784-complexity-10-perf, echo=TRUE, out.width="100%"}
+complexity_plot(filter(task_data, split == '10%'))
+```
+
+Summary statistics for the pipeline complexity of the selection schemes at the 5% selection set split:
+```{r task-168784-complexity-10-sum, echo=TRUE, out.width="100%"}
+complexity_summary(filter(task_data, split == '10%'))
+```
+
+The permutation test revealed that the results are:
+```{r task-168784-complexity-10-pv, echo=TRUE, out.width="100%"}
+tournament_results <- filter(task_data, split == '10%' & selection == 'tournament')
+lexicase_results <- filter(task_data, split == '10%' & selection == 'lexicase')
+permutation_test(tournament_results$testing_complexity,
+                    lexicase_results$testing_complexity,
+                    seed = 244,
+                    alternative = "t")
+```
 
 ## 50%
 
-### Testing set accuracy
+### Test accuracy
 
 ```{r task-168784-test-50-perf, echo=TRUE, out.width="100%"}
 test_plot(filter(task_data, split == '50%'))
@@ -117,15 +157,15 @@ permutation_test(tournament_results$testing_performance,
                     alternative = "g")
 ```
 
-### Selection set accuracy
+### Validation accuracy
 
 ```{r task-168784-select-50-perf, echo=TRUE, out.width="100%"}
-selection_plot(filter(task_data, split == '50%'))
+validation_plot(filter(task_data, split == '50%'))
 ```
 
 Summary statistics for the testing performance of the selection schemes at the 5% selection set split:
 ```{r task-168784-select-50-sum, echo=TRUE, out.width="100%"}
-selection_results_summary(filter(task_data, split == '50%'))
+validation_accuracy_summary(filter(task_data, split == '50%'))
 ```
 
 The permutation test revealed that the results are:
@@ -137,10 +177,30 @@ permutation_test(tournament_results$training_performance,
                     seed = 116,
                     alternative = "t")
 ```
+### Pipeline complexity
+
+```{r task-168784-complexity-50-perf, echo=TRUE, out.width="100%"}
+complexity_plot(filter(task_data, split == '50%'))
+```
+
+Summary statistics for the pipeline complexity of the selection schemes at the 5% selection set split:
+```{r task-168784-complexity-50-sum, echo=TRUE, out.width="100%"}
+complexity_summary(filter(task_data, split == '50%'))
+```
+
+The permutation test revealed that the results are:
+```{r task-168784-complexity-50-pv, echo=TRUE, out.width="100%"}
+tournament_results <- filter(task_data, split == '50%' & selection == 'tournament')
+lexicase_results <- filter(task_data, split == '50%' & selection == 'lexicase')
+permutation_test(tournament_results$testing_complexity,
+                    lexicase_results$testing_complexity,
+                    seed = 245,
+                    alternative = "t")
+```
 
 ## 90%
 
-### Testing set accuracy
+### Test accuracy
 
 ```{r task-168784-test-90-perf, echo=TRUE, out.width="100%"}
 test_plot(filter(task_data, split == '90%'))
@@ -161,15 +221,15 @@ permutation_test(tournament_results$testing_performance,
                     alternative = "g")
 ```
 
-### Selection set accuracy
+### Validation accuracy
 
 ```{r task-168784-select-90-perf, echo=TRUE, out.width="100%"}
-selection_plot(filter(task_data, split == '90%'))
+validation_plot(filter(task_data, split == '90%'))
 ```
 
 Summary statistics for the testing performance of the selection schemes at the 5% selection set split:
 ```{r task-168784-select-90-sum, echo=TRUE, out.width="100%"}
-selection_results_summary(filter(task_data, split == '90%'))
+validation_accuracy_summary(filter(task_data, split == '90%'))
 ```
 
 The permutation test revealed that the results are:
@@ -181,10 +241,30 @@ permutation_test(tournament_results$training_performance,
                     seed = 118,
                     alternative = "t")
 ```
+### Pipeline complexity
+
+```{r task-168784-complexity-90-perf, echo=TRUE, out.width="100%"}
+complexity_plot(filter(task_data, split == '90%'))
+```
+
+Summary statistics for the pipeline complexity of the selection schemes at the 5% selection set split:
+```{r task-168784-complexity-90-sum, echo=TRUE, out.width="100%"}
+complexity_summary(filter(task_data, split == '90%'))
+```
+
+The permutation test revealed that the results are:
+```{r task-168784-complexity-90-pv, echo=TRUE, out.width="100%"}
+tournament_results <- filter(task_data, split == '90%' & selection == 'tournament')
+lexicase_results <- filter(task_data, split == '90%' & selection == 'lexicase')
+permutation_test(tournament_results$testing_complexity,
+                    lexicase_results$testing_complexity,
+                    seed = 246,
+                    alternative = "t")
+```
 
 ## 95%
 
-### Testing set accuracy
+### Test accuracy
 
 ```{r task-168784-test-95-perf, echo=TRUE, out.width="100%"}
 test_plot(filter(task_data, split == '95%'))
@@ -205,15 +285,15 @@ permutation_test(tournament_results$testing_performance,
                     alternative = "g")
 ```
 
-### Selection set accuracy
+### Validation accuracy
 
 ```{r task-168784-select-95-perf, echo=TRUE, out.width="100%"}
-selection_plot(filter(task_data, split == '95%'))
+validation_plot(filter(task_data, split == '95%'))
 ```
 
 Summary statistics for the testing performance of the selection schemes at the 5% selection set split:
 ```{r task-168784-select-95-sum, echo=TRUE, out.width="100%"}
-selection_results_summary(filter(task_data, split == '95%'))
+validation_accuracy_summary(filter(task_data, split == '95%'))
 ```
 
 The permutation test revealed that the results are:
@@ -223,5 +303,25 @@ lexicase_results <- filter(task_data, split == '95%' & selection == 'lexicase')
 permutation_test(tournament_results$training_performance,
                     lexicase_results$training_performance,
                     seed = 120,
+                    alternative = "t")
+```
+### Pipeline complexity
+
+```{r task-168784-complexity-95-perf, echo=TRUE, out.width="100%"}
+complexity_plot(filter(task_data, split == '95%'))
+```
+
+Summary statistics for the pipeline complexity of the selection schemes at the 5% selection set split:
+```{r task-168784-complexity-95-sum, echo=TRUE, out.width="100%"}
+complexity_summary(filter(task_data, split == '95%'))
+```
+
+The permutation test revealed that the results are:
+```{r task-168784-complexity-95-pv, echo=TRUE, out.width="100%"}
+tournament_results <- filter(task_data, split == '95%' & selection == 'tournament')
+lexicase_results <- filter(task_data, split == '95%' & selection == 'lexicase')
+permutation_test(tournament_results$testing_complexity,
+                    lexicase_results$testing_complexity,
+                    seed = 247,
                     alternative = "t")
 ```

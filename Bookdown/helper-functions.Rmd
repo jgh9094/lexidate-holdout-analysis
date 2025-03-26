@@ -10,7 +10,7 @@ library(ggplot2)
 library(cowplot)
 library(dplyr)
 library(PupillometryR)
-
+library(scales)
 
 NAMES = c('tournament', 'lexicase')
 SHAPE <- c(21, 21)
@@ -37,66 +37,7 @@ results <- read.csv("./data.csv")
 results$selection <- factor(results$selection, levels = NAMES)
 ```
 
-
-## Test set plot
-```{r test-plot, echo=TRUE}
-test_plot <- function(data) { return(
-    ggplot(data,
-    aes(x = selection, y = testing_performance, color = selection,
-                fill = selection, shape = selection)) +
-    geom_flat_violin(position = position_nudge(x = 0.1, y = 0),
-                    scale = "width", alpha = 0.2, width = 1.5) +
-    geom_boxplot(color = "black", width = .08, outlier.shape = NA,
-                alpha = 0.0, linewidth = 0.8,
-                position = position_nudge(x = .15, y = 0)) +
-    geom_point(position = position_jitter(width = 0.03,
-                height = 0.0), size = 1.5, alpha = 1.0) +
-    scale_y_continuous(
-    name = "Accuracy %",
-    labels = scales::percent,
-
-    ) +
-    scale_x_discrete(
-    name = "Selection scheme"
-    ) +
-    scale_shape_manual(values = SHAPE,) +
-    scale_colour_manual(values = cb_palette,) +
-    scale_fill_manual(values = cb_palette,) +
-    ggtitle('Accuracy on test set') +
-    p_theme +
-    guides(
-    shape=guide_legend(nrow = 1, title.position = "left",
-                        title = "Selection scheme"),
-    color=guide_legend(nrow = 1, title.position = "left",
-                        title = "Selection scheme"),
-    fill=guide_legend(nrow = 1, title.position = "left",
-                        title = "Selection scheme")) +
-    theme(axis.ticks.x = element_blank(),
-            axis.text.x = element_blank(),
-            axis.title.x = element_blank(),
-            axis.text.y = element_text(angle = 90, hjust = 0.5))
-)}
-```
-
-## Test set results summary
-```{r test-results-summary, echo=TRUE}
-test_results_summary <- function(data) {
-    return(
-        data %>%
-        group_by(selection) %>%
-        dplyr::summarise(
-            count = n(),
-            na_cnt = sum(is.na(testing_performance)),
-            min = min(testing_performance, na.rm = TRUE),
-            median = median(testing_performance, na.rm = TRUE),
-            mean = mean(testing_performance, na.rm = TRUE),
-            max = max(testing_performance, na.rm = TRUE),
-            IQR = IQR(testing_performance, na.rm = TRUE))
-    )
-}
-```
-
-## Permutaiton test results
+## Permutaiton test
 ```{r test-results-stats, echo=TRUE, warning=FALSE}
 # permutation test with t-test statistic
 # assuming we are using an alpha of 0.05
@@ -277,9 +218,67 @@ permutation_test <- function(x, y, seed, alternative) {
 }
 ```
 
-## Selection set plot
+## Test accuracy plot
+```{r test-plot, echo=TRUE}
+test_plot <- function(data) { return(
+    ggplot(data,
+    aes(x = selection, y = testing_performance, color = selection,
+                fill = selection, shape = selection)) +
+    geom_flat_violin(position = position_nudge(x = 0.1, y = 0),
+                    scale = "width", alpha = 0.2, width = 1.5) +
+    geom_boxplot(color = "black", width = .08, outlier.shape = NA,
+                alpha = 0.0, linewidth = 0.8,
+                position = position_nudge(x = .15, y = 0)) +
+    geom_point(position = position_jitter(width = 0.03,
+                height = 0.0), size = 1.5, alpha = 1.0) +
+    scale_y_continuous(
+    name = "Accuracy %",
+    labels = scales::percent,
+
+    ) +
+    scale_x_discrete(
+    name = "Selection scheme"
+    ) +
+    scale_shape_manual(values = SHAPE,) +
+    scale_colour_manual(values = cb_palette,) +
+    scale_fill_manual(values = cb_palette,) +
+    ggtitle('Accuracy on test set') +
+    p_theme +
+    guides(
+    shape=guide_legend(nrow = 1, title.position = "left",
+                        title = "Selection scheme"),
+    color=guide_legend(nrow = 1, title.position = "left",
+                        title = "Selection scheme"),
+    fill=guide_legend(nrow = 1, title.position = "left",
+                        title = "Selection scheme")) +
+    theme(axis.ticks.x = element_blank(),
+            axis.text.x = element_blank(),
+            axis.title.x = element_blank(),
+            axis.text.y = element_text(angle = 90, hjust = 0.5))
+)}
+```
+
+## Test accuracy results summary
+```{r test-results-summary, echo=TRUE}
+test_results_summary <- function(data) {
+    return(
+        data %>%
+        group_by(selection) %>%
+        dplyr::summarise(
+            count = n(),
+            na_cnt = sum(is.na(testing_performance)),
+            min = min(testing_performance, na.rm = TRUE),
+            median = median(testing_performance, na.rm = TRUE),
+            mean = mean(testing_performance, na.rm = TRUE),
+            max = max(testing_performance, na.rm = TRUE),
+            IQR = IQR(testing_performance, na.rm = TRUE))
+    )
+}
+```
+
+## Validation accuracy plot
 ```{r select-plot, echo=TRUE}
-selection_plot <- function(data) { return(
+validation_plot <- function(data) { return(
     ggplot(data,
     aes(x = selection, y = training_performance, color = selection,
                 fill = selection, shape = selection)) +
@@ -296,20 +295,20 @@ selection_plot <- function(data) { return(
 
     ) +
     scale_x_discrete(
-    name = "Selection set"
+    name = "Selection Scheme"
     ) +
     scale_shape_manual(values = SHAPE,) +
     scale_colour_manual(values = cb_palette,) +
     scale_fill_manual(values = cb_palette,) +
-    ggtitle('Accuracy on selection set') +
+    ggtitle('Accuracy on validation set') +
     p_theme +
     guides(
     shape=guide_legend(nrow = 1, title.position = "left",
-                        title = "Selection scheme"),
+                        title = "Selection Scheme"),
     color=guide_legend(nrow = 1, title.position = "left",
-                        title = "Selection scheme"),
+                        title = "Selection Scheme"),
     fill=guide_legend(nrow = 1, title.position = "left",
-                        title = "Selection scheme")) +
+                        title = "Selection Scheme")) +
     theme(axis.ticks.x = element_blank(),
             axis.text.x = element_blank(),
             axis.title.x = element_blank(),
@@ -317,9 +316,9 @@ selection_plot <- function(data) { return(
 )}
 ```
 
-## Selection set results summary
+## Validation accuracy results summary
 ```{r selection-results-summary, echo=TRUE}
-selection_results_summary <- function(data) {
+validation_accuracy_summary <- function(data) {
     return(
         data %>%
         group_by(selection) %>%
@@ -331,6 +330,64 @@ selection_results_summary <- function(data) {
             mean = mean(training_performance, na.rm = TRUE),
             max = max(training_performance, na.rm = TRUE),
             IQR = IQR(training_performance, na.rm = TRUE))
+    )
+}
+```
+
+## Complexity plot
+```{r complexity-plot, echo=TRUE}
+complexity_plot <- function(data) { return(
+    ggplot(data,
+    aes(x = selection, y = testing_complexity, color = selection,
+                fill = selection, shape = selection)) +
+    geom_flat_violin(position = position_nudge(x = 0.1, y = 0),
+                    scale = "width", alpha = 0.2, width = 1.5) +
+    geom_boxplot(color = "black", width = .08, outlier.shape = NA,
+                alpha = 0.0, linewidth = 0.8,
+                position = position_nudge(x = .15, y = 0)) +
+    geom_point(position = position_jitter(width = 0.03,
+                height = 0.0), size = 1.5, alpha = 1.0) +
+    scale_y_log10(
+        name="Complexity",
+        breaks = trans_breaks("log10", function(x) 10^x),
+        labels = trans_format("log10", math_format(10^.x))
+    ) +
+    scale_x_discrete(
+      name = "Selection Scheme"
+    ) +
+    scale_shape_manual(values = SHAPE,) +
+    scale_colour_manual(values = cb_palette,) +
+    scale_fill_manual(values = cb_palette,) +
+    ggtitle('Pipeline Complexity') +
+    p_theme +
+    guides(
+    shape=guide_legend(nrow = 1, title.position = "left",
+                        title = "Selection Scheme"),
+    color=guide_legend(nrow = 1, title.position = "left",
+                        title = "Selection Scheme"),
+    fill=guide_legend(nrow = 1, title.position = "left",
+                        title = "Selection Scheme")) +
+    theme(axis.ticks.x = element_blank(),
+            axis.text.x = element_blank(),
+            axis.title.x = element_blank(),
+            axis.text.y = element_text(angle = 90, hjust = 0.5))
+)}
+```
+
+## Complexity results summary
+```{r complexity-results-summary, echo=TRUE}
+complexity_summary <- function(data) {
+    return(
+        data %>%
+        group_by(selection) %>%
+        dplyr::summarise(
+            count = n(),
+            na_cnt = sum(is.na(testing_complexity)),
+            min = min(testing_complexity, na.rm = TRUE),
+            median = median(testing_complexity, na.rm = TRUE),
+            mean = mean(testing_complexity, na.rm = TRUE),
+            max = max(testing_complexity, na.rm = TRUE),
+            IQR = IQR(testing_complexity, na.rm = TRUE))
     )
 }
 ```
