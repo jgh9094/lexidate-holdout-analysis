@@ -4,12 +4,7 @@
 [![supplemental](https://img.shields.io/badge/go_to-supplementary_material-98111e)](https://jgh9094.github.io/lexidate-holdout-analysis/Supplementary-Material/)
 [![data](https://img.shields.io/badge/go_to-data-9807FF)](https://osf.io/g5u9p/)
 
-## Overview
-
-Link to all supplementary material: [here](https://jgh9094.github.io/GECCO-2024-LEXIDATE-EVALUATION/Bookdown/Pages/).
-All data is available on the Open Science Framework [here](https://osf.io/ve9w6)
-
-### Abstract
+## Abstract
 
 > Evolutionary algorithms have been successfully combined with Automated Machine Learning (AutoML) to evolve effective machine learning pipelines.
 Here, we use 12 OpenML classification tasks and the AutoML tool TPOT2 to assess the impact of lexicase and tournament selection on the generalizability of pipelines.
