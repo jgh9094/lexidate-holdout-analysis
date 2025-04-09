@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15171303.svg)](https://doi.org/10.5281/zenodo.15171303)
 [![supplemental](https://img.shields.io/badge/go_to-supplementary_material-98111e)](https://jgh9094.github.io/lexidate-holdout-analysis/Supplementary-Material/)
-[![data](https://img.shields.io/badge/go_to-data-9807FF)](https://osf.io/g5u9p/)
+[![data](https://img.shields.io/badge/go_to-data-9807FF)](https://osf.io/ve9w6/)
 
 ## Abstract
 
